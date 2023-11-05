@@ -251,7 +251,7 @@ header .intro-text {
 	background: #444 url(../img/Ilgusto/2.jpg) center center no-repeat fixed;
 	background-size: cover;
 }
-#restaurant-menu .section-title h2 {
+#restaurant-menu .section-title h2, #restaurant-menu .section-title h3 {
 	color: #f5f5dc;
 }
 #restaurant-menu img {

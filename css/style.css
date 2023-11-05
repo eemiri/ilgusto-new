@@ -2,7 +2,7 @@ body, html {
 	font-family: 'Raleway', sans-serif;
 	text-rendering: optimizeLegibility !important;
 	-webkit-font-smoothing: antialiased !important;
-	color: #777;
+	color: #f5f5dc;
 	font-weight: 300;
 	width: 100% !important;
 	height: 100% !important;
@@ -11,7 +11,7 @@ h2 {
 	margin: 0 0 20px 0;
 	font-weight: 500;
 	font-size: 34px;
-	color: #333;
+	color: #f5f5dc;
 	text-transform: uppercase;
 }
 h3 {
@@ -38,7 +38,7 @@ p.intro {
 	line-height: 24px;
 }
 a {
-	color: #8eb640;
+	color: #B24821;
 }
 a:hover, a:focus {
 	text-decoration: none;
@@ -74,7 +74,7 @@ hr {
 	width: 70px;
 	text-align: center;
 	position: relative;
-	background: #8eb640;
+	background: #B24821;
 	margin: 0;
 	margin-bottom: 40px;
 	border: 0;
@@ -101,7 +101,7 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 #menu a.navbar-brand {
 	font-family: 'Dancing Script', cursive;
 	font-size: 36px;
-	color: #8eb640;
+	color: #B24821;
 	font-weight: 700;
 	letter-spacing: 1px;
 }
@@ -116,7 +116,7 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 	margin: 10px 15px 0 15px;
 }
 #menu.navbar-default .navbar-nav > li > a:hover {
-	color: #8eb640;
+	color: #B24821;
 }
 .on {
 	background-color: #262626 !important;
@@ -124,18 +124,18 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 	padding: 10px 0 !important;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-	color: #8eb640 !important;
+	color: #B24821 !important;
 	background-color: transparent;
 }
 .navbar-toggle {
 	border-radius: 0;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-	background-color: #8eb640;
-	border-color: #8eb640;
+	background-color: #B24821;
+	border-color: #B24821;
 }
 .navbar-default .navbar-toggle:hover>.icon-bar {
-	background-color: #FFF;
+	background-color: ##B24821;
 }
 .section-title {
 	margin-bottom: 70px;
@@ -154,8 +154,8 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 }
 .btn-custom {
 	text-transform: uppercase;
-	color: #fff;
-	background-color: #72a411;
+	color: #f5f5dc;
+	background-color: #B24821;
 	border: 0;
 	padding: 14px 20px;
 	margin: 0;
@@ -167,15 +167,15 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 	transition: all 0.5s;
 }
 .btn-custom:hover, .btn-custom:focus, .btn-custom.focus, .btn-custom:active, .btn-custom.active {
-	color: #fff;
-	background-color: #628d0f;
+	color: #f5f5dc;
+	background-color: #B24821;
 }
 /* Header Section */
 .intro {
 	display: table;
 	width: 100%;
 	padding: 0;
-	background: url(../img/intro-bg.jpg) no-repeat center center;
+	background: url(../img/Ilgusto/1.jpg) no-repeat center center;
 	background-color: #e5e5e5;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -187,7 +187,7 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 }
 .intro h1 {
 	font-family: 'Dancing Script', cursive;
-	color: #fff;
+	color: #f5f5dc;
 	font-size: 10em;
 	font-weight: 700;
 	margin-top: 0;
@@ -198,7 +198,7 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 	font-weight: 600;
 }
 .intro p {
-	color: #fff;
+	color: #f5f5dc;
 	font-size: 32px;
 	font-weight: 300;
 	margin-top: 10px;
@@ -218,6 +218,11 @@ header .intro-text {
 }
 #about .about-text {
 	margin-left: 10px;
+	color:rgba(0, 0, 0, 0.6)
+}
+
+.about-text h2{
+	color:#333
 }
 #about .about-img {
 	display: inline-block;
@@ -237,16 +242,17 @@ header .intro-text {
 	line-height: 24px;
 	margin: 15px 0 30px;
 }
+
 /* Menu Section */
 #restaurant-menu {
 	padding: 0 0 60px 0;
 }
 #restaurant-menu .section-title {
-	background: #444 url(../img/menu-bg.jpg) center center no-repeat fixed;
+	background: #444 url(../img/Ilgusto/2.jpg) center center no-repeat fixed;
 	background-size: cover;
 }
 #restaurant-menu .section-title h2 {
-	color: #fff;
+	color: #f5f5dc;
 }
 #restaurant-menu img {
 	width: 300px;
@@ -295,12 +301,12 @@ header .intro-text {
 	padding: 0 0 120px 0;
 }
 #portfolio .section-title {
-	background: #444 url(../img/gallery-bg.jpg) center center no-repeat fixed;
+	background: #444 url(../img/Ilgusto/6.jpg) center center no-repeat fixed;
 	background-size: cover;
 	margin-bottom: 50px;
 }
 #portfolio .section-title h2 {
-	color: #fff;
+	color: ##B24821;
 }
 .categories {
 	padding-bottom: 30px;
@@ -326,12 +332,12 @@ ol.type li a {
 	letter-spacing: 0.5px;
 }
 ol.type li a.active {
-	color: #fff;
-	background-color: #8eb640;
+	color: ##B24821;
+	background-color: #B24821;
 }
 ol.type li a:hover {
-	color: #fff;
-	background-color: #8eb640;
+	color: ##B24821;
+	background-color: #B24821;
 }
 .isotope-item {
 	z-index: 2
@@ -364,6 +370,10 @@ ol.type li a:hover {
 	-moz-transition-property: -moz-transform, opacity;
 	transition-property: transform, opacity;
 }
+.portfolio-items{
+	display: grid;
+  place-items: center;
+}
 .portfolio-item {
 	margin: 15px 0;
 }
@@ -385,7 +395,7 @@ ol.type li a:hover {
 	position: absolute;
 	text-align: center;
 	margin: 0 auto;
-	color: #fff;
+	color: ##B24821;
 	background: rgba(0, 0, 0, 0.6);
 	padding: 30% 0 0 0;
 	height: 100%;
@@ -395,7 +405,7 @@ ol.type li a:hover {
 }
 .hover-bg .hover-text>h4 {
 	opacity: 0;
-	color: #fff;
+	color: ##B24821;
 	-webkit-transform: translateY(100%);
 	transform: translateY(100%);
 	transition: all 0.3s;
@@ -414,7 +424,7 @@ ol.type li a:hover {
 }
 /* Team Section */
 #team {
-	color: #fff;
+	color: ##B24821;
 	background: #444 url(../img/team-bg.jpg) center top no-repeat fixed;
 	background-size: cover;
 }
@@ -423,13 +433,13 @@ ol.type li a:hover {
 	background: rgba(0, 0, 0, 0.6);
 }
 #team h2, #team p {
-	color: #fff;
+	color: ##B24821;
 }
 #team hr {
-	background: #fff;
+	background: ##B24821;
 }
 #team h3 {
-	color: #fff;
+	color: ##B24821;
 	font-weight: 400;
 	font-size: 20px;
 	margin: 5px 0;
@@ -466,29 +476,29 @@ ol.type li a:hover {
 /* Call Reservation Section */
 #call-reservation {
 	padding: 90px 0;
-	color: #fff;
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#8eb640+50,779936+100 */
-	background: rgb(142,182,64); /* Old browsers */
-	background: -moz-linear-gradient(top, rgba(142,182,64,1) 50%, rgba(119,153,54,1) 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top, rgba(142,182,64,1) 50%, rgba(119,153,54,1) 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom, rgba(142,182,64,1) 50%, rgba(119,153,54,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8eb640', endColorstr='#779936', GradientType=0 ); /* IE6-9 */
+	color: ##B24821;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#B24821+50,779936+100 */
+	background: #B24821; /* Old browsers */
+	background: -moz-linear-gradient(top, #B24821 50%, #B24821 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #B24821 50%, #B24821 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #B24821 50%, #B24821 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#B24821', endColorstr='#B24821', GradientType=0 ); /* IE6-9 */
 }
 #call-reservation .overlay {
 	padding: 80px 0;
-	background: #8eb640;
+	background: #B24821;
 }
 #call-reservation h2 {
 	font-family: 'Open Sans', sans-serif;
-	color: #fff;
+	color: ##B24821;
 	font-weight: 400;
 	margin: 0;
 }
 #call-reservation hr {
-	background: #fff;
+	background: ##B24821;
 }
 #call-reservation h3 {
-	color: #fff;
+	color: ##B24821;
 	font-weight: 500;
 	font-size: 20px;
 	margin: 5px 0;
@@ -497,6 +507,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8eb640', end
 #contact {
 	padding: 100px 0 60px 0;
 	background: #F6F6F6;
+}
+
+#contact h2{
+	color: #333;
 }
 #contact .section-title p {
 	color: #777;
@@ -527,7 +541,7 @@ label {
 	font-size: 16px;
 	line-height: 1.42857143;
 	color: #444;
-	background-color: #fff;
+	background-color: ##B24821;
 	background-image: none;
 	border: 1px solid #ddd;
 	border-radius: 0;
@@ -574,7 +588,7 @@ color: #777;
 	padding: 50px 0 0 0;
 }
 #footer h3 {
-	color: #8eb640;
+	color: #B24821;
 	font-weight: 400;
 	font-size: 18px;
 	text-transform: uppercase;
@@ -588,7 +602,7 @@ color: #777;
 	background: -moz-linear-gradient(top, rgba(119,153,54,1) 0%, rgba(142,182,64,1) 50%); /* FF3.6-15 */
 	background: -webkit-linear-gradient(top, rgba(119,153,54,1) 0%, rgba(142,182,64,1) 50%); /* Chrome10-25,Safari5.1-6 */
 	background: linear-gradient(to bottom, rgba(119,153,54,1) 0%, rgba(142,182,64,1) 50%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#779936', endColorstr='#8eb640', GradientType=0 ); /* IE6-9 */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#779936', endColorstr='#B24821', GradientType=0 ); /* IE6-9 */
 }
 #footer .social {
 	margin: 20px 0 30px 0;
@@ -600,7 +614,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#779936', end
 #footer .social i.fa {
 	font-size: 26px;
 	padding: 4px;
-	color: #fff;
+	color: ##B24821;
 	transition: all 0.3s;
 }
 #footer .social i.fa:hover {

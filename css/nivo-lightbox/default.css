@@ -57,20 +57,20 @@
 	font-style: normal;
 	font-weight: normal;
 	background: #000;
-	color: #fff;
+	color: ##B24821;
 	padding: 7px 15px;
 	border-radius: 30px;
 }
 
 .nivo-lightbox-theme-default .nivo-lightbox-image img {
-	background: #fff;
+	background: ##B24821;
 	-webkit-box-shadow: 0px 1px 1px rgba(0,0,0,0.4);
 	   -moz-box-shadow: 0px 1px 1px rgba(0,0,0,0.4);
 	        box-shadow: 0px 1px 1px rgba(0,0,0,0.4);
 }
 .nivo-lightbox-theme-default .nivo-lightbox-ajax,
 .nivo-lightbox-theme-default .nivo-lightbox-inline {
-	background: #fff;
+	background: ##B24821;
 	padding: 40px;
 	-webkit-box-shadow: 0px 1px 1px rgba(0,0,0,0.4);
 	   -moz-box-shadow: 0px 1px 1px rgba(0,0,0,0.4);

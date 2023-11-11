@@ -69,6 +69,35 @@ function main() {
         });
 
     });
+
+    //Bounding box menu items
+    function adjustMenuItemWidth() {
+      $('.menu-item').each(function() {
+          var $name = $(this).find('.menu-item-name');
+          var $price = $(this).find('.menu-item-price');
+  
+          // Temporarily reset any previously set max-width to properly measure the available space
+          $name.css('max-width', '');
+  
+          var nameRect = $name.get(0).getBoundingClientRect();
+          var priceRect = $price.get(0).getBoundingClientRect();
+  
+          if (nameRect.right > priceRect.left) {
+              // Calculate the available space for the name by subtracting the left position of the price
+              // from the right position of the name's container.
+              var availableSpace = priceRect.left - $name.offset().left;
+              $name.css('max-width', availableSpace - 10); // 10px for some padding
+          }
+      });
+  }
+  
+  $(document).ready(adjustMenuItemWidth);
+  $(window).on('resize', adjustMenuItemWidth);
+  
+  
+  
+
+
 	
     // Nivo Lightbox 
     $('.portfolio-item a').nivoLightbox({

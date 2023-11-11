@@ -244,6 +244,7 @@ header .intro-text {
 }
 
 /* Menu Section */
+
 #restaurant-menu {
 	padding: 0 0 60px 0;
 }
@@ -255,7 +256,7 @@ header .intro-text {
 	color: #f5f5dc;
 }
 #restaurant-menu h3{
-	color: #f5f5dc;
+	color: #333;
 }
 #restaurant-menu img {
 	width: 300px;
@@ -300,6 +301,8 @@ header .intro-text {
 	color: #555;
 	margin-top: -26px;
 }
+
+
 /* Portfolio Section */
 #portfolio {
 	padding: 0 0 120px 0;

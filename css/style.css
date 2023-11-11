@@ -265,6 +265,11 @@ header .intro-text {
 #restaurant-menu h3 {
 	padding: 10px 0;
 	text-transform: uppercase;
+	color: #333;
+}
+#restaurant-menu h4{
+	color: #f5f5dc;
+
 }
 #restaurant-menu .menu-section hr {
 	margin: 0 auto;
@@ -377,10 +382,23 @@ ol.type li a:hover {
 	-moz-transition-property: -moz-transform, opacity;
 	transition-property: transform, opacity;
 }
-.portfolio-items{
+.portfolio-items {
 	display: grid;
-  place-items: center;
-}
+	grid-template-columns: repeat(3, 1fr); /* Three columns */
+	gap: 15px; /* Space between items */
+  }
+  
+  @media (max-width: 991px) { /* Medium devices (landscape tablets, 768px and up) */
+	.portfolio-items {
+	  grid-template-columns: repeat(2, 1fr); /* Two columns */
+	}
+  }
+  
+  @media (max-width: 767px) { /* Small devices (landscape phones, 576px and up) */
+	.portfolio-items {
+	  grid-template-columns: 1fr; /* One column */
+	}
+  }
 .portfolio-item {
 	margin: 15px 0;
 }
@@ -402,7 +420,7 @@ ol.type li a:hover {
 	position: absolute;
 	text-align: center;
 	margin: 0 auto;
-	color: ##B24821;
+	color: #f5f5dc;
 	background: rgba(0, 0, 0, 0.6);
 	padding: 30% 0 0 0;
 	height: 100%;
@@ -412,7 +430,7 @@ ol.type li a:hover {
 }
 .hover-bg .hover-text>h4 {
 	opacity: 0;
-	color: ##B24821;
+	color: #f5f5dc;
 	-webkit-transform: translateY(100%);
 	transform: translateY(100%);
 	transition: all 0.3s;

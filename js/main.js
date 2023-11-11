@@ -93,12 +93,7 @@ function main() {
   
   $(document).ready(adjustMenuItemWidth);
   $(window).on('resize', adjustMenuItemWidth);
-  
-  
-  
-
-
-	
+  	
     // Nivo Lightbox 
     $('.portfolio-item a').nivoLightbox({
             effect: 'slideDown',  

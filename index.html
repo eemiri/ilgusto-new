@@ -1002,6 +1002,29 @@
     </div>
   </div>
 </div>-->
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDPDEUEmdHvtxw6EJH1_Ij1z4mg6zc7Sis",
+    authDomain: "il-gusto-3cb3c.firebaseapp.com",
+    projectId: "il-gusto-3cb3c",
+    storageBucket: "il-gusto-3cb3c.appspot.com",
+    messagingSenderId: "691796761220",
+    appId: "1:691796761220:web:ffaab42e9a03a0a3ba80d1",
+    measurementId: "G-TPSPSPHCF4"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 <script type="text/javascript" src="js/jquery.1.11.1.js"></script> 
 <script type="text/javascript" src="js/bootstrap.js"></script> 
 <script type="text/javascript" src="js/SmoothScroll.js"></script> 

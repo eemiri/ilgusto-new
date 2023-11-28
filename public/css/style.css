@@ -2,7 +2,7 @@ body, html {
 	font-family: 'Raleway', sans-serif;
 	text-rendering: optimizeLegibility !important;
 	-webkit-font-smoothing: antialiased !important;
-	color: #f5f5dc;
+	//color: #f5f5dc;
 	font-weight: 300;
 	width: 100% !important;
 	height: 100% !important;
@@ -654,4 +654,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#779936', end
 }
 #footer a:hover {
 	color: #333;
+}
+
+.impressumstyle{
+	color:#333
 }

@@ -2,7 +2,7 @@ body, html {
 	font-family: 'Raleway', sans-serif;
 	text-rendering: optimizeLegibility !important;
 	-webkit-font-smoothing: antialiased !important;
-	//color: #f5f5dc;
+	/*color: #f5f5dc;*/
 	font-weight: 300;
 	width: 100% !important;
 	height: 100% !important;
@@ -29,6 +29,7 @@ h5 {
 	text-transform: uppercase;
 	font-weight: 700;
 	line-height: 20px;
+	color:#f5f5dc
 }
 p {
 	font-size: 16px;

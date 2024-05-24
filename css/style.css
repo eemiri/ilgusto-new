@@ -37,12 +37,16 @@ p.intro {
 	margin: 12px 0 0;
 	line-height: 24px;
 }
-a {
+a{
 	color: #B24821;
 }
 a:hover, a:focus {
 	text-decoration: none;
 	color: #222;
+}
+#oder{
+	color: #B24821;
+
 }
 ul, ol {
 	list-style: none;

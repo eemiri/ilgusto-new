@@ -1,1039 +1,577 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Il Gusto</title>
-<meta name="description" content="">
-<meta name="author" content="">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Il Gusto – Authentisches Italienisches Restaurant in Kleinblittersdorf</title>
+  <meta name="description" content="Erleben Sie authentische italienische Küche im Il Gusto Restaurant in Kleinblittersdorf. Genießen Sie handgefertigte Pastakreationen, frische Meeresfrüchte und exklusive Weine.">
+  <meta name="author" content="Il Gusto">
 
-<!-- Favicons
-    ================================================== -->
-<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
 
-<!-- Bootstrap -->
-<link rel="stylesheet" type="text/css"  href="css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">
 
-<!-- Stylesheet
-    ================================================== -->
-<link rel="stylesheet" type="text/css"  href="css/style.css">
-<link rel="stylesheet" type="text/css" href="css/nivo-lightbox/nivo-lightbox.css">
-<link rel="stylesheet" type="text/css" href="css/nivo-lightbox/default.css">
-<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/nivo-lightbox/nivo-lightbox.css">
+  <link rel="stylesheet" type="text/css" href="css/nivo-lightbox/default.css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
 
+  <!-- Firebase Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Restaurant",
+      "name": "Il Gusto",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Saargemünder Str. 45",
+        "addressLocality": "Kleinblittersdorf",
+        "postalCode": "66271",
+        "addressCountry": "DE"
+      },
+      "telephone": "+49 6805 9439490",
+      "url": "http://www.ilgusto-sb.de"
+    }
+  </script>
 
-    <script src="https://cdn.websitepolicies.io/lib/cconsent/cconsent.min.js" defer></script><script>window.addEventListener("load",function(){window.wpcb.init({"border":"thin","corners":"small","colors":{"popup":{"background":"#f6f6f6","text":"#000000","border":"#555555"},"button":{"background":"#555555","text":"#ffffff"}},"content":{"message":"Diese Webseite benutzt Cookies","link":"Mehr","href":"/impressum.html","button":"Ok"}})});</script></head>
+  <!-- Responsiver Map-Container -->
+  <style>
+    .map-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 Seitenverhältnis */
+      height: 0;
+      overflow: hidden;
+    }
+    .map-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
+
+  <!-- Cookie Consent Script -->
+  <script src="https://cdn.websitepolicies.io/lib/cconsent/cconsent.min.js" defer></script>
+  <script>
+    window.addEventListener("load", function(){
+      window.wpcb.init({
+        "border": "thin",
+        "corners": "small",
+        "colors": {
+          "popup": {"background": "#f6f6f6", "text": "#000000", "border": "#555555"},
+          "button": {"background": "#555555", "text": "#ffffff"}
+        },
+        "content": {
+          "message": "Diese Webseite benutzt Cookies",
+          "link": "Mehr",
+          "href": "/impressum.html",
+          "button": "Ok"
+        }
+      });
+    });
+  </script>
+</head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-
-<nav id="menu" class="navbar navbar-default navbar-fixed-top">
-  <div class="container"> 
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand page-scroll" href="#page-top">Il Gusto</a> </div>
-    
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#about" class="page-scroll">Über uns</a></li>
-        <li><a href="#restaurant-menu" class="page-scroll">Speisekarte</a></li>
-        <li><a href="#portfolio" class="page-scroll">Galerie</a></li>
-        <li><a href="#call-reservation" class="page-scroll">Kontakt</a></li>
-      </ul>
+  
+  <!-- Navigation -->
+  <nav id="menu" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+          <span class="sr-only">Navigation umschalten</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand page-scroll" href="#page-top">Il Gusto</a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#about" class="page-scroll">Über uns</a></li>
+          <li><a href="#restaurant-menu" class="page-scroll">Speisekarte</a></li>
+          <li><a href="#portfolio" class="page-scroll">Galerie</a></li>
+          <li><a href="#reservation" class="page-scroll">Kontakt</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
-<!-- Header -->
-<header id="header">
-  <div class="intro">
-    <div class="overlay">
+  </nav>
+  
+  <!-- Header -->
+  <header id="header">
+    <div class="intro">
+      <div class="overlay">
+        <div class="container">
+          <div class="row">
+            <div class="intro-text">
+              <h1>Il Gusto</h1>
+              <p>Ristorante</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Hauptinhalt -->
+  <main>
+    <!-- Über uns Section -->
+    <section id="about">
       <div class="container">
         <div class="row">
-          <div class="intro-text">
-            <h1>Il Gusto</h1>
-            <p>Ristorante</p>
+          <div class="col-xs-12 col-md-6">
+            <figure class="about-img">
+              <img src="img/Ilgusto/3.jpg" class="img-responsive" alt="Innenansicht von Il Gusto" loading="lazy">
+            </figure>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="about-text">
+              <h2>Willkommen bei Il Gusto</h2>
+              <hr>
+              <p>Erleben Sie die wahre Essenz mediterraner Lebensfreude. Bei uns zelebrieren wir authentische italienische Küche – von handgefertigten Pastakreationen bis hin zu exquisiten Fisch- und Fleischgerichten.</p>
+              <h3>Ihr kulinarisches Erlebnis</h3>
+              <p>Unser Ambiente verbindet mediterranes Flair mit modernem Komfort. Lassen Sie sich von unserer Weinkarte und saisonalen Spezialitäten begeistern.</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</header>
-<!-- About Section -->
-<div id="about">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-md-6 ">
-        <div class="about-img"><img src="img/Ilgusto/3.jpg" class="img-responsive" alt=""></div>
-      </div>
-      <div class="col-xs-12 col-md-6">
-        <div class="about-text">
-          <h2>Willkommen bei Il Gusto</h2>
+    </section>
+    
+    <!-- Speisekarte Section in PDF-Reihenfolge -->
+    <section id="restaurant-menu">
+      <div class="section-title text-center">
+        <div class="overlay">
+          <h2>Speisekarte</h2>
           <hr>
-          <p>Entdecken Sie die wahre Essenz mediterraner Lebensfreude in jedem Gericht bei "Il Gusto". In unserem Restaurant zelebrieren wir die unverfälschte italienische Küche – von handgefertigten Pastakreationen bis zu exquisiten Fisch- und Fleischgerichten, die Ihre Sinne auf eine Reise entlang der sonnigen Küsten Italiens mitnehmen.</p>
-          <h3>Ihr kulinarisches Erlebnis</h3>
-          <p>In der Welt des "Il Gusto" wird jeder Besuch zu einem festlichen Anlass. Hier vereint sich das Flair des Mediterranen mit dem Komfort des Modernen. Unsere Gäste loben das stimmungsvolle Ambiente, die herzliche Gastlichkeit und die Gaumenfreuden, die wir mit Sorgfalt und Hingabe für Sie zubereiten. Lassen Sie sich von unserer Weinkarte inspirieren, die handverlesen harmoniert mit unseren Spezialitäten und Ihren Abend perfekt abrundet.</p>
+          <p>Unsere Gerichte – liebevoll zubereitet und authentisch präsentiert.</p>
         </div>
-        
       </div>
-    </div>
-  </div>
-</div>
-<!-- Restaurant Menu Section -->
-<div id="restaurant-menu">
-  <div class="section-title text-center center">
-    <div class="overlay">
-      <h2>Speisekarte</h2>
-      <hr>
-      <p>Lassen Sie sich von unseren kulinarischen Köstlichkeiten verführen. Unsere Speisekarte bietet eine Vielfalt an authentischen mediterranen Gerichten – von frischen Salaten bis hin zu handgefertigten Pastavariationen und erlesenen Fleisch- und Fischspezialitäten. Jedes Gericht erzählt die Geschichte der italienischen Küche, gewürzt mit einer Prise moderner Kreativität.</p>
-      <h4>Entdecken Sie neben unserer ständigen Speisekarte auch unsere wöchentlich wechselnde Tafel mit frischen Gerichten, die direkt vor Ort für Sie bereitsteht</h4>
-    </div>    
-  </div>
-  <div class="container">
-    <div class="row">
-       <!-- <div class="col-xs-12 col-sm-6">
-            <div class="menu-section">
-                <h2 class="menu-section-title">Aperitif</h2>
-                <hr>
-                <div class="menu-item">
-                    <div class="menu-item-name">Campari Soda</div>
-                    <div class="menu-item-price">5.50 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Campari Orange</div>
-                    <div class="menu-item-price">6 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Martini Bianco / Rosso</div>
-                    <div class="menu-item-price">5 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Prosecco</div>
-                    <div class="menu-item-price">5.50 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Hugo</div>
-                    <div class="menu-item-price">6.50 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Aperol Spritz</div>
-                    <div class="menu-item-price">6.50 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Aperitif Rosato</div>
-                    <div class="menu-item-price">6.50 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Limoncello Spritz</div>
-                    <div class="menu-item-price">6.50 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">San Bitter / Crodino</div>
-                    <div class="menu-item-price">5 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Bombay Gin/Thomas Henry Tonic</div>
-                    <div class="menu-item-price">9.50 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Boar Gin/Thomas Henry Tonic</div>
-                    <div class="menu-item-price">11.50 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Gordon's Pink Gin/Wild Berry Schweppes</div>
-                    <div class="menu-item-price">8.50 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Ricard</div>
-                    <div class="menu-item-price">5 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Pastis Henri Bardouin</div>
-                    <div class="menu-item-price">6.50 €</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6">
-          <div class="menu-section">
-                <h2 class="menu-section-title">Alkoholfreie Getränke</h2>
-                <hr>
-                <div class="menu-item">
-                    <div class="menu-item-name">San Pellegrino 0.25 / 0.7l</div>
-                    <div class="menu-item-price">2.50€/6 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Aqua Panna 0.5l</div>
-                    <div class="menu-item-price">5 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Apfelsaft 0.2l</div>
-                    <div class="menu-item-price">3 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Orangensaft 0.2l</div>
-                    <div class="menu-item-price">3 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Johannisbeersaft 0.2l</div>
-                    <div class="menu-item-price">3 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Apfelschorle 0.25l / 0.4l</div>
-                    <div class="menu-item-price">2.50€/3.50 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Johannisbeerschorle 0.25l / 0.4l</div>
-                    <div class="menu-item-price">2.50€/3.50 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Cola/Zero / Light 0.25l / 0.4l</div>
-                    <div class="menu-item-price">2.50€/3.50 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Fanta / Sprite 0.25l / 0.4l</div>
-                    <div class="menu-item-price">2.50€/3.50 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Bitter Lemon 0.2l Fl</div>
-                    <div class="menu-item-price">3 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Thomas Henry Tonic Water 0.2l Fl</div>
-                    <div class="menu-item-price">3 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Eis Tee</div>
-                    <div class="menu-item-price">3.50 €</div>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-name">Orangina</div>
-                    <div class="menu-item-price">3.50 €</div>
-                </div>
-          </div>
-        </div>
-        </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-6">
-          <div class="menu-section">
-              <h2 class="menu-section-title">Bier</h2>
-              <hr>
-              <div class="menu-item">
-                  <div class="menu-item-name">Ur Pils Vom Fass 0.25l / 0.4l</div>
-                  <div class="menu-item-price">2.50€/3.50 €</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Cola Bier 0.25l / 0.4l</div>
-                  <div class="menu-item-price">2.50€/3.50 €</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Radler 0.25l / 0.4l</div>
-                  <div class="menu-item-price">2.50€/3.50 €</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Weizen Hell / Alkoholfrei</div>
-                  <div class="menu-item-price">4.50 €</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Picon Bier 0.25l</div>
-                  <div class="menu-item-price">3.50 €</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Malzbier / Fl</div>
-                  <div class="menu-item-price">3 €</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Urpils Alkoholfrei / Fl</div>
-                  <div class="menu-item-price">3 €</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Gründels Fresh / Fl</div>
-                  <div class="menu-item-price">3 €</div>
-              </div>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-6">
-          <div class="menu-section">
-              <h2 class="menu-section-title">Offene Weine</h2>
-              <h3>Weiß</h3>
-              <div class="menu-item">
-                  <div class="menu-item-name">ST.Pinot Grigio 0.25l</div>
-                  <div class="menu-item-price">6 €</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Fontana Candida Frascati 0.25l</div>
-                  <div class="menu-item-price">6 €</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Ciro Bianco 0.25l</div>
-                  <div class="menu-item-price">6 €</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Riesling 0.25l</div>
-                  <div class="menu-item-price">6.50 €</div>
-              </div>
-              
-              <h3>Rosé</h3>
-              <div class="menu-item">
-                  <div class="menu-item-name">Chiaretto Bardolino 0.25l</div>
-                  <div class="menu-item-price">6 €</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Ciro Rosé</div>
-                  <div class="menu-item-price">6 €</div>
-              </div>
-              
-              <h3>Rot</h3>
-              <div class="menu-item">
-                  <div class="menu-item-name">Primitivo Due Palme 0.25l</div>
-                  <div class="menu-item-price">7.50€</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Chianti Classico 0.25l</div>
-                  <div class="menu-item-price">6.50€</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Montepulciano D'abruzzo 0.25l</div>
-                  <div class="menu-item-price">6.50 €</div>
-              </div>
-              <div class="menu-item">
-                <div class="menu-item-name">Cirò Rosso 0.25l</div>
-                <div class="menu-item-price">6.50 €</div>
-            </div>
-          </div>
-      </div>
-    </div>-->
-      <div class="row">
-          <div class="menu-section">
-              <h2 class="menu-section-title">Vorspeisen</h2>
-              <hr>
-              <div class="menu-item">
-                  <div class="menu-item-name">Carpaccio di Manzo</div>
-                  <div class="menu-item-price">15.50 €</div>
-                  <div class="menu-item-description">Rindercarpaccio / Vinaigrette / Rucola / Parmesankäse</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Carpaccio di Branzino</div>
-                  <div class="menu-item-price">16.50 €</div>
-                  <div class="menu-item-description">Wolfsbarschcarpaccio / Vinaigrette / Kiwigel</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Antipasto il Gusto</div>
-                  <div class="menu-item-price">17.50 €/ 2p 33.00 €</div>
-
-                  <div class="menu-item-description">Vorspeisen Variation nach Art des Hauses</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Gamberoni il Gusto</div>
-                  <div class="menu-item-price">17.50 €</div>
-
-                  <div class="menu-item-description">Riesengarnelen / Knoblauch / Kräutersoße</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Carpaccio di Barbabietola</div>
-                  <div class="menu-item-price">13.50 €</div>
-
-                  <div class="menu-item-description">Rote Beete / Karamellisierter Ziegenkäse / Mango</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Vitello Tonnato</div>
-                  <div class="menu-item-price">16.50 €</div>
-
-                  <div class="menu-item-description">Tonnatosoße / Kapern</div>
-              </div>
-              <!--<div class="menu-item">
-                  <div class="menu-item-name">Quinoa con Mozzarella di Bufala</div>
-                  <div class="menu-item-price">14.50 €</div>
-
-                  <div class="menu-item-description">Büffelmozzarella / Honigvinaigrette / Kirschtomaten / Walnuss</div>
-              </div>-->
-              <div class="menu-item">
-                  <div class="menu-item-name">Graved Lachs</div>
-                  <div class="menu-item-price">16.50 €</div>
-
-                  <div class="menu-item-description">Passionsfruchtvinaigrette / Jalapeno Paprika</div>
-              </div>
-              <!--<div class="menu-item">
-                  <div class="menu-item-name">Bruschetta il Gusto</div>
-                  <div class="menu-item-price">9 €</div>
-                  <div class="menu-item-description">Auberginenpüree / Süßkartoffelcreme</div>
-              </div>-->
-              <div class="menu-item">
-                <div class="menu-item-name">Lachs Avocado Tatar</div>
-                <div class="menu-item-price">19.50 €</div>
-
-                <div class="menu-item-description">Lachs /Avocado/ Passionsfruchtvinaigrette / Jalapeno Paprika</div>
-            </div>
-          </div>
-          <div class="menu-section">
-              <h2 class="menu-section-title">Salat</h2>
-              <hr>
-              <div class="menu-item">
-                  <div class="menu-item-name">Caesar Salat (Vorspeise / Hauptspeise)</div>
-                  <div class="menu-item-price">16.00€ / 19.50€ €</div>
-
-                  <div class="menu-item-description">Hähnchenbrust / Mais / Tomaten / Croutons / Caesar Soße>/div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Insalata di Tonnoi</div>
-                  <div class="menu-item-price">14.50 €</div>
-
-                  <div class="menu-item-description">Thunfisch / Zwiebeln / Tomaten / Oliven / Vinaigrette</div>
-              </div>
-              <div class="menu-item">
-                  <div class="menu-item-name">Insalata di Rucola</div>
-                  <div class="menu-item-price">13.50 €</div>
-
-                  <div class="menu-item-description">Rucola / Rote Beete / Walnuss / Gurke / Tomate</div>
-              </div>
-              <div class="menu-item">
-                <div class="menu-item-name">Insalata di Valeriana mit Gamberetti</div>
-                <div class="menu-item-price">16.50 €</div>
-
-                <div class="menu-item-description">Garnelen / Feldsalat / Erdbeeren / Oange / Gurke / Tomate</div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-name">Verdure Marinate</div>
-              <div class="menu-item-price">12.50 €</div>
-
-              <div class="menu-item-description">Mariniertes Saisonales Gemüse / Hummus / Vinagrette - Lauwarm serviert</div>
-          </div>
-          </div>
-          <div class="menu-section">
-            <h2 class="menu-section-title">Pasta</h2>
-            <hr>
-            <div class="menu-item">
-                <div class="menu-item-name">Spaghetti Aglio Olio / Gamberi</div>
-                <div class="menu-item-price">15.50 €</div>
-
-                <div class="menu-item-description">Garnelen / Chili / Knoblauch / Olivenöl / Parmesankäse</div>
-            </div>
-            <div class="menu-item">
-                <div class="menu-item-name">Gnocchi Pomodoro & Mozzarella di Bufala</div>
-                <div class="menu-item-price">16.50 €</div>
-
-                <div class="menu-item-description">Tomaten-Soße / Basilikum / Büffelmozzarella</div>
-            </div>
-            <div class="menu-item">
-                <div class="menu-item-name">Penne al Pomodoro</div>
-                <div class="menu-item-price">11.50 €</div>
-
-                <div class="menu-item-description">Tomaten-Soße / Parmesankäse</div>
-            </div>
-            <div class="menu-item">
-              <div class="menu-item-name">Pennete Salmone</div>
-              <div class="menu-item-price">18.50 €</div>
-
-              <div class="menu-item-description">Lachs / Schalottensafransoße / Grana Padano</div>
-          </div>
-        </div>
-        
+      <div class="container">
+        <!-- Vorspeisen -->
         <div class="menu-section">
-            <h2 class="menu-section-title">Hausgemachte Pasta</h2>
-            <hr>
-            <div class="menu-item">
-                <div class="menu-item-name">Ravioli di Vitello</div>
-                <div class="menu-item-price">17.50 €</div>
-
-                <div class="menu-item-description">Kalbfleisch-Füllung / Süßkartoffelcreme / Demi-Glace</div>
-            </div>
-            <div class="menu-item">
-                <div class="menu-item-name">Caramella al Salmone</div>
-                <div class="menu-item-price">17.50 €</div>
-
-                <div class="menu-item-description">Lachscreme-Füllung / Lauch / Salbei / Butter</div>
-            </div>
-            <div class="menu-item">
-                <div class="menu-item-name">Tortelloni al Sedano</div>
-                <div class="menu-item-price">16.50 €</div>
-
-                <div class="menu-item-description">Selleriecreme-Füllung / Walnuss / Getrüffelte-Käsecreme</div>
-            </div>
-            <div class="menu-item">
-                <div class="menu-item-name">Tagliatelle con Pera e Gorgonzola</div>
-                <div class="menu-item-price">16.50 €</div>
-
-                <div class="menu-item-description">Gorgonzola / Birne / Pecorino</div>
-            </div>
+          <h2 class="menu-section-title">Vorspeisen</h2>
+          <hr>
+          <div class="menu-item">
+            <div class="menu-item-name">Carpaccio di Manzo</div>
+            <div class="menu-item-description">Rindercarpaccio / Vinaigrette / Rucola / Parmesankäse</div>
+            <div class="menu-item-price">15.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Carpaccio di Pulpo</div>
+            <div class="menu-item-description">Pulpocarpaccio / Vinaigrette</div>
+            <div class="menu-item-price">16.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Antipasto il Gusto</div>
+            <div class="menu-item-description">Vorspeisen Variation nach Art des Hauses</div>
+            <div class="menu-item-price">19.50 € / 2p 35.00 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Gamberoni il Gusto</div>
+            <div class="menu-item-description">Riesengarnelen / Knoblauch / Kräutersoße</div>
+            <div class="menu-item-price">17.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Carpaccio di Barbabietola</div>
+            <div class="menu-item-description">Rote Beete / karamellisierter Ziegenkäse / Mango</div>
+            <div class="menu-item-price">13.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Vitello Tonnato</div>
+            <div class="menu-item-description">Tonnatosoße / Kapern</div>
+            <div class="menu-item-price">16.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Graved Lachs</div>
+            <div class="menu-item-description">Passionsfruchtvinaigrette / Jalapeno Paprika</div>
+            <div class="menu-item-price">15.50 €</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-name">Lachs Avocado Tatar</div>
+          <div class="menu-item-description">Lachs / Avocado / Passionsfruchtvinaigrette / Jalapeno Paprika</div>
+          <div class="menu-item-price">19.50 €</div>
         </div>
         
+        <!-- Salat -->
+        <div class="menu-section">
+          <h2 class="menu-section-title">Salat</h2>
+          <hr>
+          <div class="menu-item">
+            <div class="menu-item-name">Caesar Salat (Vorspeise – Hauptspeise)</div>
+            <div class="menu-item-description">Hähnchenbrust / Mais / Tomaten / Croutons / Caesar Soße</div>
+            <div class="menu-item-price">16.00 € / 19.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Insalata di Tonno</div>
+            <div class="menu-item-description">Thunfisch / Zwiebeln / Tomaten / Oliven / Vinaigrette</div>
+            <div class="menu-item-price">14.50 €</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-name">Insalata con Formaggio di Capra</div>
+            <div class="menu-item-description">Gemischter Salat / Ziegenkäse / Vinaigrette</div>
+            <div class="menu-item-price">13.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Insalata di Rucola</div>
+            <div class="menu-item-description">Parmesankäse / Kirschtomaten / Balsamico-Vinaigrette</div>
+            <div class="menu-item-price">10.50 €</div>
+          </div>
+        </div>
+        
+        <!-- Pasta -->
+        <div class="menu-section">
+          <h2 class="menu-section-title">Pasta</h2>
+          <hr>
+          <div class="menu-item">
+            <div class="menu-item-name">Spaghetti Aglio Olio / Gamberi</div>
+            <div class="menu-item-description">Garnelen / Chili / Knoblauch / Olivenöl / Parmesankäse</div>
+            <div class="menu-item-price">16.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Gnocchi Pomodoro Mozzarella</div>
+            <div class="menu-item-description">Tomaten-Soße / Büffelmozzarella</div>
+            <div class="menu-item-price">17.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Spaghetti Amatriciana</div>
+            <div class="menu-item-description">Amatricianasoße / Speck / Pecorino</div>
+            <div class="menu-item-price">16.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Pennete Salmone</div>
+            <div class="menu-item-description">Lachs / Scharlotensafransoße / Grana Padano</div>
+            <div class="menu-item-price">18.50 €</div>
+          </div>
+        </div>
+        
+        <!-- Hausgemachte Pasta -->
+        <div class="menu-section">
+          <h2 class="menu-section-title">Hausgemachte Pasta</h2>
+          <hr>
+          <div class="menu-item">
+            <div class="menu-item-name">Ravioli di Vitello</div>
+            <div class="menu-item-description">Kalbfleisch-Füllung / Süßkartoffelcreme / Demi-Glace</div>
+            <div class="menu-item-price">17.90 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Caramella al Salmone</div>
+            <div class="menu-item-description">Lachscreme-Füllung / Lauch / Salbei / Butter</div>
+            <div class="menu-item-price">17.90 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Tortelloni al Fungi</div>
+            <div class="menu-item-description">Pilsencreme-Füllung / getrüffelte Käsecreme</div>
+            <div class="menu-item-price">16.90 €</div>
+          </div>
+        </div>
+        
+        <!-- Pizza -->
         <div class="menu-section">
           <h2 class="menu-section-title">Pizza</h2>
           <hr>
           <div class="menu-item">
-              <div class="menu-item-name">Pizza Vegetariana</div>
-              <div class="menu-item-price">13 €</div>
-              <div class="menu-item-description">Saisonalen Gemüse</div>
+            <div class="menu-item-name">Pizza Vegetariana</div>
+            <div class="menu-item-description">Saisonales Gemüse</div>
+            <div class="menu-item-price">13.00 €</div>
           </div>
           <div class="menu-item">
-              <div class="menu-item-name">Pizza Capricciosa</div>
-              <div class="menu-item-price">13 €</div>
-              <div class="menu-item-description">Salami / Schinken / Champignons</div>
+            <div class="menu-item-name">Pizza Capricciosa</div>
+            <div class="menu-item-description">Salami / Schinken / Champignons</div>
+            <div class="menu-item-price">14.00 €</div>
           </div>
           <div class="menu-item">
-              <div class="menu-item-name">Pizza 4 Fromaggi</div>
-              <div class="menu-item-price">13 €</div>
-              <div class="menu-item-description">Vier verschiedene Käsesorten</div>
+            <div class="menu-item-name">Pizza 4 Fromaggi</div>
+            <div class="menu-item-description">Vier verschiedene Käsesorten</div>
+            <div class="menu-item-price">15.00 €</div>
           </div>
           <div class="menu-item">
-              <div class="menu-item-name">Pizza il Gusto</div>
-              <div class="menu-item-price">15 €</div>
-              <div class="menu-item-description">Parmaschinken / Rucola / Parmesankäse</div>
+            <div class="menu-item-name">Pizza il Gusto</div>
+            <div class="menu-item-description">Parmaschinken / Rucola / Parmesankäse<br><em>(mit vier verschiedenen Käsesorten)</em></div>
+            <div class="menu-item-price">15.00 €</div>
           </div>
           <div class="menu-item">
-              <div class="menu-item-name">Pizza al Salmone</div>
-              <div class="menu-item-price">15 €</div>
-              <div class="menu-item-description">Frisches Lachsfilet / Spinat / Olivenöl</div>
+            <div class="menu-item-name">Pizza Tonno Cipolla</div>
+            <div class="menu-item-description">Thunfisch / Zwiebeln</div>
+            <div class="menu-item-price">15.00 €</div>
           </div>
-          <div class="menu-item">
-              <div class="menu-item-name">Pizza Primavera</div>
-              <div class="menu-item-price">15 €</div>
-              <div class="menu-item-description">Thunfischsoße / Kirschtomaten / Zwiebeln</div>
-          </div>
-          <div class="menu-item">
-              <div class="menu-item-name">Pizza Tonno Cipolla</div>
-              <div class="menu-item-price">15 €</div>
-              <div class="menu-item-description">Thunfisch / Zwiebeln</div>
-          </div>
-      </div>
-      <div class="menu-section">
+          
+        </div>
+        
+        <!-- Hauptspeisen -->
+        <div class="menu-section">
           <h2 class="menu-section-title">Hauptspeisen</h2>
           <hr>
           <div class="menu-item">
-              <div class="menu-item-name">Bistecca di Manzo alla Griglia</div>
-              <div class="menu-item-price">29.50 €</div>
-              <div class="menu-item-description">Rumpsteak vom Grill / Gemüse / Rosmarinkartoffeln</div>
+            <div class="menu-item-name">Bistecca di Manzo alla Griglia</div>
+            <div class="menu-item-description">Argentinische Roastbeef vom Grill / Gemüse / Kartoffeln</div>
+            <div class="menu-item-price">29.90 €</div>
           </div>
           <div class="menu-item">
-              <div class="menu-item-name">Bistecca di Manzo in Crosta Erbe</div>
-              <div class="menu-item-price">31.50 €</div>
-              <div class="menu-item-description">Rumpsteak mit Kräuterkruste / Gemüse / Rosmarinkartoffeln</div>
+            <div class="menu-item-name">Bistecca di Manzo in Crosta Erbe</div>
+            <div class="menu-item-description">Argentinische Roastbeef mit Kräuterkruste / Demi-Glace / Gemüse / Kartoffeln</div>
+            <div class="menu-item-price">31.90 €</div>
           </div>
           <div class="menu-item">
-              <div class="menu-item-name">Bistecca di Manzo il Gusto</div>
-              <div class="menu-item-price">32.50 €</div>
-              <div class="menu-item-description">Rumpsteak / Bernaise / Chimichurri / Demi Glace / Gemüse / Rosmarinkartoffeln</div>
+            <div class="menu-item-name">Fileto di Salmone</div>
+            <div class="menu-item-description">Senfsoße / Gemüse / getrüffeltes Kartoffelpüree</div>
+            <div class="menu-item-price">29.90 €</div>
           </div>
           <div class="menu-item">
-            <div class="menu-item-name">Tagliata di Manzo</div>
-            <div class="menu-item-price">32.50 €</div>
-            <div class="menu-item-description">Rumpsteak / Rucola / Parmesankäse / Rosmarinkartoffeln</div>
+            <div class="menu-item-name">Bistecca di Manzo il Gusto</div>
+            <div class="menu-item-description">Argentinische Roastbeef / Buchenpilzencremesoße / Gemüse / Kartoffeln</div>
+            <div class="menu-item-price">32.90 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Schweinenacken</div>
+            <div class="menu-item-name">Selleriepüree / Getrocknete Pflaumen / Demiglas / Kartoffel Gemüse</div>
+            <div class="menu-item-price">23.90 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Petto di pollo</div>
+            <div class="menu-item-description">Hähnchenbrust / Sahne / Dill / Ingwerzirtone / Mandel / Kartoffeln / Gemüse</div>
+            <div class="menu-item-price">24.90 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Ossobuco</div>
+            <div class="menu-item-description">Ossobuco vom Kalb / Kartoffelpüree / Gemüse</div>
+            <div class="menu-item-price">25.90 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Piccata Milanese</div>
+            <div class="menu-item-description">Kalbsmedaillons / Parmesan / Ei / Spaghetti / Gemüse</div>
+            <div class="menu-item-price">27.90 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Saltimbocca alla Romana</div>
+            <div class="menu-item-description">Kalbsmedaillons / Parmaschinken / Weißweinsoße / Salbei / Spaghetti / Gemüse</div>
+            <div class="menu-item-price">27.90 €</div>
+          </div>
         </div>
-          <div class="menu-item">
-              <div class="menu-item-name">Filetto di Salmone</div>
-              <div class="menu-item-price">29.50 €</div>
-              <div class="menu-item-description">Lachsfilet / Senf Soße / Gemüse / Getrüffelteskartoffelpüree</div>
-          </div>
-          <div class="menu-item">
-              <div class="menu-item-name">Filetto di Branzino</div>
-              <div class="menu-item-price">31.50 €</div>
-              <div class="menu-item-description">Wolfsbarschfilet / Safran Soße / Gemüse / Getrüffelteskartoffelpüree</div>
-          </div>
-          <div class="menu-item">
-              <div class="menu-item-name">Collo di Maiale al Forno</div>
-              <div class="menu-item-price">23.50 €</div>
-              <div class="menu-item-description">Schweinenacken im Ofen / Selleriepüre / Getrocknete-Pflaumen / Walnuss / Gemüse</div>
-          </div>
-          <div class="menu-item">
-              <div class="menu-item-name">Petto di Pollo</div>
-              <div class="menu-item-price">22.50 €</div>
-              <div class="menu-item-description">Hähnchenbrust / Sahne / Dill / Ingwerzirtone / Mandel / Rosmarinkartoffeln / Gemüse</div>
-          </div>
-          <div class="menu-item">
-              <div class="menu-item-name">Filetto di Maiale</div>
-              <div class="menu-item-price">23.50 €</div>
-              <div class="menu-item-description">Schweinefilet / Pilsen / Aprikosen / Demi-Glace</div>
-          </div>
-      </div>
-      <div class="menu-section">
-        <h2 class="menu-section-title">Menü</h2>
-        <hr>
-        <div class="menu-item">
-            <div class="menu-item-name">Carpaccio di Barbabietola</div>
-            <div class="menu-item-description">Rote Beete / Karamellisierte Ziegenkäse / Mango</div>
-        </div>
-      <div class="menu-item">
-            
-            <div class="menu-item-name">Collo di Maiale al Forno</div>
-            <div class="menu-item-price">39.50 €</div>
-            <div class="menu-item-description">Schweinenacken im Ofen / Selleriepüre / Getrocknete-Pflaumen / Walnuss</div>
-        </div>
-        <h3 id="oder">Oder</h3>
         
-        <div class="menu-item">
-            <div class="menu-item-name">Filetto di Branzino Menü</div>
-            <div class="menu-item-price">48.50 €</div>
-
-            <div class="menu-item-description">Wolfsbarschfilet / Weißweinsoße / Gemüse / Getrüffelter Kartoffelpüree</div>
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-name">Panna Cotta</div>
-          <div class="menu-item-description">Hausgemacht / mit frischen Früchten</div>
-      </div>
-    </div>
-    <div class="menu-section">
-      <h2 class="menu-section-title">Vegetarisches Menü</h2>
-      <hr>
-      <div class="menu-item">
-        <div class="menu-item-name">Verdure Marinate</div>
-
-        <div class="menu-item-description">Mariniertes Saisonales Gemüse / Hummus / Vinagrette - Lauwarm serviert</div>
-    </div>
-      <div class="menu-item">
-            
-            <div class="menu-item-name">Tortelloni al Sedano</div>
-            <div class="menu-item-description">Selleriecreme-Füllung / Walnuss / Getrüffelter Kartoffelpüree</div>
-       </div>
-
-      <div class="menu-item-name">Variazione del Sorbetto</div>
-      <div class="menu-item-price">32.50 €</div>      
-      <div class="menu-item-description">Verschiedene Sorbetvariationen</div>
-    </div>
-      <div class="menu-section">
-        <h2 class="menu-section-title">Dessert</h2>
-        <hr>
-        <div class="menu-item">
+        <!-- Dessert -->
+        <div class="menu-section">
+          <h2 class="menu-section-title">Dessert</h2>
+          <hr>
+          <div class="menu-item">
             <div class="menu-item-name">Tiramisu</div>
-            <div class="menu-item-price">8.00 €</div>
             <div class="menu-item-description">Hausgemacht / Kaffee / Amaretto</div>
-        </div>
-        <div class="menu-item">
+            <div class="menu-item-price">8.00 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Tortino</div>
+            <div class="menu-item-description">Hausgemacht/ Schokoladensoufflé/Vanille-Eis</div>
+
+            <div class="menu-item-price">8.00 €</div>
+          </div>
+          <div class="menu-item">
             <div class="menu-item-name">Variazione del Sorbetto</div>
             <div class="menu-item-price">7.50 €</div>
-            <div class="menu-item-description">Verschiedene Sorbetvariationen</div>
-        </div>
-        <div class="menu-item">
+          </div>
+          <div class="menu-item">
             <div class="menu-item-name">Panna Cotta</div>
             <div class="menu-item-price">7.50 €</div>
-            <div class="menu-item-description">Hausgemacht / mit Frischen Früchte</div>
-        </div>
-        <div class="menu-item">
-            <div class="menu-item-name">Café Gourmand</div>
-            <div class="menu-item-price">10.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Hausgemachtes Parfait</div>
+            <div class="menu-item-price">7.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Espresso Gourmand</div>
             <div class="menu-item-description">Hausgemacht / Dessert Variation / Espresso</div>
-        </div>
-        <div class="menu-item">
+            <div class="menu-item-price">11.90 €</div>
+          </div>
+          <div class="menu-item">
             <div class="menu-item-name">Formaggio Misto</div>
-            <div class="menu-item-price">10.50 €</div>
             <div class="menu-item-description">Käse Variation</div>
+            <div class="menu-item-price">10.90 €</div>
+          </div>
         </div>
-        <div class="menu-item">
-            <div class="menu-item-name">Tortino</div>
-            <div class="menu-item-price">8.00 €</div>
-            <div class="menu-item-description">Hausgemacht / Schokoladensoufflé / Vanille-Eis</div>
-        </div>
-    </div>
         
-        <!--<h2 class="menu-section-title">Heiße Getränke</h2>
-        <hr>
-        <div class="menu-item">
+        <!-- Heiße Getränke -->
+        <div class="menu-section">
+          <h2 class="menu-section-title">Heiße Getränke</h2>
+          <hr>
+          <div class="menu-item">
             <div class="menu-item-name">Kaffee / Kaffee Deca</div>
-            <div class="menu-item-price">2.50 €</div>
-        </div>
-        <div class="menu-item">
+            <div class="menu-item-price">2.90 €</div>
+          </div>
+          <div class="menu-item">
             <div class="menu-item-name">Espresso / Espresso Deca</div>
-            <div class="menu-item-price">2.50 €</div>
-        </div>
-        <div class="menu-item">
+            <div class="menu-item-price">2.90 €</div>
+          </div>
+          <div class="menu-item">
             <div class="menu-item-name">Espresso Doppio</div>
-            <div class="menu-item-price">4 €</div>
-        </div>
-        <div class="menu-item">
+            <div class="menu-item-price">4.50 €</div>
+          </div>
+          <div class="menu-item">
             <div class="menu-item-name">Cappuccino</div>
-            <div class="menu-item-price">3 €</div>
-        </div>
-        <div class="menu-item">
+            <div class="menu-item-price">3.50 €</div>
+          </div>
+          <div class="menu-item">
             <div class="menu-item-name">Latte Macchiato</div>
-            <div class="menu-item-price">3 €</div>
-        </div>
-        <div class="menu-item">
-            <div class="menu-item-name">Espresso Corretto</div>
-            <div class="menu-item-price">4 €</div>
-        </div>
-        <div class="menu-item">
+            <div class="menu-item-price">3.50 €</div>
+          </div>
+          <div class="menu-item">
             <div class="menu-item-name">Affogato al Caffé</div>
-            <div class="menu-item-price">5 €</div>
-
             <div class="menu-item-description">Espresso / Vanille Eis</div>
-        </div>
-        <div class="menu-item">
-            <div class="menu-item-name">Tee</div>
+            <div class="menu-item-price">5.90 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Tee (Kräuter / Kamille / Schwarzer / Früchte)</div>
             <div class="menu-item-price">2.50 €</div>
-
-            <div class="menu-item-description">Kräuter / Kamille / Schwarzer / Früchte</div>
+          </div>
         </div>
         
-        <h2 class="menu-section-title">Digestiv</h2>
-        <hr>
-        <div class="menu-item">
-          <div class="menu-item-name">Grappa Di Moscato/Terre Antiche 2cl</div>
-          <div class="menu-item-price">6 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Grappa Barbera/Barrique 2005 2cl</div>
-          <div class="menu-item-price">7 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Grappa Di Nebbiolo/Terre Antiche 2cl</div>
-          <div class="menu-item-price">6 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Williams 2cl</div>
-          <div class="menu-item-price">5 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Waldhimbeergeist 2cl</div>
-          <div class="menu-item-price">5 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Mirabelle 2cl</div>
-          <div class="menu-item-price">5 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Kirschwasser 2cl</div>
-          <div class="menu-item-price">5 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Calvados 2cl</div>
-          <div class="menu-item-price">5.50 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Baileys 4cl</div>
-                  <div class="menu-item-price">5.50 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Limoncello 2cl</div>
-          <div class="menu-item-price">4.50 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Amaro Ramazzotti 4cl</div>
-          <div class="menu-item-price">4.50 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Amaro Averna 4cl</div>
-          <div class="menu-item-price">4.50 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Amaro del Capo 2cl</div>
-          <div class="menu-item-price">4.50 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Vecchia Romagna 2cl</div>
-          <div class="menu-item-price">4.50 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Cognac Château Montifaud V.S.O.P 2cl</div>
-          <div class="menu-item-price">7.50 €</div>
-      </div>
-      <div class="menu-item">
-          <div class="menu-item-name">Armagnac Samalens V.S.O.P 2cl</div>
-          <div class="menu-item-price">8.50 €</div>
-      </div>
-  </div> -->     
-    </div>  
-  </div>
-</div>
-</div>
+        <!-- Digestiv -->
+        <div class="menu-section">
+          <h2 class="menu-section-title">Digestiv</h2>
+          <hr>
+          <div class="menu-item">
+            <div class="menu-item-name">Grappa Di Moscato/Terre Antiche 2 Cl</div>
+            <div class="menu-item-price">6.00 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Grappa Barbera/Barrique 2005 2 Cl</div>
+            <div class="menu-item-price">7.00 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Mirabelle aus dem Bliesgau 2 Cl</div>
+            <div class="menu-item-price">6.00 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Calvados 2 Cl</div>
+            <div class="menu-item-price">5.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Baileys 2 Cl</div>
+            <div class="menu-item-price">5.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Limoncello 2 Cl</div>
+            <div class="menu-item-price">4.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Amaro Ramazzotti 4 Cl</div>
+            <div class="menu-item-price">4.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Amaro Averna 4 Cl</div>
+            <div class="menu-item-price">4.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Amaro del Capo</div>
+            <div class="menu-item-price">4.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Vecchia Romagna</div>
+            <div class="menu-item-price">4.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Cognac Château Montifaud V.S.O.P 2 Cl</div>
+            <div class="menu-item-price">7.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Armagnac Samalens V.S.O.P 2 Cl</div>
+            <div class="menu-item-price">8.50 €</div>
+          </div>
 
-<!-- Portfolio Section -->
-<div id="portfolio">
-  <div class="section-title text-center center">
-    <div class="overlay">
-      <h2>Galerie</h2>
-      <hr>
-      <p>Schauen Sie durch unsere Fotogalerie und erleben Sie die authentische Atmosphäre und Gaumenfreuden von "Il Gusto". Jedes Bild fängt den Geist unserer mediterranen Küche und unseres gemütlichen Restaurants ein.</p>
-    </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Fernet Branca 2 Cl</div>
+            <div class="menu-item-price">4.50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">Hausgemachte Parfait</div>
+            <div class="menu-item-price">7.50 €</div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
     
-  </div>
+    <!-- Reservierungsbereich -->
+    <section id="reservation" class="text-center">
+      <div class="container">
+        <h5>In unserem neu eröffneten Restaurant finden Sie den idealen Ort für Ihre Familienfeiern. Feiern Sie besondere Anlässe in modernem Ambiente mit bis zu 35–40 Personen.</h5>
+        <hr>
+        <h2>Möchten Sie reservieren? <strong>+49 6805 9439490</strong></h2>
+      </div>
+      <div class="container">
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2611.532630418169!2d7.05511261246522!3d49.1145186825279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479435d15c828ee1%3A0x259d132097e4ce16!2sRistorante%20Il%20Gusto!5e0!3m2!1sde!2sde!4v1699108280531!5m2!1sde!2sde" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
   
-  <div class="container">
-      <div class="portfolio-items">
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Antipasto Il Gusto.jpg" title="Antipasto Il Gusto" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Antipasto Il Gusto</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Antipasto Il Gusto sm.png" class="img-responsive" alt="Antipasto Il Gusto"> </a> </div>
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-md-4">
+          <h3>Adresse</h3>
+          <div class="contact-item">
+            <p>Saargemünder Str. 45</p>
+            <p>66271 Kleinblittersdorf</p>
           </div>
         </div>
-
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Caramella al Salmone sm.png" title="Caramella al Salmone" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Caramella al Salmone</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Caramella al Salmone sm.png" class="img-responsive" alt="Caramella al Salmone"> </a> </div>
+        <div class="col-md-4">
+          <h3>Öffnungszeiten</h3>
+          <div class="contact-item">
+            <p>Mon-Fr &amp; Son: 12:00 - 14:00 &amp; 18:00 - 21:30</p>
+            <p>Sam: 18:00 - 21:30</p>
+            <p>Mittwoch Ruhetag</p>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Carpaccio di Manzo.jpg" title="Carpaccio di Manzo" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Carpaccio di Manzo</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Carpaccio di Manzo sm.png" class="img-responsive" alt="Carpaccio di Manzo"> </a> </div>
+        <div class="col-md-4">
+          <h3>Kontakt</h3>
+          <div class="contact-item">
+            <p>Telefon: +49 6805 9439490</p>
+            <p>Email: <a href="mailto:mail@ilgusto-sb.de">mail@ilgusto-sb.de</a></p>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 dinner">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Carpaccio di Merluzzo.jpg" title=Carpaccio di Merluzzo" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Carpaccio di Merluzzo</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Carpaccio di Merluzzo sm.jpg" class="img-responsive" alt="Carpaccio di Merluzzo"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 lunch">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Collo di Maiale.jpg" title="Collo di Maiale" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Collo di Maiale</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Collo di Maiale sm.jpg" class="img-responsive" alt="Collo di Maiale"> </a> </div>
-          </div>
-        </div>       
-        <div class="col-sm-6 col-md-4 col-lg-4 lunch">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Fileto di Maiale.jpg" title="Filetto di Maiale" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Filetto di Maiale</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Fileto di Maiale sm.png" class="img-responsive" alt="Filetto di Maiale"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 lunch">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Fileto di Merluzzo.jpg" title="Filetto di Merluzzo" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Filetto di Merluzzo</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Fileto di Merluzzo sm.jpg" class="img-responsive" alt="Filetto di Merluzzo"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 lunch">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/fileto di salmone.jpg" title="Filetto di Salmone" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Filetto di Salmone</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Fileto di Salmone sm.png" class="img-responsive" alt="Filetto di Salmone"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/graved lachs.jpg" title="Graved Lachs" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Graved Lachs</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/graved lachs sm.png" class="img-responsive" alt="Graved Lachs"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Quinoa con Mozzarella.jpg" title="Quinoa con Mozzarella" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Quinoa con Mozzarella</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Quinoa con Mozzarella sm.png" class="img-responsive" alt="Quinoa con Mozzarella"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Ravioli di Vitello.jpg" title="Ravioli di Vitello" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Ravioli di Vitello</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Ravioli di Vitello sm.png" class="img-responsive" alt="Ravioli di Vitello"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Ravioli di Vitello.jpg" title="Ravioli di Vitello" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Ravioli di Vitello</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Ravioli di Vitello sm.png" class="img-responsive" alt="Ravioli di Vitello"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Spaghetti Gamberi ( Aglio Olio).jpg" title="Spaghetti Gamberi ( Aglio Olio)" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Spaghetti Gamberi ( Aglio Olio)</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Spaghetti Gamberi ( Aglio Olio) sm.png" class="img-responsive" alt="Spaghetti Gamberi ( Aglio Olio)"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Tagliatelle con Spinaci.jpg" title="Tagliatelle con Spinaci" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Tagliatelle con Spinaci</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Tagliatelle con Spinaci sm.png" class="img-responsive" alt="Tagliatelle con Spinaci"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Tortelloni al Sedano.jpg" title="Tortelloni al Sedano" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Tortelloni al Sedano</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Tortelloni al Sedano sm.png" class="img-responsive" alt="Tortelloni al Sedano"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Variazione del Sorbetto.jpg" title="Variazione del Sorbetto" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Variazione del Sorbetto</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Variazione del Sorbetto sm.jpg"  class="img-responsive" alt="Variazione del Sorbetto"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 dinner">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/Café Gourmand.jpg" title="Café Gourmand" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Café Gourmand</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/Café Gourmand sm.jpg" class="img-responsive" alt="Café Gourmand"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 dinner">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/Ilgusto/speisen/panna cotta.jpg" title="Panna Cotta" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Panna Cotta</h4>
-              </div>
-              <img src="img/Ilgusto/speisen/panna cotta sm.png" class="img-responsive" alt="Panna Cotta"> </a> </div>
-          </div>
-        </div>
-        
       </div>
-  </div>
-</div>
-<!-- Call Reservation Section -->
-<div id="call-reservation" class="text-center">
-  <div class="container" style="padding-bottom: 10px;">
-    <h5>In unserem neu eröffneten Restaurant finden Sie den idealen Ort für Ihre Familienfeiern. In unserem modernen und einladenden Ambiente können Sie mit bis zu 35-40 Personen besondere Anlässe wie Geburtstage und Hochzeiten feiern. Unser erfahrenes Event-Team steht Ihnen mit Freude zur Seite, um Ihre Veranstaltung perfekt zu planen und zu gestalten.</h5>
-    <hr>
-    <h2>Möchten sie reservieren?  <strong>+49 6805 9439490</strong></h2>
-  </div>
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2611.532630418169!2d7.05511261246522!3d49.1145186825279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479435d15c828ee1%3A0x259d132097e4ce16!2sRistorante%20Il%20Gusto!5e0!3m2!1sde!2sde!4v1699108280531!5m2!1sde!2sde" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-</div>
-<!-- Contact Section -->
-<!--<div id="contact" class="text-center">
-  <div class="container">
-    <div class="section-title text-center">
-      <h2>Kontaktformular</h2>
-      <hr>
-      <p>Für Reservierungen oder sonstige Fragen kontaktieren sie uns bitte</p>
-    </div>
-    <div class="col-md-10 col-md-offset-1">
-      <form name="sentMessage" id="contactForm" novalidate>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <input type="text" id="name" class="form-control" placeholder="Name" required="required">
-              <p class="help-block text-danger"></p>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <input type="email" id="email" class="form-control" placeholder="Email" required="required">
-              <p class="help-block text-danger"></p>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <textarea name="message" id="message" class="form-control" rows="4" placeholder="Nachricht" required></textarea>
-          <p class="help-block text-danger"></p>
-        </div>
-        <div id="success"></div>
-        <button type="submit" class="btn btn-custom btn-lg" style="margin-bottom: 10%">Senden</button>
-      </form>      
-    </div>
-  </div>
-</div>-->
-
-
-<div id="footer">
-  <div class="container text-center">
-    <div class="col-md-4">
-      <h3>Adresse</h3>
-      <div class="contact-item">
-        <p>Saargemünder Str. 45</p>
-        <p>66271 Kleinblittersdorf</p>
+      <div class="text-center">
+        <a href="/impressum.html">Impressum</a>
       </div>
     </div>
-    <div class="col-md-4">
-      <h3>Öffnungszeiten</h3>
-      <div class="contact-item">
-        <p>Mon-Fr & Son: 12:00 - 14:00 & 18:00 - 21:30</p>
-        <p>Sam: 18:00-21:30</p>
-        <p>Mittwoch Ruhetag</p>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <h3>Kontakt</h3>
-      <div class="contact-item">
-        <p>Telefon: +49 6805 9439490</p>
-        <p>Email: <a href="mailto:mail@ilgusto-sb.de">mail@ilgusto-sb.de</a></p>
-      </div>
-    </div>
-
-  </div>
-  <div class="container text-center">
-    <a href="/impressum.html">Impressum</a>
-  </div>
-  <!--<div class="container-fluid text-center copyrights">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="social">
-        <ul>
-          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>-->
-
-<script type="text/javascript" src="js/jquery.1.11.1.js"></script> 
-<script type="text/javascript" src="js/bootstrap.js"></script> 
-<script type="text/javascript" src="js/SmoothScroll.js"></script> 
-<script type="text/javascript" src="js/nivo-lightbox.js"></script> 
-<script type="text/javascript" src="js/jquery.isotope.js"></script> 
-<script type="text/javascript" src="js/jqBootstrapValidation.js"></script> 
-<script type="text/javascript" src="js/contact_me.js"></script> 
-<script type="text/javascript" src="js/main.js"></script>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDPDEUEmdHvtxw6EJH1_Ij1z4mg6zc7Sis",
-    authDomain: "il-gusto-3cb3c.firebaseapp.com",
-    //authDomain: "ilgusto-sb.de",
-    projectId: "il-gusto-3cb3c",
-    storageBucket: "il-gusto-3cb3c.appspot.com",
-    messagingSenderId: "691796761220",
-    appId: "1:691796761220:web:ffaab42e9a03a0a3ba80d1",
-    measurementId: "G-TPSPSPHCF4"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
+  </footer>
+  
+  <!-- Scripts -->
+  <script type="text/javascript" src="js/jquery.1.11.1.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="js/SmoothScroll.js"></script>
+  <script type="text/javascript" src="js/nivo-lightbox.js"></script>
+  <script type="text/javascript" src="js/jquery.isotope.js"></script>
+  <script type="text/javascript" src="js/jqBootstrapValidation.js"></script>
+  <script type="text/javascript" src="js/contact_me.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyDPDEUEmdHvtxw6EJH1_Ij1z4mg6zc7Sis",
+      authDomain: "il-gusto-3cb3c.firebaseapp.com",
+      projectId: "il-gusto-3cb3c",
+      storageBucket: "il-gusto-3cb3c.appspot.com",
+      messagingSenderId: "691796761220",
+      appId: "1:691796761220:web:ffaab42e9a03a0a3ba80d1",
+      measurementId: "G-TPSPSPHCF4"
+    };
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
 </body>
 </html>

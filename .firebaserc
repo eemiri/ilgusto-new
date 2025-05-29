@@ -1,5 +1,16 @@
 {
   "projects": {
     "default": "il-gusto-3cb3c"
-  }
+  },
+  "targets": {
+    "il-gusto-3cb3c": {
+      "hosting": {
+        "default": [
+          "il-gusto-3cb3c"
+        ]
+      }
+    }
+  },
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }

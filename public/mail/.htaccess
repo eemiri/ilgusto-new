@@ -1,0 +1,33 @@
+# Security configuration for contact form directory
+
+# Prevent directory listing
+Options -Indexes
+
+# Deny access to log files
+<FilesMatch "\.(log)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Only allow access to PHP files
+<FilesMatch "\.(php)$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>
+
+# Add security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "DENY"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Disable PHP error display (errors go to log only)
+php_flag display_errors off
+php_flag display_startup_errors off
+
+# Set maximum execution time and upload limits
+php_value max_execution_time 30
+php_value post_max_size 2M
+php_value upload_max_filesize 2M

@@ -934,39 +934,54 @@
 
 </div>
 <!-- Contact Section -->
-<!--<div id="contact" class="text-center">
+<div id="contact" class="text-center" style="margin-top: 60px;">
   <div class="container">
     <div class="section-title text-center">
       <h2>Kontaktformular</h2>
       <hr>
-      <p>Für Reservierungen oder sonstige Fragen kontaktieren sie uns bitte</p>
+      <p>Für Reservierungen oder sonstige Fragen kontaktieren Sie uns bitte</p>
     </div>
     <div class="col-md-10 col-md-offset-1">
       <form name="sentMessage" id="contactForm" novalidate>
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <input type="text" id="name" class="form-control" placeholder="Name" required="required">
-              <p class="help-block text-danger"></p>
+              <label for="name" class="sr-only">Name</label>
+              <input type="text" id="name" name="name" class="form-control" placeholder="Name" required="required" maxlength="100" aria-describedby="name-help">
+              <p class="help-block text-danger" id="name-help"></p>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <input type="email" id="email" class="form-control" placeholder="Email" required="required">
-              <p class="help-block text-danger"></p>
+              <label for="email" class="sr-only">E-Mail</label>
+              <input type="email" id="email" name="email" class="form-control" placeholder="E-Mail" required="required" maxlength="254" aria-describedby="email-help">
+              <p class="help-block text-danger" id="email-help"></p>
             </div>
           </div>
         </div>
         <div class="form-group">
-          <textarea name="message" id="message" class="form-control" rows="4" placeholder="Nachricht" required></textarea>
-          <p class="help-block text-danger"></p>
+          <label for="message" class="sr-only">Nachricht</label>
+          <textarea name="message" id="message" class="form-control" rows="4" placeholder="Nachricht" required maxlength="5000" aria-describedby="message-help"></textarea>
+          <p class="help-block text-danger" id="message-help"></p>
         </div>
-        <div id="success"></div>
-        <button type="submit" class="btn btn-custom btn-lg" style="margin-bottom: 10%">Senden</button>
-      </form>      
+
+        <!-- Hidden fields for security -->
+        <input type="hidden" id="csrf_token" name="csrf_token" value="">
+
+        <!-- Honeypot field (hidden from users, visible to bots) -->
+        <div style="position: absolute; left: -5000px;" aria-hidden="true">
+          <label for="website">Lassen Sie dieses Feld leer</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div id="success" role="alert"></div>
+        <button type="submit" class="btn btn-custom btn-lg" style="margin-bottom: 10%">
+          <i class="fa fa-paper-plane"></i> Nachricht senden
+        </button>
+      </form>
     </div>
   </div>
-</div>-->
+</div>
 
 
 <div id="footer">

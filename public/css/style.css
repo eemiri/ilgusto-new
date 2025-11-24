@@ -272,6 +272,10 @@ header .intro-text {
 	color: #f5f5dc;
 
 }
+#restaurant-menu h5{
+	color: #333;
+	font-weight: 600;
+}
 #restaurant-menu .menu-section hr {
 	margin: 0 auto;
 }

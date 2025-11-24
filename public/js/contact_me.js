@@ -1,50 +1,10 @@
 /**
- * Secure Contact Form Handler
+ * Simple Contact Form Handler
  * Il Gusto Restaurant
  */
 
 $(function() {
-    var csrfToken = null;
     var isSubmitting = false;
-
-    // Fetch CSRF token on page load
-    function fetchCSRFToken() {
-        $.ajax({
-            url: "./mail/get_csrf_token.php",
-            type: "GET",
-            dataType: "json",
-            cache: false,
-            success: function(response) {
-                if (response.success && response.csrf_token) {
-                    csrfToken = response.csrf_token;
-                    $('#csrf_token').val(csrfToken);
-                    console.log('CSRF token loaded');
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Failed to load CSRF token:', error);
-                showError('Sicherheitstoken konnte nicht geladen werden. Bitte laden Sie die Seite neu.');
-            }
-        });
-    }
-
-    // Initialize form
-    function initForm() {
-        fetchCSRFToken();
-
-        // Add input event listeners for real-time validation
-        $('#name').on('input', function() {
-            validateName($(this));
-        });
-
-        $('#email').on('input', function() {
-            validateEmail($(this));
-        });
-
-        $('#message').on('input', function() {
-            validateMessage($(this));
-        });
-    }
 
     // Validation functions
     function validateName($input) {
@@ -139,6 +99,19 @@ $(function() {
         }, 500);
     }
 
+    // Add input event listeners for real-time validation
+    $('#name').on('input', function() {
+        validateName($(this));
+    });
+
+    $('#email').on('input', function() {
+        validateEmail($(this));
+    });
+
+    $('#message').on('input', function() {
+        validateMessage($(this));
+    });
+
     // Form submission
     $('#contactForm').on('submit', function(e) {
         e.preventDefault();
@@ -162,74 +135,31 @@ $(function() {
             return false;
         }
 
-        // Check CSRF token
-        if (!csrfToken) {
-            showError('Sicherheitstoken fehlt. Bitte laden Sie die Seite neu.');
-            return false;
-        }
-
         // Get form values
         var name = $('#name').val().trim();
         var email = $('#email').val().trim();
         var message = $('#message').val().trim();
-        var website = $('#website').val(); // Honeypot
 
-        // Disable submit button
-        var $submitBtn = $('#contactForm button[type="submit"]');
-        var originalBtnText = $submitBtn.html();
-        $submitBtn.prop('disabled', true).html(
-            '<i class="fa fa-spinner fa-spin"></i> Wird gesendet...'
+        // Create mailto link
+        var subject = encodeURIComponent('Kontaktanfrage von ' + name);
+        var body = encodeURIComponent(
+            'Name: ' + name + '\n' +
+            'E-Mail: ' + email + '\n\n' +
+            'Nachricht:\n' + message
         );
-        isSubmitting = true;
 
-        // Send AJAX request
-        $.ajax({
-            url: "./mail/contact_me.php",
-            type: "POST",
-            data: {
-                name: name,
-                email: email,
-                message: message,
-                website: website,
-                csrf_token: csrfToken
-            },
-            dataType: "json",
-            cache: false,
-            success: function(response) {
-                if (response.success) {
-                    showSuccess(response.message);
-                    // Clear form
-                    $('#contactForm')[0].reset();
-                    // Fetch new CSRF token
-                    fetchCSRFToken();
-                } else {
-                    showError(response.message || 'Ein Fehler ist aufgetreten.');
-                }
-            },
-            error: function(xhr, status, error) {
-                var errorMessage = 'Ein unerwarteter Fehler ist aufgetreten.';
+        var mailtoLink = 'mailto:mail@ilgusto-sb.de?subject=' + subject + '&body=' + body;
 
-                if (xhr.responseJSON && xhr.responseJSON.message) {
-                    errorMessage = xhr.responseJSON.message;
-                } else if (xhr.status === 429) {
-                    errorMessage = 'Zu viele Anfragen. Bitte warten Sie eine Weile und versuchen Sie es erneut.';
-                } else if (xhr.status === 403) {
-                    errorMessage = 'Sicherheitsvalidierung fehlgeschlagen. Bitte laden Sie die Seite neu.';
-                    // Fetch new CSRF token
-                    fetchCSRFToken();
-                } else if (xhr.status === 0) {
-                    errorMessage = 'Verbindungsfehler. Bitte überprüfen Sie Ihre Internetverbindung.';
-                }
+        // Open email client
+        window.location.href = mailtoLink;
 
-                showError(errorMessage);
-                console.error('Form submission error:', status, error);
-            },
-            complete: function() {
-                // Re-enable submit button
-                $submitBtn.prop('disabled', false).html(originalBtnText);
-                isSubmitting = false;
-            }
-        });
+        // Show success message
+        showSuccess('Ihr E-Mail-Programm wird geöffnet. Bitte senden Sie die E-Mail von dort aus.');
+
+        // Clear form after a short delay
+        setTimeout(function() {
+            $('#contactForm')[0].reset();
+        }, 1000);
 
         return false;
     });
@@ -243,7 +173,4 @@ $(function() {
             });
         }
     });
-
-    // Initialize on document ready
-    initForm();
 });

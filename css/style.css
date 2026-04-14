@@ -299,13 +299,23 @@ header .intro-text {
 #restaurant-menu .menu-item-description {
 	font-style: italic;
 	font-size: 15px;
-	color:#333
+	color:#333;
+	clear: both;
+	padding-top: 8px;
 }
 #restaurant-menu .menu-item-price {
 	float: right;
 	font-weight: 600;
 	color: #555;
 	margin-top: -26px;
+}
+
+@media (max-width: 991px) {
+	#restaurant-menu .menu-item-price {
+		float: none;
+		margin-top: 8px;
+		text-align: right;
+	}
 }
 
 

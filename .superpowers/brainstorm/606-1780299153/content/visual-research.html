@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual Research — High End Restaurant Websites</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #d0d0d0; font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+  .page-header {
+    padding: 32px 56px 24px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .page-header h1 { font-size: 10px; letter-spacing: 5px; color: #444; text-transform: uppercase; margin-bottom: 8px; }
+  .page-header p { font-size: 20px; font-weight: 300; color: #d0d0d0; }
+
+  /* SITES GRID */
+  .sites { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #1a1a1a; }
+
+  .site {
+    border-right: 1px solid #1a1a1a;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .site:nth-child(3n) { border-right: none; }
+
+  .site-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid #151515;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-name { font-size: 12px; font-weight: 600; color: #c0c0c0; }
+  .site-award { font-size: 9px; letter-spacing: 2px; color: #555; text-transform: uppercase; }
+  .site-url { font-size: 9px; color: #3a7a3a; font-family: monospace; }
+
+  .site-mockup {
+    padding: 20px;
+    min-height: 200px;
+    border-bottom: 1px solid #151515;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .site-insights {
+    padding: 16px 20px 20px;
+  }
+  .insight-title { font-size: 10px; letter-spacing: 3px; color: #444; text-transform: uppercase; margin-bottom: 8px; }
+  .insight-list { list-style: none; }
+  .insight-list li {
+    font-size: 11px;
+    color: #666;
+    padding: 3px 0;
+    border-bottom: 1px solid #111;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+  }
+  .insight-list li::before { content: "→ "; color: #333; }
+  .tag {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 2px 6px;
+    border: 1px solid #222;
+    color: #444;
+    margin: 2px 2px 0 0;
+    text-transform: uppercase;
+  }
+  .tag.gold { border-color: #4a3a10; color: #8a6a20; }
+  .tag.green { border-color: #1a4a1a; color: #3a7a3a; }
+
+  /* Individual mockups */
+
+  /* NOMA */
+  .noma-mock { background: #fafaf8; font-family: 'Helvetica Neue', sans-serif; }
+  .noma-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 16px; border-bottom: 1px solid #e8e8e4;
+  }
+  .noma-logo { font-size: 10px; letter-spacing: 4px; color: #111; }
+  .noma-reserve { font-size: 8px; letter-spacing: 2px; color: #888; border: 1px solid #ddd; padding: 4px 8px; }
+  .noma-hero {
+    height: 100px;
+    background: linear-gradient(135deg, #c8d0b8 0%, #a0aa90 100%);
+    display: flex; align-items: flex-end; padding: 12px 16px;
+  }
+  .noma-season { font-size: 18px; font-weight: 300; color: #2a2a1a; letter-spacing: -0.5px; }
+  .noma-body { padding: 12px 16px; font-size: 10px; color: #888; line-height: 1.7; }
+
+  /* CANLIS */
+  .canlis-mock { background: #f8f6f2; font-family: Georgia, serif; }
+  .canlis-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 16px; border-bottom: 1px solid #e4ddd0;
+  }
+  .canlis-logo { font-size: 10px; letter-spacing: 4px; color: #2a1a0a; font-family: sans-serif; }
+  .canlis-hero { padding: 24px 16px; }
+  .canlis-invite { font-size: 22px; font-style: italic; color: #2a1a0a; font-weight: 300; margin-bottom: 12px; }
+  .canlis-body { font-size: 10px; color: #8a7a6a; line-height: 1.8; }
+  .canlis-cta { margin-top: 14px; font-size: 8px; letter-spacing: 3px; color: #2a1a0a; border-bottom: 1px solid #2a1a0a; display: inline-block; font-family: sans-serif; }
+
+  /* TWELVE */
+  .twelve-mock { background: #111; font-family: 'Helvetica Neue', sans-serif; }
+  .twelve-nav { display: flex; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid #1a1a1a; }
+  .twelve-logo { font-size: 10px; letter-spacing: 5px; color: #888; }
+  .twelve-hero {
+    height: 110px;
+    background: linear-gradient(180deg, rgba(17,17,17,0) 0%, rgba(17,17,17,0.8) 100%),
+                linear-gradient(135deg, #1a2a1a 0%, #2a1a0a 50%, #1a1a2a 100%);
+    display: flex; align-items: flex-end; padding: 12px 16px;
+  }
+  .twelve-title { font-size: 14px; font-weight: 300; color: #c0c0c0; letter-spacing: 3px; text-transform: uppercase; }
+  .twelve-body { padding: 12px 16px; font-size: 10px; color: #555; line-height: 1.7; }
+
+  /* HIO */
+  .hio-mock { background: #1a0f24; font-family: 'Helvetica Neue', sans-serif; }
+  .hio-nav { display: flex; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid #2a1a38; }
+  .hio-logo { font-size: 10px; letter-spacing: 4px; color: #c1c0b7; }
+  .hio-hero {
+    height: 110px;
+    background: linear-gradient(180deg, rgba(26,15,36,0.3) 0%, rgba(26,15,36,0.85) 100%),
+                linear-gradient(135deg, #3a2840 0%, #2a1838 100%);
+    display: flex; align-items: flex-end; padding: 12px 16px;
+  }
+  .hio-title { font-size: 16px; font-style: italic; color: #c1c0b7; font-family: Georgia, serif; }
+  .hio-body { padding: 12px 16px; font-size: 10px; color: #6a5a78; line-height: 1.7; }
+  .hio-tag-line { font-size: 8px; letter-spacing: 4px; color: #4a3a58; text-transform: uppercase; margin-top: 6px; }
+
+  /* RICARD CAMARENA */
+  .camarena-mock { background: #fff; font-family: 'Helvetica Neue', sans-serif; }
+  .camarena-nav { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid #f0f0f0; }
+  .camarena-logo { font-size: 9px; letter-spacing: 3px; color: #333; text-transform: uppercase; }
+  .camarena-stars { font-size: 9px; color: #c8a84c; letter-spacing: 1px; }
+  .camarena-hero { padding: 20px 16px; }
+  .camarena-big { font-size: 28px; font-weight: 700; color: #111; letter-spacing: -1px; line-height: 1.05; margin-bottom: 8px; }
+  .camarena-small { font-size: 9px; letter-spacing: 3px; color: #aaa; text-transform: uppercase; }
+
+  /* ALINEA */
+  .alinea-mock { background: #fff; font-family: 'Helvetica Neue', sans-serif; }
+  .alinea-nav { display: flex; justify-content: center; padding: 10px 16px; border-bottom: 1px solid #f0f0f0; }
+  .alinea-logo { font-size: 9px; letter-spacing: 6px; color: #999; text-transform: uppercase; }
+  .alinea-img-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    margin: 12px 16px;
+    height: 90px;
+  }
+  .alinea-img { background: #f5f5f5; display: flex; align-items: center; justify-content: center; }
+  .alinea-img span { font-size: 8px; color: #ccc; letter-spacing: 2px; }
+  .alinea-exp { display: flex; gap: 8px; padding: 10px 16px; }
+  .alinea-exp-item { flex: 1; text-align: center; font-size: 8px; color: #999; letter-spacing: 1px; border: 1px solid #f0f0f0; padding: 6px 4px; }
+
+  /* PATTERNS SECTION */
+  .patterns {
+    border-top: 2px solid #1a1a1a;
+    padding: 40px 56px;
+  }
+  .patterns-title { font-size: 10px; letter-spacing: 5px; color: #444; text-transform: uppercase; margin-bottom: 32px; }
+  .patterns-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 40px; }
+  .pattern { }
+  .pattern-num { font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+  .pattern-name { font-size: 12px; font-weight: 600; color: #c0c0c0; margin-bottom: 6px; }
+  .pattern-desc { font-size: 11px; color: #555; line-height: 1.6; }
+
+  /* IL GUSTO DIFF */
+  .ilgusto-diff {
+    border-top: 1px solid #1a1a1a;
+    padding: 32px 56px;
+    background: #080808;
+  }
+  .diff-title { font-size: 10px; letter-spacing: 5px; color: #444; text-transform: uppercase; margin-bottom: 20px; }
+  .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .diff-col { padding: 0 24px 0 0; }
+  .diff-col:last-child { padding-left: 24px; padding-right: 0; border-left: 1px solid #1a1a1a; }
+  .diff-col-title { font-size: 11px; color: #888; font-weight: 600; margin-bottom: 12px; letter-spacing: 1px; }
+  .diff-item { font-size: 11px; color: #555; padding: 5px 0; border-bottom: 1px solid #111; }
+  .diff-item.highlight { color: #c9a84c; border-bottom-color: #2a2010; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Visual Research — 8 analysierte Restaurants</h1>
+  <p>Was machen die Besten — und was macht Il Gusto anders</p>
+</div>
+
+<div class="sites">
+
+  <!-- NOMA -->
+  <div class="site">
+    <div class="site-header">
+      <div>
+        <div class="site-name">Noma</div>
+        <div class="site-url">noma.dk</div>
+      </div>
+      <div class="site-award">3 Michelin ★</div>
+    </div>
+    <div class="site-mockup noma-mock">
+      <div class="noma-nav">
+        <span class="noma-logo">NOMA</span>
+        <span class="noma-reserve">Reservations</span>
+      </div>
+      <div class="noma-hero">
+        <span class="noma-season">LA Season 2026</span>
+      </div>
+      <div class="noma-body">
+        Single column. Full-width images. Season as headline. No tagline needed — the name does the work.
+      </div>
+    </div>
+    <div class="site-insights">
+      <div class="insight-title">Signale</div>
+      <ul class="insight-list">
+        <li>Name als einziger Identifier — kein Slogan</li>
+        <li>Season als primäre Headline (temporär, exklusiv)</li>
+        <li>Single column, full-width carousel</li>
+        <li>Whitespace = Luxus</li>
+      </ul>
+      <div style="margin-top:10px">
+        <span class="tag">Sans-Serif</span>
+        <span class="tag">Weiß/Neutral</span>
+        <span class="tag">Fotografie-First</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CANLIS -->
+  <div class="site">
+    <div class="site-header">
+      <div>
+        <div class="site-name">Canlis</div>
+        <div class="site-url">canlis.com</div>
+      </div>
+      <div class="site-award">Fine Dining Seattle</div>
+    </div>
+    <div class="site-mockup canlis-mock">
+      <div class="canlis-nav">
+        <span class="canlis-logo">CANLIS</span>
+        <span style="font-size:8px; color:#8a7a6a; font-family:sans-serif; letter-spacing:2px;">RESERVE</span>
+      </div>
+      <div class="canlis-hero">
+        <div class="canlis-invite">An Invitation</div>
+        <div class="canlis-body">We are a fine dining experience in Seattle. We don't just serve dinner. We serve belonging.</div>
+        <div class="canlis-cta">Make a Reservation →</div>
+      </div>
+    </div>
+    <div class="site-insights">
+      <div class="insight-title">Signale</div>
+      <ul class="insight-list">
+        <li>"An Invitation" — Headline als Gefühl, nicht als Info</li>
+        <li>Cream/Warm White — kein Kalt-Weiß</li>
+        <li>Georgia Serif für Körpertext</li>
+        <li>Reserve nie ein Button — immer ein Link</li>
+      </ul>
+      <div style="margin-top:10px">
+        <span class="tag gold">Warm Neutral</span>
+        <span class="tag">Serif</span>
+        <span class="tag">Einladend</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TWELVE -->
+  <div class="site">
+    <div class="site-header">
+      <div>
+        <div class="site-name">Twelve</div>
+        <div class="site-url">twelvemaine.com</div>
+      </div>
+      <div class="site-award">Tasting Menu Maine</div>
+    </div>
+    <div class="site-mockup twelve-mock">
+      <div class="twelve-nav">
+        <span class="twelve-logo">TWELVE</span>
+        <span style="font-size:8px; letter-spacing:2px; color:#555;">RESERVE</span>
+      </div>
+      <div class="twelve-hero">
+        <span class="twelve-title">Maine · Tasting Menu</span>
+      </div>
+      <div class="twelve-body">
+        Grayscale base. Photography carries all color. Dark = confidence. No color = no compromise.
+      </div>
+    </div>
+    <div class="site-insights">
+      <div class="insight-title">Signale</div>
+      <ul class="insight-list">
+        <li>Dunkel-Grau als Basis — Farbe kommt nur von Fotografie</li>
+        <li>ALL CAPS + Letter-Spacing = editorial authority</li>
+        <li>Carousel nur für Fotografie — kein Marketing-Text darin</li>
+        <li>Location + Konzept als einzige Headline</li>
+      </ul>
+      <div style="margin-top:10px">
+        <span class="tag">Dunkel</span>
+        <span class="tag">Grau-Skala</span>
+        <span class="tag">Editorial</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HIO -->
+  <div class="site">
+    <div class="site-header">
+      <div>
+        <div class="site-name">HIO Fine Dining</div>
+        <div class="site-url">hilzhof.com</div>
+      </div>
+      <div class="site-award">Awwwards HM Aug 2023</div>
+    </div>
+    <div class="site-mockup hio-mock">
+      <div class="hio-nav">
+        <span class="hio-logo">HIO</span>
+        <span style="font-size:8px; color:#6a5a78; letter-spacing:2px;">RESERVIERUNG</span>
+      </div>
+      <div class="hio-hero">
+        <span class="hio-title">Der Acker kocht.</span>
+      </div>
+      <div class="hio-body">
+        Deep plum palette. Farm-to-table. The field as identity.
+        <div class="hio-tag-line">Honest · Rooted · Minimalistic</div>
+      </div>
+    </div>
+    <div class="site-insights">
+      <div class="insight-title">Signale</div>
+      <ul class="insight-list">
+        <li>"Der Acker kocht" — poetische Headline mit Identität</li>
+        <li>Tiefes Pflaume #2f1638 — nicht Schwarz, nicht Navy</li>
+        <li>Wärme + Erdtöne in Typografie</li>
+        <li>Drei Adjektive als Markenkern (Honest · Rooted · Min.)</li>
+      </ul>
+      <div style="margin-top:10px">
+        <span class="tag gold">Pflaume/Lila</span>
+        <span class="tag">Poetisch</span>
+        <span class="tag green">✓ Ähnlich Il Gusto</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RICARD CAMARENA -->
+  <div class="site">
+    <div class="site-header">
+      <div>
+        <div class="site-name">Ricard Camarena</div>
+        <div class="site-url">ricardcamarena.com</div>
+      </div>
+      <div class="site-award">2 Michelin ★</div>
+    </div>
+    <div class="site-mockup camarena-mock">
+      <div class="camarena-nav">
+        <span class="camarena-logo">Ricard Camarena</span>
+        <span class="camarena-stars">★★ Michelin</span>
+      </div>
+      <div class="camarena-hero">
+        <div class="camarena-big">Innovative.<br>Invisible.</div>
+        <div class="camarena-small">Técnicas que no se ven, se perciben</div>
+      </div>
+    </div>
+    <div class="site-insights">
+      <div class="insight-title">Signale</div>
+      <ul class="insight-list">
+        <li>Auszeichnungen eingebaut — nie als Banner</li>
+        <li>Chef als Künstler positioniert</li>
+        <li>Weiß + viel Luft — Qualität spricht selbst</li>
+        <li>Headline beschreibt Philosophie, nicht Angebot</li>
+      </ul>
+      <div style="margin-top:10px">
+        <span class="tag">Weiß</span>
+        <span class="tag">Chef-Driven</span>
+        <span class="tag">Philosophie</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALINEA -->
+  <div class="site">
+    <div class="site-header">
+      <div>
+        <div class="site-name">Alinea</div>
+        <div class="site-url">alinearestaurant.com</div>
+      </div>
+      <div class="site-award">3 Michelin ★ Chicago</div>
+    </div>
+    <div class="site-mockup alinea-mock">
+      <div class="alinea-nav">
+        <span class="alinea-logo">Alinea</span>
+      </div>
+      <div class="alinea-img-grid">
+        <div class="alinea-img"><span>Kitchen</span></div>
+        <div class="alinea-img"><span>Table</span></div>
+        <div class="alinea-img"><span>Gallery</span></div>
+        <div class="alinea-img"><span>Salon</span></div>
+      </div>
+      <div class="alinea-exp">
+        <div class="alinea-exp-item">KITCHEN<br>TABLE</div>
+        <div class="alinea-exp-item">THE<br>GALLERY</div>
+        <div class="alinea-exp-item">THE<br>SALON</div>
+      </div>
+    </div>
+    <div class="site-insights">
+      <div class="insight-title">Signale</div>
+      <ul class="insight-list">
+        <li>Galerie als Hauptnavigation — Essen = Kunst</li>
+        <li>Monochromatisch — Farbe kommt nur von Essen</li>
+        <li>3 Experiences statt 1 Restaurant</li>
+        <li>Kein Tagline — Name genügt</li>
+      </ul>
+      <div style="margin-top:10px">
+        <span class="tag">Galerie-Denken</span>
+        <span class="tag green">✓ Teller als Kunst</span>
+        <span class="tag">Weiß</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- UNIVERSAL PATTERNS -->
+<div class="patterns">
+  <div class="patterns-title">Was alle gemeinsam haben — die universellen Muster</div>
+  <div class="patterns-grid">
+    <div class="pattern">
+      <div class="pattern-num" style="color:#1e1e1e;">01</div>
+      <div class="pattern-name">Whitespace = Preis</div>
+      <div class="pattern-desc">Je teurer das Restaurant, desto mehr Luft um jedes Element. Überfüllung = günstig. Atmen = exklusiv. Das ist die stärkste Preis-Aussage im Design.</div>
+    </div>
+    <div class="pattern">
+      <div class="pattern-num" style="color:#1e1e1e;">02</div>
+      <div class="pattern-name">Foto-First, Text-Second</div>
+      <div class="pattern-desc">Das Bild kommt zuerst, immer. Text erklärt nie was das Foto nicht schon sagt. Kein "Herzlich Willkommen" wenn ein Teller-Foto das Niveau kommuniziert.</div>
+    </div>
+    <div class="pattern">
+      <div class="pattern-num" style="color:#1e1e1e;">03</div>
+      <div class="pattern-name">Headline = Philosophie</div>
+      <div class="pattern-desc">"An Invitation" / "Der Acker kocht" / "LA Season 2026" — keine Angebote, keine Features. Die Headline kommuniziert Haltung, nicht Produkt.</div>
+    </div>
+    <div class="pattern">
+      <div class="pattern-num" style="color:#1e1e1e;">04</div>
+      <div class="pattern-name">Auszeichnungen integriert</div>
+      <div class="pattern-desc">4,9★ erscheint nie als Banner oder Badge-Grid. Es ist ein Fließtext-Element, eine Zeile im Kontext — "144 Gäste haben gesprochen."</div>
+    </div>
+    <div class="pattern">
+      <div class="pattern-num" style="color:#1e1e1e;">05</div>
+      <div class="pattern-name">Reserve ist Verb, kein CTA</div>
+      <div class="pattern-desc">Kein Button der schreit. "Reserve" ist immer dezent — Link, nicht Button. Es ist die natürliche Schlussfolgerung der Seite, nicht ein Interrupt.</div>
+    </div>
+    <div class="pattern">
+      <div class="pattern-num" style="color:#1e1e1e;">06</div>
+      <div class="pattern-name">Palette = 2 Farben + Foto</div>
+      <div class="pattern-desc">Weiß/Creme + Schwarz/Dunkel + die Farben kommen aus den Lebensmitteln. Nie mehr als 2 Brand-Farben. Nie gesättigte Akzente außer in der Fotografie.</div>
+    </div>
+    <div class="pattern">
+      <div class="pattern-num" style="color:#1e1e1e;">07</div>
+      <div class="pattern-name">Navigation = 4 Items max</div>
+      <div class="pattern-desc">Menü · Über uns · Reserve · (Galerie). Nie mehr. Alles andere ist Lärm. Die Navigation ist der erste Trust-Signal: wer viel navigiert hat viel zu verbergen.</div>
+    </div>
+    <div class="pattern">
+      <div class="pattern-num" style="color:#1e1e1e;">08</div>
+      <div class="pattern-name">Scroll = Narrative</div>
+      <div class="pattern-desc">Die Seite erzählt eine Geschichte beim Scrollen. Jede Section beantwortet eine Frage: Wer seid ihr? Was esst ihr? Warum soll ich kommen? Wie reserviere ich?</div>
+    </div>
+  </div>
+</div>
+
+<!-- IL GUSTO DIFFERENZIERUNG -->
+<div class="ilgusto-diff">
+  <div class="diff-title">Il Gusto — Was wir übernehmen vs. was uns unterscheidet</div>
+  <div class="diff-grid">
+    <div class="diff-col">
+      <div class="diff-col-title">Von den Besten übernehmen</div>
+      <div class="diff-item">Whitespace als primäres Luxus-Signal</div>
+      <div class="diff-item">Headline = Philosophie: "Frisch. Elegant. Unvergesslich."</div>
+      <div class="diff-item">4,9★ in Fließtext integriert, nicht als Badge</div>
+      <div class="diff-item">Foto-First — Teller sprechen vor Text</div>
+      <div class="diff-item">Navigation: Speisekarte · Galerie · Reservierung</div>
+      <div class="diff-item">Scroll als Narrative: Qualität → Essen → Reserve</div>
+      <div class="diff-item">Reserve als elegantes Verb, nicht lautstarker Button</div>
+    </div>
+    <div class="diff-col">
+      <div class="diff-col-title" style="color:#c9a84c;">Was Il Gusto einzigartig macht</div>
+      <div class="diff-item highlight">Kreisförmige Overhead-Teller floating — kein anderes Restaurant macht das so</div>
+      <div class="diff-item highlight">Background-removed Plates als zentrale Design-Elemente</div>
+      <div class="diff-item highlight">4,9★ nach nur 2 Jahren — das ist die Story ("144 Gäste haben schon entschieden")</div>
+      <div class="diff-item highlight">Saarbrücken-Umland als Claim — nicht "in Kleinblittersdorf" sondern "der Beste der Region"</div>
+      <div class="diff-item">Hausgemachte Pasta als emotionaler Kern — nicht nur Gericht sondern Handwerk</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

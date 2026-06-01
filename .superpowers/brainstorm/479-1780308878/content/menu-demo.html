@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il Gusto — Speisekarte Demo</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #141210; color: #c0b8a8; font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+  .nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 52px; border-bottom: 1px solid #1c1810; position: sticky; top: 0;
+    background: rgba(20,18,16,0.95); backdrop-filter: blur(8px); z-index: 10;
+  }
+  .nav-logo { font-family: Georgia, serif; font-style: italic; font-size: 20px; color: #c9a84c; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links span { font-size: 9px; letter-spacing: 3px; color: #3a3530; text-transform: uppercase; cursor: pointer; }
+
+  .menu-section { padding: 80px 52px 100px; max-width: 900px; margin: 0 auto; }
+
+  .menu-header { margin-bottom: 64px; }
+  .menu-eyebrow { font-size: 9px; letter-spacing: 6px; color: #c9a84c; text-transform: uppercase; margin-bottom: 16px; }
+  .menu-title { font-size: 44px; font-family: Georgia, serif; font-style: italic; font-weight: 300; color: #e8e0d0; line-height: 1.1; }
+
+  /* Category cards */
+  .categories { display: flex; flex-direction: column; gap: 2px; }
+
+  .category {
+    border: 1px solid #1e1c18;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .category.open { border-color: #2e2c28; }
+
+  .cat-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 28px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .cat-header:hover { background: #1a1814; }
+  .category.open .cat-header { background: #181612; }
+
+  .cat-left { display: flex; align-items: baseline; gap: 20px; }
+  .cat-name { font-size: 11px; letter-spacing: 4px; color: #c9a84c; text-transform: uppercase; }
+  .cat-name-fr { font-size: 9px; letter-spacing: 2px; color: #3a3530; text-transform: uppercase; margin-left: 8px; }
+  .cat-range { font-size: 11px; color: #3a3530; font-family: Georgia, serif; font-style: italic; }
+  .cat-count { font-size: 9px; color: #2e2a26; letter-spacing: 1px; }
+
+  .cat-toggle {
+    width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center;
+    color: #2e2a26; font-size: 12px;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), color 0.3s;
+    flex-shrink: 0;
+  }
+  .category.open .cat-toggle { transform: rotate(45deg); color: #c9a84c; }
+
+  /* Dish list */
+  .cat-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+  .category.open .cat-body { max-height: 1000px; }
+
+  .dish-list { padding: 0 28px 24px; }
+
+  .dish {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px solid #1a1814;
+    gap: 20px;
+  }
+  .dish:last-child { border-bottom: none; }
+
+  .dish-left { flex: 1; }
+  .dish-name { font-size: 13px; color: #c8c0b0; font-weight: 500; margin-bottom: 4px; }
+  .dish-desc { font-size: 11px; color: #404038; line-height: 1.6; font-style: italic; }
+  .dish-price { font-size: 13px; color: #c9a84c; font-family: Georgia, serif; flex-shrink: 0; white-space: nowrap; }
+
+  /* Special highlight for signature */
+  .dish.signature .dish-name { color: #e8e0d0; }
+  .dish.signature .dish-name::after {
+    content: ' ★'; font-size: 10px; color: #c9a84c; margin-left: 6px;
+  }
+
+  /* Tageskarte hint */
+  .tageskarte {
+    margin-top: 48px; padding: 20px 28px;
+    border: 1px solid #1e1c18;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .tageskarte-text { font-size: 11px; color: #3a3530; font-style: italic; }
+  .tageskarte-text strong { color: #555; font-style: normal; }
+
+  /* Lang toggle */
+  .lang-toggle { display: flex; gap: 12px; align-items: center; }
+  .lang-btn { font-size: 9px; letter-spacing: 2px; color: #333; cursor: pointer; transition: color 0.3s; background: none; border: none; padding: 0; font-family: inherit; }
+  .lang-btn.active { color: #c9a84c; }
+  .lang-sep { color: #222; font-size: 9px; }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-logo">Il Gusto</div>
+  <div class="nav-links">
+    <span>Speisekarte</span>
+    <span>Galerie</span>
+    <span>Reservieren</span>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('de')">DE</button>
+      <span class="lang-sep">·</span>
+      <button class="lang-btn" onclick="setLang('fr')">FR</button>
+    </div>
+  </div>
+</div>
+
+<div class="menu-section">
+  <div class="menu-header">
+    <div class="menu-eyebrow" data-de="Unsere Küche" data-fr="Notre Cuisine">Unsere Küche</div>
+    <div class="menu-title" data-de="Speisekarte" data-fr="Carte">Speisekarte</div>
+  </div>
+
+  <div class="categories">
+
+    <!-- Vorspeisen -->
+    <div class="category">
+      <div class="cat-header" onclick="toggle(this)">
+        <div class="cat-left">
+          <span class="cat-name" data-de="Vorspeisen" data-fr="Entrées">Vorspeisen</span>
+          <span class="cat-range" data-de="ab 14,50 €" data-fr="à partir de 14,50 €">ab 14,50 €</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="cat-count" data-de="6 Gerichte" data-fr="6 plats">6 Gerichte</span>
+          <span class="cat-toggle">+</span>
+        </div>
+      </div>
+      <div class="cat-body">
+        <div class="dish-list">
+          <div class="dish signature">
+            <div class="dish-left">
+              <div class="dish-name" data-de="Antipasto il Gusto" data-fr="Antipasto il Gusto">Antipasto il Gusto</div>
+              <div class="dish-desc" data-de="Vorspeisen Variation nach Art des Hauses" data-fr="Variation de hors-d'œuvre à notre façon">Vorspeisen Variation nach Art des Hauses</div>
+            </div>
+            <div class="dish-price" data-de="19,50 € / 2p 35,00 €" data-fr="19,50 € / 2p 35,00 €">19,50 €</div>
+          </div>
+          <div class="dish">
+            <div class="dish-left">
+              <div class="dish-name" data-de="Gamberoni il Gusto" data-fr="Gamberoni il Gusto">Gamberoni il Gusto</div>
+              <div class="dish-desc" data-de="Riesengarnelen · Knoblauch · Kräutersoße" data-fr="Crevettes géantes · ail · sauce aux herbes">Riesengarnelen · Knoblauch · Kräutersoße</div>
+            </div>
+            <div class="dish-price">18,90 €</div>
+          </div>
+          <div class="dish">
+            <div class="dish-left">
+              <div class="dish-name" data-de="Zweierlei vom Rind" data-fr="Duo de bœuf">Zweierlei vom Rind</div>
+              <div class="dish-desc" data-de="Carpaccio und Tatar · Käsecreme · Trüffelöl" data-fr="Carpaccio et tartare · crème de fromage · huile de truffe">Carpaccio und Tatar · Käsecreme · Trüffelöl</div>
+            </div>
+            <div class="dish-price">21,50 €</div>
+          </div>
+          <div class="dish">
+            <div class="dish-left">
+              <div class="dish-name">Wolfsbarschcarpaccio</div>
+              <div class="dish-desc" data-de="Zitronenvinaigrette" data-fr="Vinaigrette au citron">Zitronenvinaigrette</div>
+            </div>
+            <div class="dish-price">18,50 €</div>
+          </div>
+          <div class="dish">
+            <div class="dish-left">
+              <div class="dish-name">Carpaccio di Barbabietola</div>
+              <div class="dish-desc" data-de="Rote Bete · karamellisierter Ziegenkäse · Rucola · Orange" data-fr="Betterave rouge · chèvre caramélisé · roquette · orange">Rote Bete · karamellisierter Ziegenkäse · Rucola · Orange</div>
+            </div>
+            <div class="dish-price">14,50 €</div>
+          </div>
+          <div class="dish">
+            <div class="dish-left">
+              <div class="dish-name">Vitello Tonnato</div>
+              <div class="dish-desc" data-de="Thunfischcremesoße · Kapern" data-fr="Sauce thon · câpres">Thunfischcremesoße · Kapern</div>
+            </div>
+            <div class="dish-price">18,50 €</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hausgemachte Pasta -->
+    <div class="category">
+      <div class="cat-header" onclick="toggle(this)">
+        <div class="cat-left">
+          <span class="cat-name" data-de="Hausgemachte Pasta" data-fr="Pâtes Maison">Hausgemachte Pasta</span>
+          <span class="cat-range" data-de="ab 17,90 €" data-fr="à partir de 17,90 €">ab 17,90 €</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="cat-count" data-de="3 Gerichte" data-fr="3 plats">3 Gerichte</span>
+          <span class="cat-toggle">+</span>
+        </div>
+      </div>
+      <div class="cat-body">
+        <div class="dish-list">
+          <div class="dish signature">
+            <div class="dish-left">
+              <div class="dish-name">Ravioli di Vitello</div>
+              <div class="dish-desc" data-de="Kalbsfüllung · Süßkartoffelcreme · Demi-Glace" data-fr="Farce de veau · crème de patate douce · demi-glace">Kalbsfüllung · Süßkartoffelcreme · Demi-Glace</div>
+            </div>
+            <div class="dish-price">18,90 €</div>
+          </div>
+          <div class="dish">
+            <div class="dish-left">
+              <div class="dish-name">Tortelloni al Salmone</div>
+              <div class="dish-desc" data-de="Lachscreme-Füllung · Zitronensoße · Mandel" data-fr="Farce crème de saumon · sauce citron · amande">Lachscreme-Füllung · Zitronensoße · Mandel</div>
+            </div>
+            <div class="dish-price">18,90 €</div>
+          </div>
+          <div class="dish">
+            <div class="dish-left">
+              <div class="dish-name">Tortelloni ai Fungi</div>
+              <div class="dish-desc" data-de="Pilzcreme-Füllung · getrüffelte Käsecreme" data-fr="Farce crème de champignons · crème de fromage truffée">Pilzcreme-Füllung · getrüffelte Käsecreme</div>
+            </div>
+            <div class="dish-price">17,90 €</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hauptspeisen -->
+    <div class="category">
+      <div class="cat-header" onclick="toggle(this)">
+        <div class="cat-left">
+          <span class="cat-name" data-de="Hauptspeisen" data-fr="Plats Principaux">Hauptspeisen</span>
+          <span class="cat-range" data-de="ab 26,90 €" data-fr="à partir de 26,90 €">ab 26,90 €</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="cat-count" data-de="8 Gerichte" data-fr="8 plats">8 Gerichte</span>
+          <span class="cat-toggle">+</span>
+        </div>
+      </div>
+      <div class="cat-body">
+        <div class="dish-list">
+          <div class="dish signature">
+            <div class="dish-left">
+              <div class="dish-name">Surf and Turf</div>
+              <div class="dish-desc" data-de="Argentinisches Roastbeef · Riesengarnelen · Gemüse · Kartoffeln" data-fr="Rosbif argentin · crevettes géantes · légumes · pommes de terre">Argentinisches Roastbeef · Riesengarnelen · Gemüse · Kartoffeln</div>
+            </div>
+            <div class="dish-price">37,90 €</div>
+          </div>
+          <div class="dish">
+            <div class="dish-left">
+              <div class="dish-name">Bistecca di Manzo il Gusto</div>
+              <div class="dish-desc" data-de="Argentinisches Roastbeef · Edelpilzcremesoße · Gemüse" data-fr="Rosbif argentin · sauce crème de champignons nobles">Argentinisches Roastbeef · Edelpilzcremesoße · Gemüse</div>
+            </div>
+            <div class="dish-price">32,90 €</div>
+          </div>
+          <div class="dish">
+            <div class="dish-left">
+              <div class="dish-name">Kalbsrücken</div>
+              <div class="dish-desc" data-de="Selleriecremesoße · Kartoffelpüree · Gemüse" data-fr="Sauce crème de céleri · purée · légumes">Selleriecremesoße · Kartoffelpüree · Gemüse</div>
+            </div>
+            <div class="dish-price">35,90 €</div>
+          </div>
+          <div class="dish">
+            <div class="dish-left">
+              <div class="dish-name">Saltimbocca alla Romana</div>
+              <div class="dish-desc" data-de="Kalb · Parmaschinken · Weißweinsoße · Salbei" data-fr="Veau · jambon de Parme · sauce vin blanc · sauge">Kalb · Parmaschinken · Weißweinsoße · Salbei</div>
+            </div>
+            <div class="dish-price">27,90 €</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dessert -->
+    <div class="category">
+      <div class="cat-header" onclick="toggle(this)">
+        <div class="cat-left">
+          <span class="cat-name" data-de="Dessert" data-fr="Desserts">Dessert</span>
+          <span class="cat-range" data-de="ab 7,90 €" data-fr="à partir de 7,90 €">ab 7,90 €</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="cat-count" data-de="6 Desserts" data-fr="6 desserts">6 Desserts</span>
+          <span class="cat-toggle">+</span>
+        </div>
+      </div>
+      <div class="cat-body">
+        <div class="dish-list">
+          <div class="dish signature">
+            <div class="dish-left">
+              <div class="dish-name">Tiramisu</div>
+              <div class="dish-desc" data-de="Hausgemacht · Kaffee · Amaretto" data-fr="Fait maison · café · amaretto">Hausgemacht · Kaffee · Amaretto</div>
+            </div>
+            <div class="dish-price">8,00 €</div>
+          </div>
+          <div class="dish">
+            <div class="dish-left">
+              <div class="dish-name">Tortino</div>
+              <div class="dish-desc" data-de="Schokoladensoufflé · Vanille-Eis" data-fr="Soufflé au chocolat · glace vanille">Schokoladensoufflé · Vanille-Eis</div>
+            </div>
+            <div class="dish-price">8,00 €</div>
+          </div>
+          <div class="dish">
+            <div class="dish-left">
+              <div class="dish-name">Café Gourmand</div>
+              <div class="dish-desc" data-de="Dessert Variation · Espresso" data-fr="Variation de desserts · espresso">Dessert Variation · Espresso</div>
+            </div>
+            <div class="dish-price">11,90 €</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Tageskarte -->
+  <div class="tageskarte">
+    <div class="tageskarte-text">
+      <span data-de="Viele weitere Gerichte finden Sie in unserer " data-fr="Retrouvez de nombreux autres plats sur notre ">Viele weitere Gerichte finden Sie in unserer </span>
+      <strong data-de="wechselnden Tageskarte" data-fr="carte du jour">wechselnden Tageskarte</strong>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggle(header) {
+  const cat = header.closest('.category');
+  cat.classList.toggle('open');
+}
+
+function setLang(lang) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+    el.textContent = el.getAttribute('data-' + lang);
+  });
+}
+</script>
+</body>
+</html>

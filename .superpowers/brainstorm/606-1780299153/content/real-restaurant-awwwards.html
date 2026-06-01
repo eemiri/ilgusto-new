@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Echte Awwwards Restaurant Gewinner</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #e0e0e0; font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+  .top-bar {
+    padding: 28px 48px 20px;
+    border-bottom: 1px solid #1c1c1c;
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+  }
+  .top-bar h1 { font-size: 11px; letter-spacing: 4px; color: #555; text-transform: uppercase; }
+  .top-bar .note { font-size: 11px; color: #333; }
+  .top-bar .check { color: #4caf50; font-size: 11px; }
+
+  .sites-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: 1px solid #1c1c1c;
+  }
+
+  .site-card {
+    border-right: 1px solid #1c1c1c;
+    padding: 0 0 32px;
+  }
+  .site-card:last-child { border-right: none; }
+
+  .award-bar {
+    padding: 12px 28px;
+    border-bottom: 1px solid #1c1c1c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .award-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .hm { color: #c9a84c; }
+  .nom { color: #7ab8f5; }
+  .award-date { font-size: 9px; color: #444; }
+
+  .mockup-preview {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Flavori */
+  .flavori-mock {
+    background: #0f0f0f;
+    padding: 24px;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    font-family: Georgia, serif;
+  }
+  .flavori-nav {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: #444;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .flavori-logo-big {
+    font-size: 48px;
+    font-weight: 300;
+    color: #fff;
+    letter-spacing: 18px;
+    margin: 28px 0 8px;
+    font-style: italic;
+  }
+  .flavori-sub {
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: #555;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .flavori-img {
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(135deg, #1a0f08 0%, #3d2010 40%, #2a1508 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .flavori-img span { font-size: 9px; letter-spacing: 3px; color: #5a3a1a; }
+  .flavori-dish {
+    font-size: 13px;
+    color: #888;
+    font-style: italic;
+    margin-bottom: 4px;
+  }
+  .flavori-price { font-size: 10px; color: #444; letter-spacing: 2px; }
+
+  /* Tastavents */
+  .tastavents-mock {
+    background: #fafaf8;
+    padding: 0;
+    min-height: 320px;
+    font-family: 'Georgia', serif;
+    color: #111;
+  }
+  .tasta-nav {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e8e8e4;
+    background: #fafaf8;
+  }
+  .tasta-logo { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: #111; font-family: sans-serif; }
+  .tasta-lang { font-size: 8px; letter-spacing: 2px; color: #999; display: flex; gap: 8px; font-family: sans-serif; }
+  .tasta-hero {
+    height: 160px;
+    background: linear-gradient(180deg, rgba(250,250,248,0) 0%, rgba(250,250,248,0.9) 100%),
+                linear-gradient(135deg, #d4c8a0 0%, #b8a870 50%, #c4b080 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 20px 24px;
+  }
+  .tasta-title-block {}
+  .tasta-num { font-size: 9px; letter-spacing: 4px; color: #888; font-family: sans-serif; margin-bottom: 4px; }
+  .tasta-title { font-size: 28px; font-weight: 400; color: #111; line-height: 1.1; }
+  .tasta-section {
+    padding: 16px 24px;
+    border-bottom: 1px solid #f0ede8;
+  }
+  .tasta-roman { font-size: 8px; letter-spacing: 4px; color: #bbb; font-family: sans-serif; margin-bottom: 6px; }
+  .tasta-body { font-size: 11px; color: #666; line-height: 1.7; font-family: sans-serif; }
+  .tasta-cta {
+    margin: 16px 24px 0;
+    display: inline-block;
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: #111;
+    border-bottom: 1px solid #111;
+    padding-bottom: 2px;
+    font-family: sans-serif;
+    text-transform: uppercase;
+  }
+
+  /* Laguna */
+  .laguna-mock {
+    background: #05080f;
+    padding: 0;
+    min-height: 320px;
+    font-family: Georgia, serif;
+  }
+  .laguna-header {
+    padding: 14px 24px;
+    border-bottom: 1px solid #0e1520;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .laguna-logo { font-size: 11px; letter-spacing: 4px; color: #c4a87a; text-transform: uppercase; font-family: sans-serif; }
+  .laguna-reserve { font-size: 8px; letter-spacing: 2px; color: #4a6070; border: 1px solid #1a2a38; padding: 5px 10px; font-family: sans-serif; }
+  .laguna-hero {
+    height: 180px;
+    background: linear-gradient(180deg, rgba(5,8,15,0.2) 0%, rgba(5,8,15,0.85) 100%),
+                linear-gradient(135deg, #0a1428 0%, #0d1f38 40%, #08121f 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px;
+  }
+  .laguna-poem {
+    font-size: 16px;
+    color: #c4a87a;
+    line-height: 1.4;
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+  .laguna-poem strong { font-style: normal; color: #fff; font-size: 18px; }
+  .laguna-tag { font-size: 8px; letter-spacing: 4px; color: #3a5060; font-family: sans-serif; text-transform: uppercase; }
+  .laguna-courses {
+    display: flex;
+    border-top: 1px solid #0e1520;
+  }
+  .laguna-course {
+    flex: 1;
+    padding: 12px 14px;
+    border-right: 1px solid #0e1520;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: #3a5060;
+    text-transform: uppercase;
+    font-family: sans-serif;
+  }
+  .laguna-course:last-child { border-right: none; }
+  .laguna-course .num { font-size: 16px; display: block; color: #1a3048; font-family: Georgia, serif; margin-bottom: 4px; }
+  .laguna-body {
+    padding: 16px 24px;
+  }
+  .laguna-section-label { font-size: 8px; letter-spacing: 4px; color: #2a4050; font-family: sans-serif; margin-bottom: 6px; text-transform: uppercase; }
+  .laguna-text { font-size: 11px; color: #4a6070; line-height: 1.8; }
+
+  /* DNA Section */
+  .dna-section {
+    border-top: 1px solid #1c1c1c;
+    padding: 40px 48px;
+  }
+  .dna-title {
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: #444;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .dna-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .dna-item {}
+  .dna-icon { font-size: 20px; margin-bottom: 10px; }
+  .dna-name { font-size: 11px; font-weight: 600; color: #c0c0c0; margin-bottom: 6px; }
+  .dna-desc { font-size: 11px; color: #555; line-height: 1.6; }
+
+  .site-meta {
+    padding: 20px 28px 0;
+  }
+  .site-url {
+    font-size: 10px;
+    color: #4a8;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    font-family: monospace;
+  }
+  .site-name { font-size: 15px; font-weight: 600; color: #e0e0e0; margin-bottom: 6px; }
+  .site-desc { font-size: 11px; color: #555; line-height: 1.6; }
+
+  .question-bar {
+    padding: 28px 48px;
+    border-top: 1px solid #1c1c1c;
+    background: #080808;
+    text-align: center;
+  }
+  .question-bar p { font-size: 13px; color: #666; }
+  .question-bar strong { color: #e0e0e0; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>Verifizierte Awwwards Restaurant-Gewinner</h1>
+  <div class="note">Aus 30+ überprüften Sites waren nur diese echte Restaurants <span class="check">✓</span></div>
+</div>
+
+<div class="sites-grid">
+
+  <!-- Flavori -->
+  <div class="site-card">
+    <div class="award-bar">
+      <span class="award-label hm">Honorable Mention</span>
+      <span class="award-date">4. Juli 2024</span>
+    </div>
+    <div class="mockup-preview">
+      <div class="flavori-mock">
+        <div class="flavori-nav">
+          <span>Menu</span><span>Reserve</span><span>Story</span><span>Contact</span>
+        </div>
+        <div class="flavori-logo-big">Flavori</div>
+        <div class="flavori-sub">Venetian Cuisine — Venice</div>
+        <div class="flavori-img"><span>Food Photography</span></div>
+        <div class="flavori-dish">"savory cheesy notes"</div>
+        <div class="flavori-price">€ 18</div>
+      </div>
+    </div>
+    <div class="site-meta">
+      <div class="site-url">flavori.ru</div>
+      <div class="site-name">Flavori Restaurant</div>
+      <div class="site-desc">Venezianisch-italienisches Restaurant. Minimalistisch SW-Palette, Typografie als Designelement (Buchstaben vertikal gespreizt), Parallax-Scroll, horizontale Layout-Optionen. Stärkstes Typografie-Spiel der drei.</div>
+    </div>
+  </div>
+
+  <!-- Tastavents -->
+  <div class="site-card">
+    <div class="award-bar">
+      <span class="award-label hm">Honorable Mention</span>
+      <span class="award-date">3. Oktober 2024</span>
+    </div>
+    <div class="mockup-preview">
+      <div class="tastavents-mock">
+        <div class="tasta-nav">
+          <div class="tasta-logo">Tastavents</div>
+          <div class="tasta-lang"><span>ES</span><span>CA</span><span>EN</span><span>FR</span></div>
+        </div>
+        <div class="tasta-hero">
+          <div class="tasta-title-block">
+            <div class="tasta-num">I — Presentación</div>
+            <div class="tasta-title">Gastronomic<br>Enclave</div>
+          </div>
+        </div>
+        <div class="tasta-section">
+          <div class="tasta-roman">II — Menú</div>
+          <div class="tasta-body">Mediterranean cuisine, carefully sourced ingredients, refined presentation on the Barcelona coast.</div>
+        </div>
+        <a class="tasta-cta">Reservar Mesa →</a>
+      </div>
+    </div>
+    <div class="site-meta">
+      <div class="site-url">tastavents.com</div>
+      <div class="site-name">Tastavents Restaurant</div>
+      <div class="site-desc">Gehobenes Mediterranean Restaurant, Barcelona. Reinweiße Palette, Roman-Numeral-Sektionen (I–VI), Großformat-Fotografie, extremes Whitespace. Zurückhaltung als Luxus-Signal. Adults Only.</div>
+    </div>
+  </div>
+
+  <!-- Laguna Al-Sha'ab -->
+  <div class="site-card">
+    <div class="award-bar">
+      <span class="award-label hm">Honorable Mention</span>
+      <span class="award-date">18. Oktober 2025</span>
+    </div>
+    <div class="mockup-preview">
+      <div class="laguna-mock">
+        <div class="laguna-header">
+          <div class="laguna-logo">Laguna Al-Sha'ab</div>
+          <div class="laguna-reserve">Reserve</div>
+        </div>
+        <div class="laguna-hero">
+          <div class="laguna-poem">
+            I don't just cook —<br>
+            <strong>I script with fish and salt.</strong>
+          </div>
+          <div class="laguna-tag">Fine Dining · Coastal Kuwait</div>
+        </div>
+        <div class="laguna-courses">
+          <div class="laguna-course"><span class="num">I</span>Amuse</div>
+          <div class="laguna-course"><span class="num">II</span>Entrée</div>
+          <div class="laguna-course"><span class="num">III</span>Fish</div>
+          <div class="laguna-course"><span class="num">IV</span>Main</div>
+          <div class="laguna-course"><span class="num">V</span>Dessert</div>
+        </div>
+        <div class="laguna-body">
+          <div class="laguna-section-label">The Experience</div>
+          <div class="laguna-text">Deep oceanic palette — navy, teal, gold accents. Salt crystal motifs throughout.</div>
+        </div>
+      </div>
+    </div>
+    <div class="site-meta">
+      <div class="site-url">culinaryodissey.uprock.pro</div>
+      <div class="site-name">Restaurant Laguna Al-Sha'ab</div>
+      <div class="site-desc">Fine Dining Kuwait. Dunkles Ozean-Farbschema, Gold-Akzente, Serif-Headings, poetische Kopie ("I script with fish and salt"), nummerierte Gänge als Seitenstruktur. Immersiv, cinematisch.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Common DNA -->
+<div class="dna-section">
+  <div class="dna-title">Was alle drei gemeinsam haben — das Awwwards Restaurant-DNA</div>
+  <div class="dna-grid">
+    <div class="dna-item">
+      <div class="dna-icon">📐</div>
+      <div class="dna-name">Kein Bootstrap-Grid</div>
+      <div class="dna-desc">Custom Layouts. Großzügiges Whitespace. Jede Sektion hat ihren eigenen Rhythmus statt gleichmäßiger Grid-Raster.</div>
+    </div>
+    <div class="dna-item">
+      <div class="dna-icon">📷</div>
+      <div class="dna-name">Fotografie as Hero</div>
+      <div class="dna-desc">Full-Bleed Bilder, keine Thumbnails. Das Essen spricht. Minimalistische Typografie drum herum — nicht über das Bild.</div>
+    </div>
+    <div class="dna-item">
+      <div class="dna-icon">✍️</div>
+      <div class="dna-name">Kopie mit Seele</div>
+      <div class="dna-desc">"I script with fish and salt" statt "Herzlich Willkommen". Texte die man liest, nicht überspringt.</div>
+    </div>
+    <div class="dna-item">
+      <div class="dna-icon">🎞️</div>
+      <div class="dna-name">Scroll als Narrative</div>
+      <div class="dna-desc">Nummerierte Sektionen (I–VI), progressive Enthüllung. Die Seite erzählt eine Geschichte beim Scrollen.</div>
+    </div>
+  </div>
+</div>
+
+<div class="question-bar">
+  <p>Welche der drei trifft am nächsten? Oder: Was magst du an einer, was du dir für Il Gusto vorstellen könntest?<br>
+  <strong>Auch Mischformen oder "keins davon" ist eine Antwort.</strong></p>
+</div>
+
+</body>
+</html>

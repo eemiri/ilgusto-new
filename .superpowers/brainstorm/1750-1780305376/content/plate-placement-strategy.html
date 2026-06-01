@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teller-Strategie</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #080808; color: #d0d0d0; font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+  .header { padding: 28px 48px 20px; border-bottom: 1px solid #181818; }
+  .header h1 { font-size: 10px; letter-spacing: 5px; color: #444; text-transform: uppercase; margin-bottom: 6px; }
+  .header p { font-size: 18px; font-weight: 300; }
+
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid #181818; }
+
+  .option {
+    border-right: 1px solid #181818;
+    border-bottom: 1px solid #181818;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .option:nth-child(2n) { border-right: none; }
+  .option:hover { background: #0d0d0d; }
+  .option.selected { outline: 2px solid #c9a84c; }
+  .option.selected::after {
+    content: '✓ GEWÄHLT';
+    position: absolute;
+    top: 12px; right: 12px;
+    font-size: 8px; letter-spacing: 3px; color: #c9a84c;
+  }
+  .option { position: relative; }
+
+  .opt-label {
+    padding: 14px 24px 10px;
+    border-bottom: 1px solid #141414;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .opt-name { font-size: 13px; font-weight: 600; color: #c0c0c0; }
+  .opt-tag { font-size: 8px; letter-spacing: 3px; color: #555; text-transform: uppercase; }
+
+  /* PAGE MOCKUP STYLES */
+  .mockup {
+    margin: 16px 20px;
+    border: 1px solid #1a1a1a;
+    overflow: hidden;
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+
+  /* Shared page elements */
+  .m-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 8px; letter-spacing: 2px; color: #666;
+    background: rgba(0,0,0,0.8); position: sticky; top: 0; z-index: 10;
+  }
+  .m-logo { color: #c9a84c; font-family: Georgia, serif; font-style: italic; font-size: 11px; letter-spacing: 1px; }
+
+  /* OPTION A: Hero only */
+  .a-hero {
+    background: #0d0d0d;
+    height: 140px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .a-plate-hero {
+    width: 90px; height: 90px; border-radius: 50%;
+    background: radial-gradient(circle, #e8d8c0 0%, #c0a880 40%, #906840 100%);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.8);
+    flex-shrink: 0;
+  }
+  .a-hero-text { position: absolute; bottom: 16px; left: 16px; right: 16px; }
+  .a-tagline { font-size: 9px; color: #c9a84c; letter-spacing: 3px; }
+  .a-rating { font-size: 8px; color: #555; margin-top: 3px; letter-spacing: 1px; }
+
+  .a-section {
+    padding: 12px 14px;
+    border-bottom: 1px solid #111;
+    background: #0a0a0a;
+  }
+  .a-sec-label { font-size: 7px; letter-spacing: 3px; color: #333; margin-bottom: 6px; }
+  .a-sec-content { display: flex; gap: 8px; }
+  .a-gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 12px 14px; background: #060606; }
+  .a-gallery-item { aspect-ratio: 1; border-radius: 50%; overflow: hidden; }
+  .a-plate-small { width: 100%; height: 100%; border-radius: 50%; }
+
+  /* OPTION B: Scattered (EVis's instinct) */
+  .b-hero {
+    background: #0d0d0d;
+    padding: 20px 14px 16px;
+    border-bottom: 1px solid #1a1a1a;
+    position: relative; overflow: hidden;
+  }
+  .b-plate-hero {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: radial-gradient(circle, #e8d8c0 0%, #c0a880 40%, #906840 100%);
+    box-shadow: 0 6px 30px rgba(0,0,0,0.8);
+    margin: 0 auto 12px; display: block;
+  }
+  .b-tagline { font-size: 10px; color: #c9a84c; letter-spacing: 2px; text-align: center; }
+  .b-rating { font-size: 7px; color: #555; text-align: center; margin-top: 4px; letter-spacing: 1px; }
+
+  .b-about {
+    padding: 14px;
+    background: #f8f5ef;
+    border-bottom: 1px solid #e0d8c8;
+    display: flex; gap: 12px; align-items: center;
+  }
+  .b-plate-about {
+    width: 50px; height: 50px; flex-shrink: 0; border-radius: 50%;
+    background: radial-gradient(circle, #d4a860 0%, #8a5830 100%);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .b-about-text { font-size: 9px; color: #6a5a4a; line-height: 1.6; }
+
+  .b-menu {
+    padding: 14px;
+    background: #0a0a0a;
+    border-bottom: 1px solid #111;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .b-menu-list { flex: 1; }
+  .b-menu-item { font-size: 9px; color: #666; padding: 4px 0; border-bottom: 1px solid #111; }
+  .b-menu-item span { color: #444; float: right; }
+  .b-plate-menu {
+    width: 44px; height: 44px; flex-shrink: 0; border-radius: 50%;
+    background: radial-gradient(circle, #c8a060 0%, #8a6030 100%);
+    opacity: 0.7; margin-top: 4px;
+  }
+
+  .b-reserve {
+    padding: 14px;
+    background: #060606;
+    text-align: center;
+  }
+  .b-phone { font-size: 14px; color: #c9a84c; letter-spacing: 2px; font-family: Georgia, serif; font-style: italic; }
+  .b-hours { font-size: 8px; color: #333; margin-top: 4px; letter-spacing: 1px; }
+
+  /* OPTION C: Full Gallery Section */
+  .c-hero {
+    background: #0d0d0d; padding: 20px 14px;
+    border-bottom: 1px solid #1a1a1a; text-align: center;
+  }
+  .c-tagline { font-size: 11px; color: #c9a84c; letter-spacing: 3px; margin-bottom: 6px; }
+  .c-rating { font-size: 8px; color: #555; letter-spacing: 1px; }
+
+  .c-gallery {
+    background: #060606; padding: 16px 14px;
+    border-bottom: 1px solid #111;
+  }
+  .c-gal-title { font-size: 7px; letter-spacing: 4px; color: #333; margin-bottom: 12px; text-transform: uppercase; }
+  .c-plate-row { display: flex; gap: 8px; justify-content: center; align-items: center; }
+  .c-plate { border-radius: 50%; background: radial-gradient(circle, #d4c090 0%, #907050 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.7); flex-shrink: 0; }
+
+  /* OPTION D: Plates as section markers */
+  .d-section {
+    border-bottom: 1px solid #111;
+    display: flex; align-items: stretch;
+  }
+  .d-plate-marker {
+    width: 50px; flex-shrink: 0;
+    background: #060606;
+    display: flex; align-items: center; justify-content: center;
+    border-right: 1px solid #111;
+    padding: 12px 8px;
+  }
+  .d-plate-sm { border-radius: 50%; background: radial-gradient(circle, #d4c090 0%, #907050 100%); box-shadow: 0 2px 12px rgba(0,0,0,0.6); }
+  .d-content { flex: 1; padding: 12px; background: #0a0a0a; }
+  .d-sec-name { font-size: 7px; letter-spacing: 3px; color: #c9a84c; margin-bottom: 6px; text-transform: uppercase; }
+  .d-sec-text { font-size: 9px; color: #555; line-height: 1.6; }
+
+  /* Description */
+  .opt-desc { padding: 16px 24px 20px; }
+  .opt-desc-title { font-size: 12px; font-weight: 600; color: #a0a0a0; margin-bottom: 8px; }
+  .opt-desc-body { font-size: 11px; color: #555; line-height: 1.7; margin-bottom: 12px; }
+  .opt-pros { display: flex; flex-wrap: wrap; gap: 6px; }
+  .opt-pro { font-size: 9px; color: #3a6a3a; border: 1px solid #1a3a1a; padding: 3px 8px; letter-spacing: 1px; }
+  .opt-con { font-size: 9px; color: #6a3a1a; border: 1px solid #3a1a0a; padding: 3px 8px; letter-spacing: 1px; }
+
+  .footer-note { padding: 24px 48px; border-top: 1px solid #181818; font-size: 12px; color: #444; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Wo kommen die Teller hin?</h1>
+  <p>Vier Strategien — klick die an die dich anspricht</p>
+</div>
+
+<div class="options">
+
+  <!-- A: Hero + Gallery -->
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="opt-label">
+      <span class="opt-name">A — Hero + Gallery</span>
+      <span class="opt-tag">Klassisch</span>
+    </div>
+    <div class="mockup">
+      <div class="m-nav">
+        <span class="m-logo">Il Gusto</span>
+        <span>Menü · Galerie · Reserve</span>
+      </div>
+      <div class="a-hero">
+        <div class="a-plate-hero"></div>
+        <div class="a-hero-text">
+          <div class="a-tagline">FRISCH · ELEGANT · UNVERGESSLICH</div>
+          <div class="a-rating">4,9 ★ · 144 Bewertungen</div>
+        </div>
+      </div>
+      <div class="a-section">
+        <div class="a-sec-label">Über uns</div>
+        <div class="a-sec-content">
+          <div style="font-size:9px; color:#444; line-height:1.6; flex:1;">Text über das Restaurant. Kein Teller hier.</div>
+        </div>
+      </div>
+      <div class="a-section">
+        <div class="a-sec-label">Speisekarte</div>
+        <div style="font-size:9px; color:#333; padding-top:4px;">Ravioli di Vitello · 18,90 €</div>
+      </div>
+      <div class="a-gallery-grid">
+        <div class="a-gallery-item"><div class="a-plate-small" style="background: radial-gradient(circle, #e8d0a0 0%, #a07040 100%);"></div></div>
+        <div class="a-gallery-item"><div class="a-plate-small" style="background: radial-gradient(circle, #c0d0a0 0%, #607040 100%);"></div></div>
+        <div class="a-gallery-item"><div class="a-plate-small" style="background: radial-gradient(circle, #d0b890 0%, #906040 100%);"></div></div>
+        <div class="a-gallery-item"><div class="a-plate-small" style="background: radial-gradient(circle, #e0c8b0 0%, #c09060 100%);"></div></div>
+        <div class="a-gallery-item"><div class="a-plate-small" style="background: radial-gradient(circle, #d8b890 0%, #885030 100%);"></div></div>
+        <div class="a-gallery-item"><div class="a-plate-small" style="background: radial-gradient(circle, #c8d0b8 0%, #708050 100%);"></div></div>
+      </div>
+    </div>
+    <div class="opt-desc">
+      <div class="opt-desc-title">Hero + dedizierte Gallery-Section</div>
+      <div class="opt-desc-body">Ein Teller groß im Hero, alle anderen in einer sauberen Gallery-Section weiter unten. Klar getrennt, einfach zu bauen.</div>
+      <div class="opt-pros">
+        <span class="opt-pro">Vorhersehbar</span>
+        <span class="opt-pro">Sauber</span>
+        <span class="opt-con">Teller "verschwinden" nach unten</span>
+        <span class="opt-con">Weniger distinctive</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- B: Scattered throughout -->
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="opt-label">
+      <span class="opt-name">B — Durch die ganze Seite gestreut</span>
+      <span class="opt-tag">Dein Instinkt ★</span>
+    </div>
+    <div class="mockup">
+      <div class="m-nav">
+        <span class="m-logo">Il Gusto</span>
+        <span>Menü · Galerie · Reserve</span>
+      </div>
+      <div class="b-hero">
+        <div class="b-plate-hero"></div>
+        <div class="b-tagline">FRISCH · ELEGANT · UNVERGESSLICH</div>
+        <div class="b-rating">4,9 ★ · 144 Bewertungen · Saarbrücken-Umland</div>
+      </div>
+      <div class="b-about">
+        <div class="b-plate-about"></div>
+        <div class="b-about-text">Hausgemachte Pasta. Frische Zutaten. Die Seele Italiens — jeden Abend in Kleinblittersdorf.</div>
+      </div>
+      <div class="b-menu">
+        <div class="b-menu-list">
+          <div class="b-menu-item">Ravioli di Vitello <span>18,90 €</span></div>
+          <div class="b-menu-item">Tortelloni al Salmone <span>18,90 €</span></div>
+          <div class="b-menu-item">Bistecca di Manzo <span>32,90 €</span></div>
+        </div>
+        <div class="b-plate-menu"></div>
+      </div>
+      <div class="b-reserve">
+        <div class="b-phone">+49 6805 9439490</div>
+        <div class="b-hours">Di–Sa 17–22h · So 12–14h & 18–21h</div>
+      </div>
+    </div>
+    <div class="opt-desc">
+      <div class="opt-desc-title">Teller als wiederkehrendes Leitmotiv</div>
+      <div class="opt-desc-body">Ein Teller begleitet jede Section — mal groß, mal klein, mal links, mal rechts. Die Seite atmet Essen in jedem Moment. Das Visuelle System ist konsistent und unverkennbar.</div>
+      <div class="opt-pros">
+        <span class="opt-pro">Distinctive</span>
+        <span class="opt-pro">Immer präsent</span>
+        <span class="opt-pro">Storytelling</span>
+        <span class="opt-con">Braucht gute Fotos für alle Positionen</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- C: Gallery Section as hero -->
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="opt-label">
+      <span class="opt-name">C — Gallery als Hauptattraktion</span>
+      <span class="opt-tag">Editorial</span>
+    </div>
+    <div class="mockup">
+      <div class="m-nav">
+        <span class="m-logo">Il Gusto</span>
+        <span>Menü · Küche · Reserve</span>
+      </div>
+      <div class="c-hero" style="background: #0d0d0d; padding: 20px 14px;">
+        <div class="c-tagline">IL GUSTO</div>
+        <div class="c-rating">4,9 ★ · Frisch. Elegant. Unvergesslich.</div>
+        <div style="height: 16px;"></div>
+      </div>
+      <div class="c-gallery">
+        <div class="c-gal-title">Unsere Küche</div>
+        <div class="c-plate-row">
+          <div class="c-plate" style="width:64px; height:64px; background: radial-gradient(circle, #e0c890 0%, #906840 100%);"></div>
+          <div class="c-plate" style="width:80px; height:80px; background: radial-gradient(circle, #c0d8a0 0%, #507040 100%);"></div>
+          <div class="c-plate" style="width:64px; height:64px; background: radial-gradient(circle, #d8c0a0 0%, #886040 100%);"></div>
+        </div>
+        <div class="c-plate-row" style="margin-top:8px; justify-content: flex-start; padding-left: 20px;">
+          <div class="c-plate" style="width:50px; height:50px; background: radial-gradient(circle, #d0b890 0%, #806040 100%);"></div>
+          <div class="c-plate" style="width:68px; height:68px; background: radial-gradient(circle, #c8d090 0%, #607040 100%);"></div>
+        </div>
+      </div>
+      <div class="a-section">
+        <div class="a-sec-label">Speisekarte</div>
+        <div style="font-size:9px; color:#333; padding-top:4px;">Text ohne Teller in anderen Sections.</div>
+      </div>
+    </div>
+    <div class="opt-desc">
+      <div class="opt-desc-title">Gallery direkt nach Hero — Essen first</div>
+      <div class="opt-desc-body">Kein Text vor den Tellern. Hero zeigt Namen + Rating, danach sofort die Galerie. Maximale Wirkung des visuellen Systems — Essen ist die erste Aussage.</div>
+      <div class="opt-pros">
+        <span class="opt-pro">Maximale Wirkung</span>
+        <span class="opt-pro">Marco-freundlich</span>
+        <span class="opt-con">Anna sieht Menü erst nach Galerie</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- D: Plates as section dividers/markers -->
+  <div class="option" data-choice="d" onclick="toggleSelect(this)">
+    <div class="opt-label">
+      <span class="opt-name">D — Teller als Section-Trenner</span>
+      <span class="opt-tag">Strukturell</span>
+    </div>
+    <div class="mockup">
+      <div class="m-nav">
+        <span class="m-logo">Il Gusto</span>
+        <span>Menü · Reserve</span>
+      </div>
+      <div style="background:#0d0d0d; padding:16px 14px; border-bottom:1px solid #1a1a1a; text-align:center;">
+        <div style="font-size:9px; color:#c9a84c; letter-spacing:3px;">FRISCH · ELEGANT · UNVERGESSLICH</div>
+        <div style="font-size:7px; color:#555; margin-top:4px; letter-spacing:1px;">4,9 ★ · 144 Bewertungen</div>
+      </div>
+      <!-- Plate divider before About -->
+      <div style="display:flex; justify-content:center; padding:10px; background:#070707; border-bottom:1px solid #111;">
+        <div style="width:44px; height:44px; border-radius:50%; background: radial-gradient(circle, #e0c890 0%, #906840 100%); box-shadow:0 4px 16px rgba(0,0,0,0.7);"></div>
+      </div>
+      <div class="d-section">
+        <div class="d-content">
+          <div class="d-sec-name">Über uns</div>
+          <div class="d-sec-text">Hausgemachte Pasta. Frische Zutaten. Saarbrücken-Umland.</div>
+        </div>
+      </div>
+      <!-- Plate divider before Menu -->
+      <div style="display:flex; justify-content:center; padding:10px; background:#070707; border-bottom:1px solid #111;">
+        <div style="width:44px; height:44px; border-radius:50%; background: radial-gradient(circle, #c0d8a0 0%, #507040 100%); box-shadow:0 4px 16px rgba(0,0,0,0.7);"></div>
+      </div>
+      <div class="d-section">
+        <div class="d-content">
+          <div class="d-sec-name">Speisekarte</div>
+          <div class="d-sec-text">Ravioli · Tortelloni · Bistecca · Wolfsbarsch</div>
+        </div>
+      </div>
+      <!-- Plate divider before Reserve -->
+      <div style="display:flex; justify-content:center; padding:10px; background:#070707; border-bottom:1px solid #111;">
+        <div style="width:44px; height:44px; border-radius:50%; background: radial-gradient(circle, #d0b890 0%, #806040 100%); box-shadow:0 4px 16px rgba(0,0,0,0.7);"></div>
+      </div>
+      <div class="d-section">
+        <div class="d-content">
+          <div class="d-sec-name">Reservierung</div>
+          <div class="d-sec-text" style="color:#c9a84c; font-size:11px;">+49 6805 9439490</div>
+        </div>
+      </div>
+    </div>
+    <div class="opt-desc">
+      <div class="opt-desc-title">Teller trennen und strukturieren Sections</div>
+      <div class="opt-desc-body">Jeder Teller markiert den Übergang zwischen Sections — sie sind Kapitel-Marker. Konsequent, rhythmisch, jeder Teller kündigt den nächsten Bereich an.</div>
+      <div class="opt-pros">
+        <span class="opt-pro">Rhythmus</span>
+        <span class="opt-pro">Struktur</span>
+        <span class="opt-con">Teller wirken klein als Trenner</span>
+        <span class="opt-con">Weniger emotional</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer-note">
+  Klick auf eine Option — oder sag was du dir vorstellst. Kombinationen sind möglich (z.B. B + C: Teller gestreut UND eine dedizierte Gallery).
+</div>
+
+</body>
+</html>

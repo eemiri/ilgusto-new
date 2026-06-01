@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il Gusto — Page Load Varianten</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0e0c0a; color: #c0b8a8; font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+  /* ── CHOOSER ── */
+  .chooser {
+    display: flex; gap: 0;
+    border-bottom: 1px solid #1a1814;
+    position: sticky; top: 0; z-index: 100;
+    background: #0e0c0a;
+  }
+  .choice-btn {
+    flex: 1; padding: 16px;
+    text-align: center; cursor: pointer;
+    font-size: 9px; letter-spacing: 3px; color: #333; text-transform: uppercase;
+    border-right: 1px solid #1a1814;
+    transition: color 0.3s, background 0.3s;
+  }
+  .choice-btn:last-child { border-right: none; }
+  .choice-btn:hover { color: #888; }
+  .choice-btn.active { color: #c9a84c; background: #121008; }
+
+  .replay-btn {
+    padding: 0 20px;
+    font-size: 9px; letter-spacing: 3px; color: #333; text-transform: uppercase;
+    cursor: pointer; transition: color 0.3s; border-left: 1px solid #1a1814;
+    display: flex; align-items: center;
+  }
+  .replay-btn:hover { color: #888; }
+
+  /* ── STAGE ── */
+  .stage {
+    position: relative;
+    height: calc(100vh - 49px);
+    overflow: hidden;
+    background: #141210;
+  }
+
+  /* Shared nav */
+  .s-nav {
+    position: absolute; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px 52px; z-index: 10;
+  }
+  .s-logo { font-family: Georgia, serif; font-style: italic; font-size: 20px; color: #c9a84c; }
+  .s-links { display: flex; gap: 36px; }
+  .s-links span { font-size: 9px; letter-spacing: 3px; color: #3a3530; text-transform: uppercase; }
+
+  /* Shared hero content */
+  .s-hero {
+    position: absolute; inset: 0;
+    display: flex; align-items: center;
+    padding: 0 52px;
+    gap: 80px;
+  }
+  .s-text { flex: 0 0 auto; }
+  .s-eyebrow { font-size: 9px; letter-spacing: 6px; color: #c9a84c; text-transform: uppercase; margin-bottom: 18px; }
+  .s-headline { font-size: 48px; font-family: Georgia, serif; font-weight: 300; font-style: italic; color: #e8e0d0; line-height: 1.1; margin-bottom: 20px; }
+  .s-rating { font-size: 11px; color: #3a3530; letter-spacing: 2px; margin-bottom: 24px; }
+  .s-phone { font-size: 14px; color: #c9a84c; font-family: Georgia, serif; font-style: italic; letter-spacing: 1px; }
+
+  .s-plate {
+    width: 280px; height: 280px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg,#e8c890 0%,#d4a860 35%,#a07040 65%,#c89858 100%);
+    box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+  }
+
+  /* ── VARIANT A: Staggered Fade-In ── */
+  .var-a .s-nav { opacity: 0; transform: translateY(-10px); }
+  .var-a .s-eyebrow { opacity: 0; transform: translateY(12px); }
+  .var-a .s-headline { opacity: 0; transform: translateY(16px); }
+  .var-a .s-rating { opacity: 0; }
+  .var-a .s-phone { opacity: 0; }
+  .var-a .s-plate { opacity: 0; transform: translateY(20px) scale(0.95); }
+
+  .var-a.play .s-nav { opacity: 1; transform: translateY(0); transition: opacity 0.8s 0.1s ease, transform 0.8s 0.1s ease; }
+  .var-a.play .s-eyebrow { opacity: 1; transform: translateY(0); transition: opacity 0.7s 0.4s ease, transform 0.7s 0.4s ease; }
+  .var-a.play .s-headline { opacity: 1; transform: translateY(0); transition: opacity 0.8s 0.6s ease, transform 0.8s 0.6s ease; }
+  .var-a.play .s-rating { opacity: 1; transition: opacity 0.7s 1.0s ease; }
+  .var-a.play .s-phone { opacity: 1; transition: opacity 0.7s 1.2s ease; }
+  .var-a.play .s-plate { opacity: 1; transform: translateY(0) scale(1); transition: opacity 0.9s 0.5s ease, transform 0.9s 0.5s cubic-bezier(0.4,0,0.2,1); }
+
+  /* ── VARIANT B: Plate-First (from center, then layout) ── */
+  .var-b .s-nav { opacity: 0; }
+  .var-b .s-eyebrow { opacity: 0; }
+  .var-b .s-headline { opacity: 0; }
+  .var-b .s-rating { opacity: 0; }
+  .var-b .s-phone { opacity: 0; }
+  .var-b .s-plate {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0;
+    z-index: 5;
+    transition: none;
+    width: 220px; height: 220px;
+  }
+
+  .var-b.play .s-plate {
+    opacity: 1; transform: translate(-50%, -50%) scale(1);
+    transition: opacity 0.6s 0.1s ease, transform 0.8s 0.1s cubic-bezier(0.4,0,0.2,1);
+  }
+  .var-b.play .s-plate.settled {
+    /* plate moves to right side */
+    left: calc(52px + 400px + 80px + 140px);
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: left 0.85s 0.9s cubic-bezier(0.4,0,0.2,1), top 0.85s 0.9s cubic-bezier(0.4,0,0.2,1);
+  }
+  .var-b.play .s-nav { opacity: 1; transition: opacity 0.6s 1.5s ease; }
+  .var-b.play .s-eyebrow { opacity: 1; transition: opacity 0.6s 1.6s ease; }
+  .var-b.play .s-headline { opacity: 1; transition: opacity 0.7s 1.75s ease; }
+  .var-b.play .s-rating { opacity: 1; transition: opacity 0.6s 2.0s ease; }
+  .var-b.play .s-phone { opacity: 1; transition: opacity 0.6s 2.15s ease; }
+
+  /* ── VARIANT C: Curtain Wipe (dark panel slides up) ── */
+  .var-c-curtain {
+    position: absolute; inset: 0; background: #080604; z-index: 8;
+    transform: translateY(0);
+  }
+  .var-c .s-nav { opacity: 0; }
+  .var-c .s-eyebrow { opacity: 0; }
+  .var-c .s-headline { opacity: 0; }
+  .var-c .s-rating { opacity: 0; }
+  .var-c .s-phone { opacity: 0; }
+  .var-c .s-plate { opacity: 0; }
+
+  .var-c.play .var-c-curtain {
+    transform: translateY(-101%);
+    transition: transform 1.0s 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  .var-c.play .s-nav { opacity: 1; transition: opacity 0.6s 1.1s ease; }
+  .var-c.play .s-eyebrow { opacity: 1; transition: opacity 0.6s 1.2s ease; }
+  .var-c.play .s-headline { opacity: 1; transition: opacity 0.7s 1.35s ease; }
+  .var-c.play .s-rating { opacity: 1; transition: opacity 0.6s 1.55s ease; }
+  .var-c.play .s-phone { opacity: 1; transition: opacity 0.6s 1.7s ease; }
+  .var-c.play .s-plate { opacity: 1; transition: opacity 0.8s 1.3s ease; }
+
+  /* Label */
+  .variant-label {
+    position: absolute; bottom: 24px; left: 52px;
+    font-size: 9px; letter-spacing: 3px; color: #2a2520; text-transform: uppercase;
+    z-index: 10;
+  }
+
+  /* Description bar */
+  .desc-bar {
+    padding: 20px 52px;
+    background: #0a0806;
+    border-top: 1px solid #181410;
+    font-size: 11px; color: #444; line-height: 1.7;
+    min-height: 60px;
+  }
+  .desc-bar strong { color: #888; }
+</style>
+</head>
+<body>
+
+<!-- CHOOSER -->
+<div class="chooser">
+  <div class="choice-btn active" onclick="show('a')">A — Staggered Fade</div>
+  <div class="choice-btn" onclick="show('b')">B — Teller First</div>
+  <div class="choice-btn" onclick="show('c')">C — Curtain Wipe</div>
+  <div class="replay-btn" onclick="replay()">↺ Replay</div>
+</div>
+
+<!-- STAGE A: Staggered Fade -->
+<div class="stage var-a" id="stage-a">
+  <nav class="s-nav">
+    <div class="s-logo">Il Gusto</div>
+    <div class="s-links"><span>Speisekarte</span><span>Galerie</span><span>Reservieren</span><span style="color:#c9a84c;font-size:8px;letter-spacing:2px;">DE · FR</span></div>
+  </nav>
+  <div class="s-hero">
+    <div class="s-text">
+      <div class="s-eyebrow">Italian Fine Dining · Kleinblittersdorf</div>
+      <div class="s-headline">Frisch.<br>Elegant.<br>Unvergesslich.</div>
+      <div class="s-rating">4,9 ★ · 144 Gäste haben gesprochen</div>
+      <div class="s-phone">+49 6805 9439490</div>
+    </div>
+    <div class="s-plate"></div>
+  </div>
+  <div class="variant-label">A — Staggered Fade</div>
+</div>
+
+<!-- STAGE B: Plate First -->
+<div class="stage var-b" id="stage-b" style="display:none">
+  <nav class="s-nav">
+    <div class="s-logo">Il Gusto</div>
+    <div class="s-links"><span>Speisekarte</span><span>Galerie</span><span>Reservieren</span><span style="color:#c9a84c;font-size:8px;letter-spacing:2px;">DE · FR</span></div>
+  </nav>
+  <div class="s-hero">
+    <div class="s-text">
+      <div class="s-eyebrow">Italian Fine Dining · Kleinblittersdorf</div>
+      <div class="s-headline">Frisch.<br>Elegant.<br>Unvergesslich.</div>
+      <div class="s-rating">4,9 ★ · 144 Gäste haben gesprochen</div>
+      <div class="s-phone">+49 6805 9439490</div>
+    </div>
+  </div>
+  <div class="s-plate" id="plate-b"></div>
+  <div class="variant-label">B — Teller First</div>
+</div>
+
+<!-- STAGE C: Curtain -->
+<div class="stage var-c" id="stage-c" style="display:none">
+  <div class="var-c-curtain">
+    <div style="position:absolute;bottom:48px;left:52px;font-family:Georgia,serif;font-style:italic;font-size:28px;color:#1a1410;">Il Gusto</div>
+  </div>
+  <nav class="s-nav">
+    <div class="s-logo">Il Gusto</div>
+    <div class="s-links"><span>Speisekarte</span><span>Galerie</span><span>Reservieren</span><span style="color:#c9a84c;font-size:8px;letter-spacing:2px;">DE · FR</span></div>
+  </nav>
+  <div class="s-hero">
+    <div class="s-text">
+      <div class="s-eyebrow">Italian Fine Dining · Kleinblittersdorf</div>
+      <div class="s-headline">Frisch.<br>Elegant.<br>Unvergesslich.</div>
+      <div class="s-rating">4,9 ★ · 144 Gäste haben gesprochen</div>
+      <div class="s-phone">+49 6805 9439490</div>
+    </div>
+    <div class="s-plate"></div>
+  </div>
+  <div class="variant-label">C — Curtain Wipe</div>
+</div>
+
+<!-- DESCRIPTION -->
+<div class="desc-bar" id="desc">
+  <strong>A — Staggered Fade:</strong> Nav erscheint zuerst, dann Eyebrow, dann Headline, dann Teller. Jedes Element hat seinen eigenen Moment. Sanft, klassisch, wie Tastavents und Canlis.
+</div>
+
+<script>
+let current = 'a';
+let timer = null;
+
+const descs = {
+  a: '<strong>A — Staggered Fade:</strong> Nav erscheint zuerst, dann Eyebrow, dann Headline, dann Teller. Jedes Element hat seinen eigenen Moment. Sanft, klassisch — wie Tastavents und Canlis.',
+  b: '<strong>B — Teller First:</strong> Der Teller erscheint zuerst in der Bildschirmmitte, schwebt dann auf seine Position, danach baut sich der Rest auf. Einzigartig für Il Gusto — der Teller als primäre Identität.',
+  c: '<strong>C — Curtain Wipe:</strong> Ein dunkler Vorhang mit dem Logo zieht nach oben weg und gibt die Seite frei. Kinematisch, dramatisch — wie ein Theater-Vorhang. HIO und Laguna Al-Shaab Style.'
+};
+
+function show(v) {
+  document.querySelectorAll('.stage').forEach(s => s.style.display = 'none');
+  document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('stage-' + v).style.display = 'block';
+  document.querySelectorAll('.choice-btn')[['a','b','c'].indexOf(v)].classList.add('active');
+  document.getElementById('desc').innerHTML = descs[v];
+  current = v;
+  startAnimation(v);
+}
+
+function replay() {
+  startAnimation(current);
+}
+
+function startAnimation(v) {
+  if (timer) clearTimeout(timer);
+  const stage = document.getElementById('stage-' + v);
+
+  // Reset
+  stage.classList.remove('play');
+  if (v === 'b') {
+    const p = document.getElementById('plate-b');
+    p.classList.remove('settled');
+    p.style.transition = 'none';
+  }
+
+  void stage.offsetHeight; // reflow
+
+  timer = setTimeout(() => {
+    stage.classList.add('play');
+    if (v === 'b') {
+      setTimeout(() => {
+        document.getElementById('plate-b').classList.add('settled');
+      }, 900);
+    }
+  }, 80);
+}
+
+// Auto-start A
+startAnimation('a');
+</script>
+</body>
+</html>

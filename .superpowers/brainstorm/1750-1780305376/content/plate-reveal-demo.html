@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teller-Reveal — Demo</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #080808;
+    color: #d0d0d0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    min-height: 100vh;
+  }
+
+  .header {
+    padding: 24px 48px 16px;
+    border-bottom: 1px solid #181818;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .header h1 { font-size: 10px; letter-spacing: 5px; color: #444; text-transform: uppercase; }
+  .header p { font-size: 12px; color: #333; }
+
+  /* ---------- GALLERY SECTION ---------- */
+  .gallery-section {
+    padding: 60px 48px;
+    border-bottom: 1px solid #141414;
+  }
+  .gallery-label {
+    font-size: 9px; letter-spacing: 5px; color: #333; text-transform: uppercase;
+    margin-bottom: 40px; text-align: center;
+  }
+
+  .plates-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .plate-wrap {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .plate-wrap:hover { transform: scale(1.04); }
+  .plate-wrap:hover .plate-ring { opacity: 1; }
+
+  .plate-img {
+    border-radius: 50%;
+    display: block;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+    position: relative;
+    z-index: 1;
+  }
+
+  .plate-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.3);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  /* ---------- REVEAL OVERLAY ---------- */
+  .reveal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(4,4,4,0);
+    z-index: 100;
+    pointer-events: none;
+    transition: background 0.5s ease;
+  }
+  .reveal-backdrop.active {
+    background: rgba(4,4,4,0.92);
+    pointer-events: all;
+  }
+
+  .reveal-stage {
+    position: fixed;
+    inset: 0;
+    z-index: 101;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .reveal-stage.active {
+    pointer-events: all;
+    opacity: 1;
+  }
+
+  .reveal-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    max-width: 800px;
+    width: 90%;
+  }
+
+  /* The big plate */
+  .reveal-plate {
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.9);
+    transform: scale(0.6) rotate(-8deg);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    z-index: 2;
+  }
+  .reveal-stage.active .reveal-plate {
+    transform: scale(1) rotate(0deg);
+  }
+
+  /* Text panel */
+  .reveal-text {
+    padding: 0 40px;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.4s 0.3s ease, transform 0.4s 0.3s ease;
+    flex: 1;
+  }
+  .reveal-stage.active .reveal-text {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .reveal-category {
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: #c9a84c;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .reveal-name {
+    font-size: 28px;
+    font-family: Georgia, serif;
+    font-weight: 300;
+    font-style: italic;
+    color: #e8e0d0;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .reveal-desc {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .reveal-price {
+    font-size: 14px;
+    color: #c9a84c;
+    letter-spacing: 2px;
+    font-family: Georgia, serif;
+  }
+
+  /* Close hint */
+  .reveal-close {
+    position: fixed;
+    top: 32px;
+    right: 40px;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: #333;
+    text-transform: uppercase;
+    z-index: 102;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s 0.4s;
+  }
+  .reveal-backdrop.active ~ * .reveal-close,
+  .reveal-stage.active .reveal-close-fix {
+    opacity: 1;
+  }
+
+  .reveal-close-fix {
+    position: fixed;
+    top: 32px;
+    right: 40px;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: #444;
+    text-transform: uppercase;
+    z-index: 200;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s 0.5s;
+    pointer-events: none;
+  }
+  .reveal-stage.active .reveal-close-fix {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* ---------- SUBTLE FLOATING DECORATION ---------- */
+  .reveal-ring-big {
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.08);
+    left: -40px; top: -40px;
+    pointer-events: none;
+    transform: scale(0.8);
+    transition: transform 0.8s 0.1s ease;
+    z-index: 1;
+  }
+  .reveal-stage.active .reveal-ring-big {
+    transform: scale(1);
+  }
+
+  /* ---------- NOTE SECTION ---------- */
+  .note-section {
+    padding: 40px 48px;
+    background: #060606;
+    border-top: 1px solid #141414;
+  }
+  .note-title { font-size: 9px; letter-spacing: 4px; color: #333; text-transform: uppercase; margin-bottom: 16px; }
+  .note-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .note-item { }
+  .note-item-title { font-size: 11px; font-weight: 600; color: #888; margin-bottom: 6px; }
+  .note-item-body { font-size: 11px; color: #444; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- BACKDROP -->
+<div class="reveal-backdrop" id="backdrop" onclick="closeReveal()"></div>
+
+<!-- REVEAL STAGE -->
+<div class="reveal-stage" id="revealStage">
+  <div class="reveal-close-fix" onclick="closeReveal()">✕ &nbsp;schließen</div>
+  <div class="reveal-inner">
+    <div class="reveal-ring-big"></div>
+    <div class="reveal-plate" id="revealPlate"></div>
+    <div class="reveal-text">
+      <div class="reveal-category" id="revealCategory"></div>
+      <div class="reveal-name" id="revealName"></div>
+      <div class="reveal-desc" id="revealDesc"></div>
+      <div class="reveal-price" id="revealPrice"></div>
+    </div>
+  </div>
+</div>
+
+<div class="header">
+  <h1>Plate Reveal — Interaktive Demo</h1>
+  <p>Klick einen Teller an</p>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery-section">
+  <div class="gallery-label">Unsere Küche — Klick für Details</div>
+  <div class="plates-grid">
+
+    <div class="plate-wrap" onclick="openReveal(this)">
+      <div class="plate-ring"></div>
+      <div class="plate-img" style="
+        width:140px; height:140px;
+        background: radial-gradient(circle at 35% 40%, #f0e0c0 0%, #d4a870 30%, #8a5830 70%, #4a2810 100%);
+      "
+        data-category="Hausgemachte Pasta"
+        data-name="Ravioli di Vitello"
+        data-desc="Kalbsfüllung · Süßkartoffelcreme · Demi-Glace · Microgreens"
+        data-price="€ 18,90"
+        data-bg="radial-gradient(circle at 35% 40%, #f0e0c0 0%, #d4a870 30%, #8a5830 70%, #4a2810 100%)"
+      ></div>
+    </div>
+
+    <div class="plate-wrap" onclick="openReveal(this)">
+      <div class="plate-ring"></div>
+      <div class="plate-img" style="
+        width:160px; height:160px;
+        background: radial-gradient(circle at 50% 45%, #f8f0e0 0%, #e0c890 25%, #c09060 55%, #784830 85%);
+      "
+        data-category="Vorspeise"
+        data-name="Carpaccio di Manzo"
+        data-desc="Rinderfilet roh · Parmesanflocken · Rucola · Kirschtomaten · Olivenöl"
+        data-price="€ 21,50"
+        data-bg="radial-gradient(circle at 50% 45%, #f8f0e0 0%, #e0c890 25%, #c09060 55%, #784830 85%)"
+      ></div>
+    </div>
+
+    <div class="plate-wrap" onclick="openReveal(this)">
+      <div class="plate-ring"></div>
+      <div class="plate-img" style="
+        width:130px; height:130px;
+        background: radial-gradient(circle at 40% 50%, #e0f0d0 0%, #90c870 30%, #507840 65%, #284818 100%);
+      "
+        data-category="Pasta"
+        data-name="Tagliatelle con Spinaci"
+        data-desc="Spinat-Tagliatelle · Getrocknete Tomaten · Mandeln · Parmesan"
+        data-price="€ 17,50"
+        data-bg="radial-gradient(circle at 40% 50%, #e0f0d0 0%, #90c870 30%, #507840 65%, #284818 100%)"
+      ></div>
+    </div>
+
+    <div class="plate-wrap" onclick="openReveal(this)">
+      <div class="plate-ring"></div>
+      <div class="plate-img" style="
+        width:150px; height:150px;
+        background: radial-gradient(circle at 45% 40%, #e8d8c0 0%, #c8a870 28%, #d0b070 45%, #886030 75%);
+      "
+        data-category="Hausgemachte Pasta"
+        data-name="Tortelloni al Salmone"
+        data-desc="Lachscreme-Füllung · Zitronensoße · Mandeln"
+        data-price="€ 18,90"
+        data-bg="radial-gradient(circle at 45% 40%, #e8d8c0 0%, #c8a870 28%, #d0b070 45%, #886030 75%)"
+      ></div>
+    </div>
+
+    <div class="plate-wrap" onclick="openReveal(this)">
+      <div class="plate-ring"></div>
+      <div class="plate-img" style="
+        width:120px; height:120px;
+        background: radial-gradient(circle at 50% 50%, #f0e8d8 0%, #d8b880 30%, #c09050 60%, #704020 100%);
+      "
+        data-category="Hauptspeise"
+        data-name="Bistecca di Manzo"
+        data-desc="Argentinisches Roastbeef · Edelpilzcremesoße · Kartoffeln · Gemüse"
+        data-price="€ 32,90"
+        data-bg="radial-gradient(circle at 50% 50%, #f0e8d8 0%, #d8b880 30%, #c09050 60%, #704020 100%)"
+      ></div>
+    </div>
+
+    <div class="plate-wrap" onclick="openReveal(this)">
+      <div class="plate-ring"></div>
+      <div class="plate-img" style="
+        width:145px; height:145px;
+        background: radial-gradient(circle at 40% 35%, #f8f4e8 0%, #e8d0a0 25%, #b09050 55%, #806040 85%);
+      "
+        data-category="Dessert"
+        data-name="Tiramisu"
+        data-desc="Hausgemacht · Mascarpone · Espresso · Amaretto · Kakao"
+        data-price="€ 8,00"
+        data-bg="radial-gradient(circle at 40% 35%, #f8f4e8 0%, #e8d0a0 25%, #b09050 55%, #806040 85%)"
+      ></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- NOTES -->
+<div class="note-section">
+  <div class="note-title">Was diese Interaktion macht</div>
+  <div class="note-grid">
+    <div class="note-item">
+      <div class="note-item-title">Kein Modal / kein Overlay-Frame</div>
+      <div class="note-item-body">Der Teller schwebt direkt auf dem abgedunkelten Hintergrund — kein weißes Rechteck, kein Dialog-Container. Der Teller ist das Objekt.</div>
+    </div>
+    <div class="note-item">
+      <div class="note-item-title">Organic Spring-Effekt</div>
+      <div class="note-item-body">cubic-bezier(0.34, 1.56, 0.64, 1) — leichter Overshoot beim Skalieren, wie ein Objekt das "anspringt". Fühlt sich lebendig an, nicht mechanisch.</div>
+    </div>
+    <div class="note-item">
+      <div class="note-item-title">Text erscheint verzögert</div>
+      <div class="note-item-body">Der Teller kommt zuerst. Dann erst der Text. Kleine zeitliche Staffelung — Teller zieht die Aufmerksamkeit, danach fließt die Information hinein.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const dishes = [];
+
+function openReveal(wrap) {
+  const plate = wrap.querySelector('.plate-img');
+  const bg = plate.getAttribute('data-bg');
+
+  document.getElementById('revealPlate').style.background = bg;
+  document.getElementById('revealCategory').textContent = plate.getAttribute('data-category');
+  document.getElementById('revealName').textContent = plate.getAttribute('data-name');
+  document.getElementById('revealDesc').textContent = plate.getAttribute('data-desc');
+  document.getElementById('revealPrice').textContent = plate.getAttribute('data-price');
+
+  document.getElementById('backdrop').classList.add('active');
+  requestAnimationFrame(() => {
+    document.getElementById('revealStage').classList.add('active');
+  });
+
+  // Log event for server
+  const event = {
+    type: 'click',
+    choice: 'plate-reveal',
+    text: plate.getAttribute('data-name'),
+    timestamp: Math.floor(Date.now()/1000)
+  };
+  if (navigator.sendBeacon) navigator.sendBeacon('/event', JSON.stringify(event));
+}
+
+function closeReveal() {
+  document.getElementById('revealStage').classList.remove('active');
+  document.getElementById('backdrop').classList.remove('active');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeReveal();
+});
+</script>
+</body>
+</html>

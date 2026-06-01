@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teller Reveal v2 — Organic</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #050505;
+    color: #d0d0d0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 48px;
+    transition: opacity 0.5s ease;
+  }
+  .nav.dimmed { opacity: 0; pointer-events: none; }
+  .nav-logo {
+    font-family: Georgia, serif; font-style: italic;
+    font-size: 18px; color: #c9a84c; letter-spacing: 1px;
+  }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-size: 10px; letter-spacing: 3px; color: #555;
+    text-transform: uppercase; text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: #c9a84c; }
+
+  /* ── HERO STRIP ── */
+  .hero-strip {
+    padding: 120px 48px 60px;
+    display: flex; align-items: center; gap: 60px;
+    transition: opacity 0.5s ease;
+  }
+  .hero-strip.dimmed { opacity: 0; pointer-events: none; }
+  .hero-text { }
+  .hero-tagline {
+    font-size: 10px; letter-spacing: 6px; color: #c9a84c;
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .hero-headline {
+    font-size: 42px; font-family: Georgia, serif;
+    font-weight: 300; font-style: italic;
+    color: #e8e0d0; line-height: 1.15; margin-bottom: 20px;
+  }
+  .hero-rating { font-size: 11px; color: #444; letter-spacing: 2px; }
+
+  /* ── GALLERY ── */
+  .gallery {
+    padding: 40px 48px 80px;
+    transition: opacity 0.5s ease;
+  }
+  .gallery.dimmed { opacity: 0; pointer-events: none; }
+  .gallery-label {
+    font-size: 9px; letter-spacing: 5px; color: #2a2a2a;
+    text-transform: uppercase; margin-bottom: 48px;
+  }
+
+  .plates-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px 48px;
+    align-items: flex-end;
+  }
+
+  /* Each plate wrapper */
+  .pw {
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .pw::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    transition: border-color 0.4s ease;
+  }
+  .pw:hover::after { border-color: rgba(201,168,76,0.2); }
+
+  .plate {
+    border-radius: 50%;
+    display: block;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.6);
+    transition: box-shadow 0.4s ease;
+    will-change: transform;
+  }
+  .pw:hover .plate { box-shadow: 0 8px 40px rgba(0,0,0,0.8); }
+
+  /* ── OVERLAY ELEMENTS ── */
+  .overlay-bg {
+    position: fixed; inset: 0; z-index: 50;
+    background: rgba(5,5,5,0);
+    pointer-events: none;
+    transition: background 0.7s ease;
+  }
+  .overlay-bg.active {
+    background: rgba(5,5,5,0.93);
+    pointer-events: all;
+  }
+
+  /* Flying plate — absolutely positioned, moves via JS */
+  .flying-plate {
+    position: fixed;
+    border-radius: 50%;
+    z-index: 60;
+    pointer-events: none;
+    will-change: transform, width, height;
+  }
+
+  /* Dish info panel */
+  .dish-info {
+    position: fixed;
+    z-index: 61;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .dish-info.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+  .dish-category {
+    font-size: 9px; letter-spacing: 5px; color: #c9a84c;
+    text-transform: uppercase; margin-bottom: 14px;
+  }
+  .dish-name {
+    font-size: 32px; font-family: Georgia, serif;
+    font-weight: 300; font-style: italic;
+    color: #e8e0d0; line-height: 1.2; margin-bottom: 14px;
+  }
+  .dish-desc {
+    font-size: 12px; color: #555; line-height: 1.9;
+    margin-bottom: 20px; max-width: 260px;
+  }
+  .dish-price {
+    font-size: 16px; color: #c9a84c;
+    font-family: Georgia, serif; letter-spacing: 1px;
+  }
+  .dish-close {
+    margin-top: 28px;
+    font-size: 9px; letter-spacing: 4px; color: #333;
+    text-transform: uppercase; cursor: pointer;
+    transition: color 0.3s;
+    display: inline-block;
+  }
+  .dish-close:hover { color: #888; }
+</style>
+</head>
+<body>
+
+<!-- Overlay background -->
+<div class="overlay-bg" id="overlayBg" onclick="closeReveal()"></div>
+
+<!-- Flying plate (will be created by JS) -->
+
+<!-- Dish info -->
+<div class="dish-info" id="dishInfo">
+  <div class="dish-category" id="dCategory"></div>
+  <div class="dish-name" id="dName"></div>
+  <div class="dish-desc" id="dDesc"></div>
+  <div class="dish-price" id="dPrice"></div>
+  <div class="dish-close" onclick="closeReveal()">← zurück</div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">Il Gusto</div>
+  <div class="nav-links">
+    <a href="#">Speisekarte</a>
+    <a href="#">Galerie</a>
+    <a href="#">Reservieren</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero-strip" id="heroStrip">
+  <div class="hero-text">
+    <div class="hero-tagline">Italian Fine Dining · Saarbrücken-Umland</div>
+    <div class="hero-headline">Frisch.<br>Elegant.<br>Unvergesslich.</div>
+    <div class="hero-rating">4,9 ★ &nbsp;·&nbsp; 144 Gäste haben gesprochen</div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery" id="gallery">
+  <div class="gallery-label">Unsere Küche — Teller anklicken</div>
+  <div class="plates-grid" id="platesGrid">
+
+    <div class="pw" onclick="openReveal(this)">
+      <div class="plate" style="
+        width:160px; height:160px;
+        background: radial-gradient(circle at 38% 42%, #f0e0c0 0%, #d4a870 32%, #8a5830 68%, #4a2810 100%);
+      "
+        data-cat="Hausgemachte Pasta"
+        data-name="Ravioli di Vitello"
+        data-desc="Kalbsfüllung · Süßkartoffelcreme · Demi-Glace · Microgreens"
+        data-price="€ 18,90"
+      ></div>
+    </div>
+
+    <div class="pw" onclick="openReveal(this)" style="margin-bottom: 20px;">
+      <div class="plate" style="
+        width:200px; height:200px;
+        background: radial-gradient(circle at 50% 45%, #f8f0e0 0%, #e0c890 22%, #c09060 52%, #784830 88%);
+      "
+        data-cat="Vorspeise"
+        data-name="Carpaccio di Manzo"
+        data-desc="Rinderfilet roh · Parmesanflocken · Rucola · Kirschtomaten · Trüffelöl"
+        data-price="€ 21,50"
+      ></div>
+    </div>
+
+    <div class="pw" onclick="openReveal(this)">
+      <div class="plate" style="
+        width:140px; height:140px;
+        background: radial-gradient(circle at 42% 50%, #dff0cc 0%, #88c060 28%, #4a7830 62%, #284818 100%);
+      "
+        data-cat="Pasta"
+        data-name="Tagliatelle con Spinaci"
+        data-desc="Spinat-Tagliatelle · Getrocknete Tomaten · Mandeln · Parmesan"
+        data-price="€ 17,50"
+      ></div>
+    </div>
+
+    <div class="pw" onclick="openReveal(this)" style="margin-top: 30px;">
+      <div class="plate" style="
+        width:175px; height:175px;
+        background: radial-gradient(circle at 44% 38%, #f5ead0 0%, #d8b068 26%, #c89850 48%, #8a6030 78%);
+      "
+        data-cat="Hausgemachte Pasta"
+        data-name="Tortelloni al Salmone"
+        data-desc="Lachscreme-Füllung · Zitronensoße · Mandelblättchen"
+        data-price="€ 18,90"
+      ></div>
+    </div>
+
+    <div class="pw" onclick="openReveal(this)">
+      <div class="plate" style="
+        width:155px; height:155px;
+        background: radial-gradient(circle at 46% 42%, #f0e8d8 0%, #d8b880 28%, #c09050 58%, #704020 92%);
+      "
+        data-cat="Hauptspeise"
+        data-name="Bistecca di Manzo"
+        data-desc="Argentinisches Roastbeef · Edelpilzcremesoße · Kartoffeln · Gemüse"
+        data-price="€ 32,90"
+      ></div>
+    </div>
+
+    <div class="pw" onclick="openReveal(this)" style="margin-bottom: 16px;">
+      <div class="plate" style="
+        width:130px; height:130px;
+        background: radial-gradient(circle at 40% 38%, #f8f4e8 0%, #ead0a0 24%, #b09050 54%, #806040 86%);
+      "
+        data-cat="Dessert"
+        data-name="Tiramisu"
+        data-desc="Hausgemacht · Mascarpone · Espresso · Amaretto"
+        data-price="€ 8,00"
+      ></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let flyingEl = null;
+let originEl = null;
+let isOpen = false;
+
+function openReveal(wrapper) {
+  if (isOpen) return;
+  isOpen = true;
+
+  const plate = wrapper.querySelector('.plate');
+  const rect = plate.getBoundingClientRect();
+
+  // Read data
+  document.getElementById('dCategory').textContent = plate.dataset.cat;
+  document.getElementById('dName').textContent = plate.dataset.name;
+  document.getElementById('dDesc').textContent = plate.dataset.desc;
+  document.getElementById('dPrice').textContent = plate.dataset.price;
+
+  const bg = plate.style.background;
+  const startW = rect.width;
+  const startH = rect.height;
+  const startX = rect.left;
+  const startY = rect.top;
+
+  // Target: left side of screen, vertically centered
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const targetSize = Math.min(vw * 0.38, vh * 0.62, 380);
+  const targetX = vw * 0.08;
+  const targetY = (vh - targetSize) / 2;
+
+  // Create flying plate
+  flyingEl = document.createElement('div');
+  flyingEl.style.cssText = `
+    position: fixed;
+    border-radius: 50%;
+    background: ${bg};
+    box-shadow: 0 4px 24px rgba(0,0,0,0.6);
+    z-index: 60;
+    pointer-events: none;
+    width: ${startW}px;
+    height: ${startH}px;
+    left: ${startX}px;
+    top: ${startY}px;
+    transition: none;
+    will-change: left, top, width, height, box-shadow;
+  `;
+  document.body.appendChild(flyingEl);
+
+  // Hide original
+  plate.style.opacity = '0';
+  originEl = plate;
+
+  // Dim UI
+  document.getElementById('nav').classList.add('dimmed');
+  document.getElementById('heroStrip').classList.add('dimmed');
+  document.getElementById('gallery').classList.add('dimmed');
+  document.getElementById('overlayBg').classList.add('active');
+
+  // Animate: smooth ease-out, no spring
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      flyingEl.style.transition = `
+        left 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+        top 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+        height 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.75s ease
+      `;
+      flyingEl.style.left = targetX + 'px';
+      flyingEl.style.top = targetY + 'px';
+      flyingEl.style.width = targetSize + 'px';
+      flyingEl.style.height = targetSize + 'px';
+      flyingEl.style.boxShadow = '0 24px 80px rgba(0,0,0,0.85)';
+    });
+  });
+
+  // Show text panel after plate arrives
+  setTimeout(() => {
+    const infoEl = document.getElementById('dishInfo');
+    const textX = targetX + targetSize + 56;
+    const textY = targetY + 40;
+    infoEl.style.left = textX + 'px';
+    infoEl.style.top = textY + 'px';
+    infoEl.style.width = (vw - textX - 80) + 'px';
+    infoEl.classList.add('visible');
+  }, 500);
+}
+
+function closeReveal() {
+  if (!isOpen || !flyingEl || !originEl) return;
+
+  // Hide text
+  document.getElementById('dishInfo').classList.remove('visible');
+
+  // Get original position
+  const rect = originEl.getBoundingClientRect();
+
+  // Animate plate back
+  flyingEl.style.transition = `
+    left 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    top 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s ease,
+    opacity 0.3s ease 0.35s
+  `;
+
+  // Get real original size from data
+  const origSize = parseFloat(originEl.style.width) || rect.width;
+
+  flyingEl.style.left = (rect.left + (rect.width - origSize)/2) + 'px';
+  flyingEl.style.top = (rect.top + (rect.height - origSize)/2) + 'px';
+  flyingEl.style.width = origSize + 'px';
+  flyingEl.style.height = origSize + 'px';
+  flyingEl.style.boxShadow = '0 4px 24px rgba(0,0,0,0.6)';
+  flyingEl.style.opacity = '0';
+
+  // Un-dim UI
+  document.getElementById('nav').classList.remove('dimmed');
+  document.getElementById('heroStrip').classList.remove('dimmed');
+  document.getElementById('gallery').classList.remove('dimmed');
+  document.getElementById('overlayBg').classList.remove('active');
+
+  setTimeout(() => {
+    originEl.style.opacity = '1';
+    if (flyingEl) { flyingEl.remove(); flyingEl = null; }
+    originEl = null;
+    isOpen = false;
+  }, 650);
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReveal(); });
+</script>
+</body>
+</html>

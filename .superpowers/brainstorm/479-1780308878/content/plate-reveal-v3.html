@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il Gusto — Plate Reveal</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #141210; color: #d8d0c4; font-family: 'Helvetica Neue', Arial, sans-serif; overflow-x: hidden; }
+
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 52px;
+    transition: opacity 0.6s ease;
+    background: rgba(20,18,16,0.9);
+    backdrop-filter: blur(8px);
+  }
+  .nav.hidden { opacity: 0; pointer-events: none; }
+  .nav-logo { font-family: Georgia, serif; font-style: italic; font-size: 20px; color: #c9a84c; }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links span { font-size: 9px; letter-spacing: 3px; color: #444; text-transform: uppercase; cursor: pointer; transition: color 0.3s; }
+  .nav-links span:hover { color: #c9a84c; }
+
+  .hero { padding: 130px 52px 50px; transition: opacity 0.6s ease; }
+  .hero.hidden { opacity: 0; pointer-events: none; }
+  .hero-eyebrow { font-size: 9px; letter-spacing: 6px; color: #c9a84c; text-transform: uppercase; margin-bottom: 18px; }
+  .hero-hl { font-size: 48px; font-family: Georgia, serif; font-weight: 300; font-style: italic; color: #e8e0d0; line-height: 1.1; margin-bottom: 20px; }
+  .hero-rating { font-size: 11px; color: #3a3530; letter-spacing: 2px; }
+
+  .gallery { padding: 20px 52px 100px; transition: opacity 0.6s ease; }
+  .gallery.hidden { opacity: 0; pointer-events: none; }
+  .g-label { font-size: 8px; letter-spacing: 5px; color: #2a2520; text-transform: uppercase; margin-bottom: 52px; }
+  .plates { display: flex; flex-wrap: wrap; gap: 44px 52px; align-items: flex-end; }
+
+  .pw { position: relative; cursor: pointer; flex-shrink: 0; }
+  .pw::before {
+    content: ''; position: absolute; inset: -10px; border-radius: 50%;
+    border: 1px solid transparent; transition: border-color 0.4s, inset 0.4s; pointer-events: none;
+  }
+  .pw:hover::before { border-color: rgba(201,168,76,0.2); inset: -16px; }
+
+  .plate {
+    border-radius: 50%; display: block;
+    box-shadow: 0 6px 36px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.35);
+    transition: box-shadow 0.4s, transform 0.4s;
+  }
+  .pw:hover .plate { box-shadow: 0 14px 56px rgba(0,0,0,0.65); transform: translateY(-5px); }
+
+  /* THE EXPAND LAYER — same warm dark as page, seamless */
+  .expand-layer {
+    position: fixed; inset: 0; z-index: 50; pointer-events: none;
+    clip-path: circle(0px at 50% 50%);
+    background: #1a1612;
+  }
+  .expand-layer.open { pointer-events: all; }
+
+  .expand-plate {
+    position: absolute; border-radius: 50%;
+    opacity: 0; transform: scale(0.88);
+    transition: opacity 0.5s 0.3s ease, transform 0.55s 0.28s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+  }
+  .expand-layer.open .expand-plate { opacity: 1; transform: scale(1); }
+
+  .expand-text {
+    position: absolute; opacity: 0; transform: translateY(14px);
+    transition: opacity 0.4s 0.58s ease, transform 0.4s 0.58s ease;
+  }
+  .expand-layer.open .expand-text { opacity: 1; transform: translateY(0); }
+
+  .et-cat { font-size: 9px; letter-spacing: 5px; color: #c9a84c; text-transform: uppercase; margin-bottom: 14px; }
+  .et-name { font-size: 34px; font-family: Georgia, serif; font-style: italic; font-weight: 300; color: #f0e8d8; line-height: 1.15; margin-bottom: 14px; }
+  .et-desc { font-size: 12px; color: #666; line-height: 1.9; margin-bottom: 22px; }
+  .et-price { font-size: 18px; color: #c9a84c; font-family: Georgia, serif; letter-spacing: 1px; margin-bottom: 32px; }
+  .et-close {
+    font-size: 9px; letter-spacing: 4px; color: #444; text-transform: uppercase;
+    cursor: pointer; transition: color 0.3s; border-bottom: 1px solid #333; padding-bottom: 2px; display: inline-block;
+  }
+  .et-close:hover { color: #888; }
+
+  .hint { margin-top: 52px; font-size: 10px; color: #bbb; letter-spacing: 2px; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="expand-layer" id="expandLayer">
+  <div class="expand-plate" id="expandPlate"></div>
+  <div class="expand-text" id="expandText">
+    <div class="et-cat" id="etCat"></div>
+    <div class="et-name" id="etName"></div>
+    <div class="et-desc" id="etDesc"></div>
+    <div class="et-price" id="etPrice"></div>
+    <div class="et-close" onclick="closeReveal()">← zurück</div>
+  </div>
+</div>
+
+<nav class="nav" id="nav">
+  <div class="nav-logo">Il Gusto</div>
+  <div class="nav-links"><span>Speisekarte</span><span>Galerie</span><span>Reservieren</span></div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-eyebrow">Italian Fine Dining · Saarbrücken-Umland</div>
+  <div class="hero-hl">Frisch.<br>Elegant.<br>Unvergesslich.</div>
+  <div class="hero-rating">4,9 ★ · 144 Bewertungen</div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="g-label">Unsere Küche — Teller anklicken</div>
+  <div class="plates">
+
+    <div class="pw" onclick="openReveal(this)">
+      <div class="plate" style="width:155px;height:155px;background:linear-gradient(135deg,#e8c890 0%,#d4a860 40%,#a07040 70%,#c89858 100%)"
+        data-cat="Hausgemachte Pasta" data-name="Ravioli di Vitello"
+        data-desc="Kalbsfüllung · Süßkartoffelcreme · Demi-Glace · Microgreens" data-price="€ 18,90"></div>
+    </div>
+
+    <div class="pw" onclick="openReveal(this)" style="margin-bottom:24px">
+      <div class="plate" style="width:195px;height:195px;background:linear-gradient(160deg,#f0d8c0 0%,#d09878 35%,#b87058 65%,#e8c0a0 100%)"
+        data-cat="Vorspeise" data-name="Carpaccio di Manzo"
+        data-desc="Rinderfilet roh · Parmesanflocken · Rucola · Kirschtomaten · Trüffelöl" data-price="€ 21,50"></div>
+    </div>
+
+    <div class="pw" onclick="openReveal(this)">
+      <div class="plate" style="width:135px;height:135px;background:linear-gradient(120deg,#a0d070 0%,#70b040 40%,#508030 70%,#90c060 100%)"
+        data-cat="Pasta" data-name="Tagliatelle con Spinaci"
+        data-desc="Spinat-Tagliatelle · Getrocknete Tomaten · Mandeln · Parmesan" data-price="€ 17,50"></div>
+    </div>
+
+    <div class="pw" onclick="openReveal(this)" style="margin-top:36px">
+      <div class="plate" style="width:170px;height:170px;background:linear-gradient(145deg,#f0d890 0%,#d8b060 38%,#c09840 65%,#e8c870 100%)"
+        data-cat="Hausgemachte Pasta" data-name="Tortelloni al Salmone"
+        data-desc="Lachscreme-Füllung · Zitronensoße · Mandelblättchen" data-price="€ 18,90"></div>
+    </div>
+
+    <div class="pw" onclick="openReveal(this)">
+      <div class="plate" style="width:150px;height:150px;background:linear-gradient(130deg,#c87040 0%,#a05030 40%,#803820 65%,#d08050 100%)"
+        data-cat="Hauptspeise" data-name="Bistecca di Manzo"
+        data-desc="Argentinisches Roastbeef · Edelpilzcremesoße · Kartoffeln" data-price="€ 32,90"></div>
+    </div>
+
+    <div class="pw" onclick="openReveal(this)" style="margin-bottom:18px">
+      <div class="plate" style="width:125px;height:125px;background:linear-gradient(110deg,#e8d090 0%,#c8a860 38%,#b09048 65%,#ddc078 100%)"
+        data-cat="Dessert" data-name="Tiramisu"
+        data-desc="Hausgemacht · Mascarpone · Espresso · Amaretto" data-price="€ 8,00"></div>
+    </div>
+
+  </div>
+  <div class="hint">Teller anklicken für Details</div>
+</section>
+
+<script>
+let isOpen = false;
+let originCx = 0, originCy = 0;
+
+function openReveal(wrapper) {
+  if (isOpen) return;
+  isOpen = true;
+
+  const plate = wrapper.querySelector('.plate');
+  const rect = plate.getBoundingClientRect();
+  originCx = rect.left + rect.width / 2;
+  originCy = rect.top + rect.height / 2;
+
+  const layer = document.getElementById('expandLayer');
+
+  // Step 1: position at origin, no transition
+  layer.style.transition = 'none';
+  layer.style.clipPath = `circle(0px at ${originCx}px ${originCy}px)`;
+
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const bigSize = Math.min(vw * 0.36, vh * 0.58, 360);
+
+  // Position big plate
+  const ep = document.getElementById('expandPlate');
+  ep.style.width = bigSize + 'px';
+  ep.style.height = bigSize + 'px';
+  ep.style.left = (vw * 0.07) + 'px';
+  ep.style.top = ((vh - bigSize) / 2) + 'px';
+  ep.style.background = plate.style.background;
+
+  // Position text
+  const et = document.getElementById('expandText');
+  et.style.left = (vw * 0.07 + bigSize + 60) + 'px';
+  et.style.top = ((vh - bigSize) / 2 + 40) + 'px';
+  et.style.width = (vw - vw * 0.07 - bigSize - 120) + 'px';
+
+  // Fill content
+  document.getElementById('etCat').textContent = plate.dataset.cat;
+  document.getElementById('etName').textContent = plate.dataset.name;
+  document.getElementById('etDesc').textContent = plate.dataset.desc;
+  document.getElementById('etPrice').textContent = plate.dataset.price;
+
+  // Dim page
+  document.getElementById('nav').classList.add('hidden');
+  document.getElementById('hero').classList.add('hidden');
+  document.getElementById('gallery').classList.add('hidden');
+
+  // Step 2: force reflow, then animate open
+  layer.offsetHeight; // force reflow
+  layer.style.transition = 'clip-path 0.85s cubic-bezier(0.76, 0, 0.24, 1)';
+  layer.style.clipPath = `circle(200vmax at ${originCx}px ${originCy}px)`;
+  layer.classList.add('open');
+}
+
+function closeReveal() {
+  if (!isOpen) return;
+  const layer = document.getElementById('expandLayer');
+  layer.style.transition = 'clip-path 0.72s cubic-bezier(0.76, 0, 0.24, 1)';
+  layer.style.clipPath = `circle(0px at ${originCx}px ${originCy}px)`;
+  layer.classList.remove('open');
+
+  document.getElementById('nav').classList.remove('hidden');
+  document.getElementById('hero').classList.remove('hidden');
+  document.getElementById('gallery').classList.remove('hidden');
+
+  setTimeout(() => { isOpen = false; }, 750);
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReveal(); });
+</script>
+</body>
+</html>

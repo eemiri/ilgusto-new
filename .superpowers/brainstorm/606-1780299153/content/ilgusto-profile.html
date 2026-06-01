@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il Gusto — Restaurant Profil</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #d8d8d8; font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; }
+
+  .page-header {
+    padding: 36px 56px 28px;
+    border-bottom: 1px solid #1c1c1c;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .page-header-left h1 { font-size: 10px; letter-spacing: 5px; color: #444; text-transform: uppercase; margin-bottom: 6px; }
+  .page-header-left h2 { font-size: 28px; font-weight: 300; color: #e0e0e0; }
+  .page-header-right { text-align: right; }
+  .rating-big { font-size: 36px; font-weight: 700; color: #c9a84c; }
+  .rating-label { font-size: 10px; letter-spacing: 3px; color: #444; text-transform: uppercase; }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: 1px solid #1c1c1c;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid #1c1c1c;
+  }
+
+  .block {
+    padding: 28px 32px;
+    border-right: 1px solid #1c1c1c;
+    border-bottom: 1px solid #1c1c1c;
+  }
+  .block:last-child { border-right: none; }
+  .block-label {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: #444;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .block-content { font-size: 13px; color: #888; line-height: 1.7; }
+  .block-content strong { color: #c8c8c8; }
+  .block-content .highlight { color: #c9a84c; font-style: italic; }
+
+  .quote-block {
+    padding: 36px 56px;
+    border-bottom: 1px solid #1c1c1c;
+    background: #080808;
+  }
+  .quote-block blockquote {
+    font-size: 18px;
+    font-style: italic;
+    color: #888;
+    max-width: 800px;
+    line-height: 1.6;
+    border-left: 2px solid #c9a84c;
+    padding-left: 24px;
+    margin-bottom: 10px;
+  }
+  .quote-source { font-size: 10px; letter-spacing: 3px; color: #333; text-transform: uppercase; padding-left: 26px; }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid #1c1c1c;
+  }
+  .menu-cat {
+    padding: 24px 28px;
+    border-right: 1px solid #1c1c1c;
+    border-bottom: 1px solid #1c1c1c;
+  }
+  .menu-cat:nth-child(3n) { border-right: none; }
+  .menu-cat-title {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: #c9a84c;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .dish { margin-bottom: 10px; }
+  .dish-name { font-size: 12px; color: #c0c0c0; font-weight: 500; }
+  .dish-desc { font-size: 10px; color: #555; line-height: 1.5; margin-top: 1px; }
+  .dish-price { font-size: 11px; color: #888; margin-top: 2px; }
+
+  .image-inventory {
+    padding: 28px 56px;
+    border-top: 1px solid #1c1c1c;
+    border-bottom: 1px solid #1c1c1c;
+  }
+  .image-inventory .block-label { margin-bottom: 16px; }
+  .img-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .img-tag {
+    font-size: 10px;
+    color: #666;
+    border: 1px solid #222;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .img-tag.good { border-color: #2a4a2a; color: #4a8a4a; }
+  .img-tag.amber { border-color: #4a3a10; color: #8a6a20; }
+
+  .insight-bar {
+    padding: 36px 56px;
+    border-top: 1px solid #1c1c1c;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .insight { }
+  .insight-icon { font-size: 20px; margin-bottom: 10px; }
+  .insight-title { font-size: 11px; font-weight: 600; color: #c8c8c8; margin-bottom: 6px; }
+  .insight-text { font-size: 11px; color: #555; line-height: 1.6; }
+
+  .gap-section {
+    padding: 28px 56px;
+    border-top: 1px solid #1c1c1c;
+    background: #070707;
+  }
+  .gap-title { font-size: 9px; letter-spacing: 4px; color: #444; text-transform: uppercase; margin-bottom: 20px; }
+  .gap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .gap-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px;
+    border: 1px solid #1a1a1a;
+  }
+  .gap-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+  .gap-text-title { font-size: 11px; color: #888; font-weight: 600; margin-bottom: 3px; }
+  .gap-text-body { font-size: 11px; color: #444; line-height: 1.5; }
+
+  section-title {
+    display: block;
+    padding: 20px 56px 0;
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: #333;
+    text-transform: uppercase;
+    border-top: 1px solid #1c1c1c;
+    margin-top: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-header-left">
+    <h1>Restaurant Research Brief</h1>
+    <h2>Ristorante Il Gusto — Kleinblittersdorf</h2>
+  </div>
+  <div class="page-header-right">
+    <div class="rating-big">4.9 ★</div>
+    <div class="rating-label">144 Google Reviews · #1 Kleinblittersdorf</div>
+  </div>
+</div>
+
+<!-- Identity + Stats -->
+<div class="grid-3">
+  <div class="block">
+    <div class="block-label">Eigene Brand-Stimme</div>
+    <div class="block-content">
+      Instagram-Bio: <span class="highlight">"Italian Fine Dining"</span><br>
+      Tagline: <span class="highlight">"Frisch. Elegant. Unvergesslich."</span><br><br>
+      Website-Copy: <em>"Erleben Sie die wahre Essenz mediterraner Lebensfreude"</em> — die Stimme ist da, sie fehlt nur auf der Seite.
+    </div>
+  </div>
+  <div class="block">
+    <div class="block-label">Faktoren</div>
+    <div class="block-content">
+      <strong>Adresse:</strong> Saargemünder Str. 45, Hanweiler<br>
+      <strong>Kapazität:</strong> 35–40 Gäste — sehr intim<br>
+      <strong>Terrasse:</strong> Ja (Sommer)<br>
+      <strong>Öffnung:</strong> Di–Sa 17–22h · So 12–14h & 18–21h · Mo Ruhetag<br>
+      <strong>Preisrahmen:</strong> €15–38 pro Gericht
+    </div>
+  </div>
+  <div class="block">
+    <div class="block-label">Marktposition</div>
+    <div class="block-content">
+      <strong>#1</strong> von 49 Restaurants in Kleinblittersdorf<br>
+      <strong>5.0</strong> TripAdvisor (alle Bewertungen perfekt)<br>
+      <strong>4.9</strong> Google (144 Bewertungen)<br><br>
+      Reviewer: <em>"Eines der besten Restaurants im Saarland"</em><br>
+      → Qualität ist da. Die Seite zeigt es nicht.
+    </div>
+  </div>
+</div>
+
+<!-- Quotes -->
+<div class="quote-block">
+  <blockquote>"One of the best restaurants in Saarland — warm welcome, attentive service, fresh ingredients, outstanding presentation. A must for anyone seeking quality food."</blockquote>
+  <div class="quote-source">TripAdvisor Review · Oktober 2024</div>
+</div>
+<div class="quote-block" style="border-top: 1px solid #1c1c1c;">
+  <blockquote>"Excellent Italian family cuisine. Homemade pasta. Beautiful summer terrace. Quiet location that is underrated."</blockquote>
+  <div class="quote-source">TripAdvisor Review · Juli 2025</div>
+</div>
+
+<!-- Menu -->
+<section-title>Speisekarte — Vollständig</section-title>
+<div class="menu-grid">
+  <div class="menu-cat">
+    <div class="menu-cat-title">Vorspeisen</div>
+    <div class="dish"><div class="dish-name">Antipasto il Gusto</div><div class="dish-desc">Variation nach Art des Hauses</div><div class="dish-price">€19.50 / 2p €35.00</div></div>
+    <div class="dish"><div class="dish-name">Gamberoni il Gusto</div><div class="dish-desc">Riesengarnelen / Knoblauch / Kräutersoße</div><div class="dish-price">€18.90</div></div>
+    <div class="dish"><div class="dish-name">Zweierlei vom Rind</div><div class="dish-desc">Carpaccio + Tatar / Käsecreme / Trüffelöl</div><div class="dish-price">€21.50</div></div>
+    <div class="dish"><div class="dish-name">Wolfsbarschcarpaccio</div><div class="dish-desc">Zitronenvinaigrette</div><div class="dish-price">€18.50</div></div>
+    <div class="dish"><div class="dish-name">Carpaccio di Barbabietola</div><div class="dish-desc">Rote Bete / Ziegenkäse / Rucola / Orange</div><div class="dish-price">€14.50</div></div>
+    <div class="dish"><div class="dish-name">Vitello Tonnato</div><div class="dish-desc">Thunfischcreme / Kapern</div><div class="dish-price">€18.50</div></div>
+  </div>
+
+  <div class="menu-cat">
+    <div class="menu-cat-title">Hausgemachte Pasta ★</div>
+    <div class="dish"><div class="dish-name">Ravioli di Vitello</div><div class="dish-desc">Kalbsfüllung / Süßkartoffelcreme / Demi-Glace</div><div class="dish-price">€18.90</div></div>
+    <div class="dish"><div class="dish-name">Tortelloni al Salmone</div><div class="dish-desc">Lachscreme / Zitronensoße / Mandel</div><div class="dish-price">€18.90</div></div>
+    <div class="dish"><div class="dish-name">Tortelloni ai Fungi</div><div class="dish-desc">Pilscreme / getrüffelte Käsecreme</div><div class="dish-price">€17.90</div></div>
+    <div class="menu-cat-title" style="margin-top: 16px;">Pasta</div>
+    <div class="dish"><div class="dish-name">Spaghetti Aglio Olio / Gamberi</div><div class="dish-desc">Garnelen / Chili / Knoblauch / Parmesan</div><div class="dish-price">€17.50</div></div>
+    <div class="dish"><div class="dish-name">Tagliatelle ai Fungi</div><div class="dish-desc">Getrüffelte Edelpilzcreme</div><div class="dish-price">€18.50</div></div>
+  </div>
+
+  <div class="menu-cat">
+    <div class="menu-cat-title">Hauptspeisen</div>
+    <div class="dish"><div class="dish-name">Surf and Turf</div><div class="dish-desc">Arg. Roastbeef / Riesengarnelen</div><div class="dish-price">€37.90</div></div>
+    <div class="dish"><div class="dish-name">Kalbsrücken</div><div class="dish-desc">Selleriecreme / Kartoffelpüree</div><div class="dish-price">€35.90</div></div>
+    <div class="dish"><div class="dish-name">Bistecca di Manzo</div><div class="dish-desc">Argentinisches Roastbeef vom Grill</div><div class="dish-price">€30.90–32.90</div></div>
+    <div class="dish"><div class="dish-name">Saltimbocca alla Romana</div><div class="dish-desc">Kalb / Parmaschinken / Salbei</div><div class="dish-price">€27.90</div></div>
+    <div class="dish"><div class="dish-name">Wolfsbarschfilet</div><div class="dish-desc">Zitronencreme / Kartoffelpüree</div><div class="dish-price">€29.90</div></div>
+    <div class="dish"><div class="dish-name">Piccata Milanese</div><div class="dish-desc">Kalb / Parmesan / Ei / Spaghetti</div><div class="dish-price">€27.90</div></div>
+  </div>
+
+  <div class="menu-cat">
+    <div class="menu-cat-title">Dessert</div>
+    <div class="dish"><div class="dish-name">Tiramisu</div><div class="dish-desc">Hausgemacht / Kaffee / Amaretto</div><div class="dish-price">€8.00</div></div>
+    <div class="dish"><div class="dish-name">Tortino</div><div class="dish-desc">Schokoladensoufflé / Vanilleeis</div><div class="dish-price">€8.00</div></div>
+    <div class="dish"><div class="dish-name">Café Gourmand</div><div class="dish-desc">Dessert-Variation / Espresso</div><div class="dish-price">€11.90</div></div>
+    <div class="dish"><div class="dish-name">Panna Cotta · Sorbetto</div><div class="dish-desc">Klassiker</div><div class="dish-price">€7.90</div></div>
+  </div>
+
+  <div class="menu-cat">
+    <div class="menu-cat-title">Pizza</div>
+    <div class="dish"><div class="dish-name">Pizza il Gusto</div><div class="dish-desc">Parmaschinken / Rucola / Parmesan</div><div class="dish-price">€16.90</div></div>
+    <div class="dish"><div class="dish-name">Pizza 4 Formaggi</div><div class="dish-desc">Vier Käsesorten</div><div class="dish-price">€15.90</div></div>
+    <div class="dish"><div class="dish-name">Pizza Capricciosa</div><div class="dish-desc">Salami / Schinken / Champignons</div><div class="dish-price">€14.90</div></div>
+    <div class="menu-cat-title" style="margin-top:16px;">Salat</div>
+    <div class="dish"><div class="dish-name">Büffelmozzarella</div><div class="dish-desc">Tomatencarpaccio / Rucola</div><div class="dish-price">€16.50</div></div>
+    <div class="dish"><div class="dish-name">Insalata con Formaggio di Capra</div><div class="dish-desc">Ziegenkäse / Vinaigrette</div><div class="dish-price">€12.50</div></div>
+  </div>
+
+  <div class="menu-cat">
+    <div class="menu-cat-title">Bild-Archiv (nicht auf Seite)</div>
+    <div class="dish"><div class="dish-name">Caramella al Salmone</div><div class="dish-desc">Frühere Spezialität</div></div>
+    <div class="dish"><div class="dish-name">Fileto di Salmone</div><div class="dish-desc">Frühere Spezialität</div></div>
+    <div class="dish"><div class="dish-name">Collo di Maiale</div><div class="dish-desc">Frühere Spezialität</div></div>
+    <div class="dish"><div class="dish-name">Quinoa con Mozzarella</div><div class="dish-desc">Vegetarisch</div></div>
+    <div class="dish"><div class="dish-name">Graved Lachs</div><div class="dish-desc">Frühere Vorspeise</div></div>
+    <div class="dish-desc" style="margin-top:8px; font-size:10px; color:#333;">→ 20+ Archivfotos von Gerichten vorhanden, die nicht mehr auf der Seite erscheinen</div>
+  </div>
+</div>
+
+<!-- Image Inventory -->
+<div class="image-inventory">
+  <div class="block-label">Bild-Inventar — Was im Projekt vorhanden ist</div>
+  <div class="img-tags">
+    <span class="img-tag good">4 Ambiente/Interior JPG</span>
+    <span class="img-tag good">8 Galerie-Bilder (aktuell)</span>
+    <span class="img-tag good">20+ Archiv-Gerichtsfotos (benannt nach Gericht)</span>
+    <span class="img-tag good">14 Speisen-Screenshots (resized)</span>
+    <span class="img-tag good">6 nummerierte Fotos (1.jpg–6.jpg)</span>
+    <span class="img-tag amber">Kein professioneller Hero-Shot erkennbar</span>
+    <span class="img-tag amber">Viele Screenshots statt Studio-Fotos</span>
+    <span class="img-tag amber">Bildnamen generisch / Dateinamen als AI-Hashes</span>
+  </div>
+</div>
+
+<!-- Design Gap -->
+<div class="gap-section">
+  <div class="gap-title">Der Gap — Warum die Website nicht zum Restaurant passt</div>
+  <div class="gap-grid">
+    <div class="gap-item">
+      <div class="gap-icon">📊</div>
+      <div>
+        <div class="gap-text-title">Bootstrap 2014 vs. Fine Dining 2025</div>
+        <div class="gap-text-body">jQuery 1.11.1, Bootstrap-Grid, Nivo Lightbox — alles aus einer anderen Ära. Ein 4.9★-Restaurant verdient mehr als ein Template aus 2014.</div>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-icon">📝</div>
+      <div>
+        <div class="gap-text-title">Kopie unter Potential</div>
+        <div class="gap-text-body">"Herzlich Willkommen" als Überschrift. Die eigene Brand-Stimme ("Frisch. Elegant. Unvergesslich.") erscheint nirgends auf der Website.</div>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-icon">📷</div>
+      <div>
+        <div class="gap-text-title">Fotos nicht kuratiert</div>
+        <div class="gap-text-body">20+ Gericht-Archivfotos vorhanden, aber nicht gezeigt. Gallery zeigt 8 Bilder im Bootstrap-Grid. Kein dramatischer Hero-Shot.</div>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-icon">📱</div>
+      <div>
+        <div class="gap-text-title">Reservierung zu versteckt</div>
+        <div class="gap-text-body">Nur Telefonnummer, kein Online-Formular das funktioniert. Für ein Restaurant mit 35 Plätzen und wechselnder Tageskarte ist das der wichtigste CTA.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Insights -->
+<div class="insight-bar">
+  <div class="insight">
+    <div class="insight-icon">🎯</div>
+    <div class="insight-title">Signature: Hausgemachte Pasta</div>
+    <div class="insight-text">Das ist der emotionale Kern — "homemade pasta" erscheint in TripAdvisor-Reviews als Highlight. Die Site nennt es beiläufig.</div>
+  </div>
+  <div class="insight">
+    <div class="insight-icon">📍</div>
+    <div class="insight-title">Hanweiler = Geheimtipp</div>
+    <div class="insight-text">"Quiet location that is underrated" — Reviewer empfehlen den Ort als versteckten Schatz. Das könnte ein Narrative sein.</div>
+  </div>
+  <div class="insight">
+    <div class="insight-icon">🍷</div>
+    <div class="insight-title">Weinkarte unerwähnt</div>
+    <div class="insight-text">Die Website erwähnt "curated wine selection" einmalig. Kein Weinfokus trotz Fine-Dining-Positioning.</div>
+  </div>
+  <div class="insight">
+    <div class="insight-icon">🎪</div>
+    <div class="insight-title">Event-Potenzial</div>
+    <div class="insight-text">35–40 Personen Kapazität, ideal für Familienfeiern. Der Reservierungsbereich ist jetzt nur eine Telefonnummer.</div>
+  </div>
+</div>
+
+</body>
+</html>

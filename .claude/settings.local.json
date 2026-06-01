@@ -11,7 +11,11 @@
       "Bash(firebase deploy:*)",
       "Bash(firebase init:*)",
       "Bash(npm install)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(python3 \"d:/Github/ilgusto-new/_bmad/scripts/resolve_customization.py\" --skill \"d:/Github/ilgusto-new/.claude/skills/bmad-sprint-status\" --key workflow)",
+      "WebFetch(domain:app.resmio.com)",
+      "Bash(mkdir -p prototype/data prototype/work prototype/stories prototype/shared prototype/components prototype/pages prototype/assets/plates)",
+      "Bash(touch prototype/__TRACKED_VAR__/.gitkeep)"
     ],
     "deny": [],
     "ask": []

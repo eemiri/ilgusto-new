@@ -94,8 +94,62 @@
     });
   }
 
-  /* ---------- Smooth scroll for anchor links ---------- */
+  /* ---------- Elegant smooth scroll for anchor links ---------- */
+  // Solver for cubic-bezier(0.76, 0, 0.24, 1) — the site's motion signature (cf. plate reveal).
+  function makeBezier(p1x, p1y, p2x, p2y) {
+    function A(a, b) { return 1 - 3 * b + 3 * a; }
+    function B(a, b) { return 3 * b - 6 * a; }
+    function C(a) { return 3 * a; }
+    function calc(t, a, b) { return ((A(a, b) * t + B(a, b)) * t + C(a)) * t; }
+    function slope(t, a, b) { return 3 * A(a, b) * t * t + 2 * B(a, b) * t + C(a); }
+    function solveX(x) {            // Newton-Raphson: find t for a given x
+      var t = x;
+      for (var i = 0; i < 6; i++) {
+        var d = slope(t, p1x, p2x);
+        if (d < 1e-6) break;
+        t -= (calc(t, p1x, p2x) - x) / d;
+      }
+      return t;
+    }
+    return function (x) { return calc(solveX(x), p1y, p2y); };
+  }
+
   function initSmoothScroll() {
+    var ease = makeBezier(0.76, 0, 0.24, 1);
+    var navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'), 10) || 68;
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var rafId = null;
+
+    function animateScroll(destY, done) {
+      if (rafId) cancelAnimationFrame(rafId);
+      var startY = window.pageYOffset;
+      var dist = destY - startY;
+      if (Math.abs(dist) < 2) { if (done) done(); return; }
+
+      // Duration scales with distance, clamped so near hops feel deliberate and long ones stay graceful.
+      var duration = Math.min(1400, Math.max(650, Math.abs(dist) * 0.6));
+      var startT = null, interrupted = false;
+
+      function bail() { interrupted = true; }                       // let the user take over
+      window.addEventListener('wheel', bail, { passive: true });
+      window.addEventListener('touchstart', bail, { passive: true });
+
+      function cleanup() {
+        window.removeEventListener('wheel', bail);
+        window.removeEventListener('touchstart', bail);
+        rafId = null;
+      }
+      function step(ts) {
+        if (interrupted) { cleanup(); return; }
+        if (startT === null) startT = ts;
+        var p = Math.min(1, (ts - startT) / duration);
+        window.scrollTo(0, startY + dist * ease(p));
+        if (p < 1) { rafId = requestAnimationFrame(step); }
+        else { cleanup(); if (done) done(); }
+      }
+      rafId = requestAnimationFrame(step);
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
         var id = a.getAttribute('href');
@@ -103,9 +157,12 @@
         var target = document.querySelector(id);
         if (!target) return;
         e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         closeMobileMenu();
-        history.replaceState(null, '', id);
+        var top = target.getBoundingClientRect().top + window.pageYOffset;
+        var destY = Math.max(0, top - (target.id === 'hero' ? 0 : navH));
+        var land = function () { history.replaceState(null, '', id); };
+        if (reduced) { window.scrollTo(0, destY); land(); return; }
+        animateScroll(destY, land);
       });
     });
   }

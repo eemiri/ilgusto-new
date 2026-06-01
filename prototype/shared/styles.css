@@ -22,6 +22,7 @@
   /* Type */
   --font-display: Georgia, 'Times New Roman', serif;
   --font-ui:      'Helvetica Neue', Arial, sans-serif;
+  --font-script:  'Pinyon Script', 'Snell Roundhand', cursive;  /* ornate accent — headline + logo only */
 
   /* Spacing scale */
   --space-sm:  16px;
@@ -43,7 +44,9 @@
 /* ---------- Reset / Base ---------- */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+/* JS drives anchor scrolling with a custom eased animation (see app.js initSmoothScroll).
+   scroll-padding-top keeps native hash jumps (initial load, keyboard) clear of the fixed nav. */
+html { scroll-behavior: auto; scroll-padding-top: var(--nav-h); }
 
 body {
   background: var(--bg);
@@ -81,11 +84,12 @@ section { position: relative; }
 }
 
 .nav-logo {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 20px;
+  font-family: var(--font-script);
+  font-style: normal;
+  font-size: 30px;
+  line-height: 1;
   color: var(--gold);
-  letter-spacing: 0.5px;
+  letter-spacing: 0;
 }
 
 .nav-right { display: flex; align-items: center; gap: var(--space-lg); }
@@ -199,27 +203,44 @@ body.is-loaded #nav[data-reveal] { opacity: 1; transform: none; }
    ========================================================= */
 .hero {
   min-height: 100vh;
-  display: flex; align-items: center;
+  display: flex; align-items: center; justify-content: center;
   padding: calc(var(--nav-h) + 60px) var(--space-2xl) 80px;
 }
+/* Center stage: plate and text share one grid cell, both centered, so the
+   oversized italic headline reads in front of the plate disc (editorial overlay). */
 .hero-inner {
-  width: 100%; max-width: 1200px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 80px;
+  width: 100%; max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-areas: "stage"; place-items: center;
 }
-.hero-text { flex: 1; }
+.hero-plate-wrap { grid-area: stage; z-index: 1; display: flex; justify-content: center; }
+.hero-plate { width: clamp(340px, 42vw, 540px); height: clamp(340px, 42vw, 540px); }
+
+.hero-text {
+  grid-area: stage; z-index: 2; position: relative; justify-self: start;
+  display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+}
+/* Soft scrim sized to the type — keeps light headline legible over the plate's
+   bright belly while a warm halo of plate still shows around it. */
+.hero-text::before {
+  content: ''; position: absolute; z-index: -1; pointer-events: none;
+  left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 150%; height: 124%;
+  background: radial-gradient(ellipse at center,
+    rgba(20,18,16,0.72) 0%, rgba(20,18,16,0.46) 40%, rgba(20,18,16,0) 72%);
+}
 
 .hero-eyebrow {
   font-size: 12px; letter-spacing: 6px; text-transform: uppercase;
   color: var(--gold); margin-bottom: var(--space-lg);
 }
 .hero-headline {
-  font-family: var(--font-display); font-style: italic; font-weight: 300;
-  font-size: clamp(54px, 8.5vw, 96px); line-height: 0.98; letter-spacing: -1.5px;
+  font-family: var(--font-script); font-style: normal; font-weight: 400;
+  font-size: clamp(66px, 11vw, 132px); line-height: 1.04; letter-spacing: 0;
   color: var(--head); margin-bottom: var(--space-lg);
+  text-shadow: 0 2px 40px rgba(20,18,16,0.55);
 }
 .hero-rating {
-  font-size: 13px; letter-spacing: 2px; color: #8a8076;
+  font-size: 13px; letter-spacing: 2px; color: var(--body-warm);
   margin-bottom: var(--space-xl);
 }
 .hero-rating .star { color: var(--gold); }
@@ -231,9 +252,6 @@ body.is-loaded #nav[data-reveal] { opacity: 1; transform: none; }
   transition: border-color 0.3s var(--ease), filter 0.3s var(--ease);
 }
 .hero-cta:hover { border-bottom-color: var(--gold); filter: brightness(1.15); }
-
-.hero-plate-wrap { flex: 0 0 280px; display: flex; justify-content: center; }
-.hero-plate { width: 280px; height: 280px; }
 
 /* Scroll indicator */
 .hero-scroll {
@@ -552,7 +570,7 @@ body.is-loaded #nav[data-reveal] { opacity: 1; transform: none; }
   display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: var(--space-2xl);
 }
 .footer-logo {
-  font-family: var(--font-display); font-style: italic; font-size: 24px; color: var(--gold);
+  font-family: var(--font-script); font-style: normal; font-size: 38px; line-height: 1; color: var(--gold);
 }
 .footer-tag {
   font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted);
@@ -601,12 +619,11 @@ body.is-loaded #nav[data-reveal] { opacity: 1; transform: none; }
   .nav-links { flex-direction: column; align-items: center; gap: var(--space-xl); }
   .nav-links a { font-size: 16px; letter-spacing: 4px; }
 
-  /* Hero mobile: plate above text, single column */
+  /* Hero mobile: same centered overlay, plate scaled to the viewport */
   .hero { padding: calc(var(--nav-h) + 40px) var(--space-md) 70px; }
-  .hero-inner { flex-direction: column-reverse; gap: var(--space-2xl); text-align: center; }
-  .hero-plate-wrap { flex: 0 0 auto; }
-  .hero-plate { width: 200px; height: 200px; }
-  .hero-headline { font-size: clamp(46px, 15vw, 72px); letter-spacing: -1px; }
+  .hero-plate { width: clamp(240px, 72vw, 420px); height: clamp(240px, 72vw, 420px); }
+  .hero-headline { font-size: clamp(40px, 12vw, 64px); letter-spacing: -1px; }
+  .hero-text::before { width: 168%; }
   .hero-cta { font-size: 20px; }
 
   /* About mobile: stacked */
@@ -645,7 +662,5 @@ body.is-loaded #nav[data-reveal] { opacity: 1; transform: none; }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  .hero-inner { gap: 52px; }
-  .hero-plate-wrap { flex: 0 0 240px; }
-  .hero-plate { width: 240px; height: 240px; }
+  .hero-plate { width: clamp(380px, 52vw, 460px); height: clamp(380px, 52vw, 460px); }
 }

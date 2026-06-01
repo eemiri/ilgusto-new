@@ -6,6 +6,9 @@
   <title>Il Gusto — Italian Fine Dining · Kleinblittersdorf</title>
   <meta name="description" data-de="Il Gusto — Italian Fine Dining in Kleinblittersdorf. Hausgemachte Pasta, frische Zutaten, 4,9 ★. Jetzt Tisch reservieren." data-fr="Il Gusto — Italian Fine Dining à Kleinblittersdorf. Pâtes maison, produits frais, 4,9 ★. Réservez votre table." content="Il Gusto — Italian Fine Dining in Kleinblittersdorf. Hausgemachte Pasta, frische Zutaten, 4,9 ★. Jetzt Tisch reservieren.">
   <link rel="preconnect" href="https://app.resmio.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap">
   <link rel="stylesheet" href="shared/styles.css">
 </head>
 <body>
@@ -45,6 +48,12 @@
   <!-- #hero -->
   <section class="hero" id="hero" aria-label="Il Gusto">
     <div class="hero-inner">
+      <!-- Plate = center stage: the dish is the brand ("wir lassen den Teller sprechen").
+           Sits centered behind the headline as the focal disc. -->
+      <div class="hero-plate-wrap" data-reveal style="--d:.5s">
+        <div class="hero-plate plate-ph" data-dish="Ravioli di Vitello" data-parallax="0.07" aria-hidden="true"></div>
+      </div>
+
       <div class="hero-text">
         <p class="hero-eyebrow" data-reveal style="--d:.4s"
            data-de="Italian Fine Dining · Kleinblittersdorf"
@@ -54,16 +63,8 @@
            data-de="Frisch.<br>Elegant.<br>Unvergesslich."
            data-fr="Frais.<br>Élégant.<br>Inoubliable.">Frisch.<br>Elegant.<br>Unvergesslich.</h1>
 
-        <p class="hero-rating" data-reveal style="--d:1s"
-           data-de='<span class="star">★</span> 4,9 · 144 Gäste haben gesprochen'
-           data-fr='<span class="star">★</span> 4,9 · 144 clients ont parlé'><span class="star">★</span> 4,9 · 144 Gäste haben gesprochen</p>
-
-        <a class="hero-cta" href="#reservation" data-reveal style="--d:1.2s"
+        <a class="hero-cta" href="#reservation" data-reveal style="--d:1s"
            data-de="Reservieren →" data-fr="Réserver →">Reservieren →</a>
-      </div>
-
-      <div class="hero-plate-wrap" data-reveal style="--d:.5s">
-        <div class="hero-plate plate-ph" data-dish="Ravioli di Vitello" data-parallax="0.07" aria-hidden="true"></div>
       </div>
     </div>
 

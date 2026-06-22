@@ -190,6 +190,11 @@ body.is-loaded #nav[data-reveal] { opacity: 1; transform: none; }
   box-shadow: 0 20px 80px rgba(0,0,0,0.6), inset 0 2px 24px rgba(255,255,255,0.12);
   position: relative;
 }
+/* Real plate photo: black-bg image blends into the dark page = floating plate */
+.plate-img {
+  background-size: cover; background-position: center;
+}
+.plate-img::after { content: none; }
 .plate-ph::after {
   content: attr(data-dish);
   position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
@@ -413,6 +418,13 @@ body.is-loaded #nav[data-reveal] { opacity: 1; transform: none; }
 }
 .dish.is-signature .dish-name { color: var(--head); }
 .dish.is-signature .dish-name::after { content: ' ★'; font-size: 10px; color: var(--gold); }
+
+.dish-tag {
+  display: inline-block; margin-left: 8px; padding: 2px 7px;
+  font-size: 9px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--gold); border: 1px solid var(--gold); border-radius: 999px;
+  vertical-align: middle; font-style: normal; font-family: var(--font-body);
+}
 
 .menu-tageskarte {
   margin-top: var(--space-xl); padding: 20px 28px; border: 1px solid var(--line);

@@ -49,43 +49,67 @@
       "de": "Viele weitere Gerichte finden Sie in unserer wechselnden Tageskarte",
       "fr": "Retrouvez de nombreux autres plats sur notre carte du jour"
     },
-    "_dishesTodo": "Hauptspeisen (8) und Dessert (6) unvollständig — vor Launch mit echter Karte füllen. Signature ★ mit Kunde abstimmen.",
+    "_dishesNote": "Vollständige Karte (Stand 06/2026, von echter Speisekarte übernommen). 'Pizza nach Wunsch' und Antipasto-2-Pers haben Sonderpreis-Strings.",
     "categories": [
       {
         "id": "vorspeisen",
         "name": { "de": "Vorspeisen", "fr": "Entrées" },
-        "range": { "de": "ab 14,50 €", "fr": "à partir de 14,50 €" },
-        "count": { "de": "6 Gerichte", "fr": "6 plats" },
+        "range": { "de": "ab 5,50 €", "fr": "à partir de 5,50 €" },
+        "count": { "de": "9 Gerichte", "fr": "9 plats" },
         "dishes": [
-          { "signature": true, "name": "Antipasto il Gusto", "desc": { "de": "Vorspeisen Variation nach Art des Hauses", "fr": "Variation de hors-d'œuvre à notre façon" }, "price": "19,50 €" },
+          { "signature": true, "name": "Antipasto il Gusto", "desc": { "de": "Vorspeisen Variation nach Art des Hauses", "fr": "Variation de hors-d'œuvre à notre façon" }, "price": { "de": "19,50 € · 2 Pers. 35 €", "fr": "19,50 € · 2 pers. 35 €" } },
           { "name": "Gamberoni il Gusto", "desc": { "de": "Riesengarnelen · Knoblauch · Kräutersoße", "fr": "Crevettes géantes · ail · sauce aux herbes" }, "price": "18,90 €" },
-          { "name": "Zweierlei vom Rind", "desc": { "de": "Carpaccio und Tatar · Käsecreme · Trüffelöl", "fr": "Carpaccio et tartare · crème de fromage · huile de truffe" }, "price": "21,50 €" },
+          { "name": "Pulpoarm", "desc": { "de": "Hausgemachter Humus · getrocknete Tomaten · Oliven", "fr": "Houmous maison · tomates séchées · olives" }, "price": "19,50 €" },
+          { "name": "Zweierlei vom Rind", "desc": { "de": "Carpaccio und Tatar · Vinaigrette · Käsecreme · Trüffelöl", "fr": "Carpaccio et tartare · vinaigrette · crème de fromage · huile de truffe" }, "price": "21,50 €" },
           { "name": "Wolfsbarschcarpaccio", "desc": { "de": "Zitronenvinaigrette", "fr": "Vinaigrette au citron" }, "price": "18,50 €" },
           { "name": "Carpaccio di Barbabietola", "desc": { "de": "Rote Bete · karamellisierter Ziegenkäse · Rucola · Orange", "fr": "Betterave · chèvre caramélisé · roquette · orange" }, "price": "14,50 €" },
-          { "name": "Vitello Tonnato", "desc": { "de": "Thunfischcremesoße · Kapern", "fr": "Sauce thon · câpres" }, "price": "18,50 €" }
+          { "name": "Vitello Tonnato", "desc": { "de": "Thunfischcremesoße · Kapern", "fr": "Sauce crème de thon · câpres" }, "price": "18,50 €" },
+          { "name": "Insalata con Formaggio di Capra", "desc": { "de": "Gemischter Salat · Ziegenkäse · Vinaigrette", "fr": "Salade mixte · chèvre · vinaigrette" }, "price": "12,50 €" },
+          { "name": { "de": "Kleiner gemischter Salat", "fr": "Petite salade mixte" }, "price": "5,50 €" }
         ]
       },
       {
         "id": "pasta",
-        "name": { "de": "Hausgemachte Pasta", "fr": "Pâtes Maison" },
-        "range": { "de": "ab 17,90 €", "fr": "à partir de 17,90 €" },
-        "count": { "de": "3 Gerichte", "fr": "3 plats" },
+        "name": { "de": "Pasta", "fr": "Pâtes" },
+        "range": { "de": "ab 17,50 €", "fr": "à partir de 17,50 €" },
+        "count": { "de": "5 Gerichte", "fr": "5 plats" },
         "dishes": [
-          { "signature": true, "name": "Ravioli di Vitello", "desc": { "de": "Kalbsfüllung · Süßkartoffelcreme · Demi-Glace", "fr": "Farce de veau · crème de patate douce · demi-glace" }, "price": "18,90 €" },
-          { "name": "Tortelloni al Salmone", "desc": { "de": "Lachscreme-Füllung · Zitronensoße · Mandel", "fr": "Farce crème de saumon · sauce citron · amande" }, "price": "18,90 €" },
-          { "name": "Tortelloni ai Fungi", "desc": { "de": "Pilzcreme-Füllung · getrüffelte Käsecreme", "fr": "Farce crème de champignons · crème de fromage truffée" }, "price": "17,90 €" }
+          { "signature": true, "name": "Ravioli di Vitello", "tag": { "de": "Hausgemacht", "fr": "Fait maison" }, "desc": { "de": "Kalbfleisch-Füllung · Käsecreme · Süßkartoffelcreme · Demi-Glace", "fr": "Farce de veau · crème de fromage · crème de patate douce · demi-glace" }, "price": "18,90 €" },
+          { "name": "Tortelloni al Salmone", "tag": { "de": "Hausgemacht", "fr": "Fait maison" }, "desc": { "de": "Lachscreme-Füllung · Zitronencremesoße · Mandel", "fr": "Farce crème de saumon · sauce crème de citron · amande" }, "price": "18,90 €" },
+          { "name": "Tagliatelle ai Funghi", "desc": { "de": "Edelpilz-Cremesoße · Trüffelöl · Parmesankäse", "fr": "Sauce crème de cèpes · huile de truffe · parmesan" }, "price": "18,50 €" },
+          { "name": "Spaghetti Amatriciana", "desc": { "de": "Tomatensoße · Guanciale · Parmesankäse", "fr": "Sauce tomate · guanciale · parmesan" }, "price": "18,50 €" },
+          { "name": "Spaghetti Aglio Olio / Gamberi", "desc": { "de": "Knoblauch · Olivenöl · Chili · Scampi · Parmesankäse", "fr": "Ail · huile d'olive · piment · scampi · parmesan" }, "price": "17,50 €" }
+        ]
+      },
+      {
+        "id": "pizza",
+        "name": { "de": "Pizza", "fr": "Pizza" },
+        "range": { "de": "ab 13,90 €", "fr": "à partir de 13,90 €" },
+        "count": { "de": "6 Gerichte", "fr": "6 plats" },
+        "dishes": [
+          { "signature": true, "name": "Pizza il Gusto", "desc": { "de": "Parmaschinken · Rucola · Parmesankäse", "fr": "Jambon de Parme · roquette · parmesan" }, "price": "16,90 €" },
+          { "name": "Pizza Tonno Cipolla", "desc": { "de": "Thunfisch · Zwiebeln", "fr": "Thon · oignons" }, "price": "15,90 €" },
+          { "name": "Pizza 4 Formaggi", "desc": { "de": "Vier verschiedene Käsesorten", "fr": "Quatre fromages" }, "price": "15,90 €" },
+          { "name": "Pizza Capricciosa", "desc": { "de": "Salami · Schinken · Pilze", "fr": "Salami · jambon · champignons" }, "price": "14,90 €" },
+          { "name": "Pizza Vegetariana", "desc": { "de": "Saisonales Gemüse", "fr": "Légumes de saison" }, "price": "13,90 €" },
+          { "name": "Pizza nach Wunsch", "desc": { "de": "Fragen Sie uns gerne", "fr": "Demandez-nous volontiers" }, "price": { "de": "je nach Zutaten", "fr": "selon garniture" } }
         ]
       },
       {
         "id": "hauptspeisen",
         "name": { "de": "Hauptspeisen", "fr": "Plats Principaux" },
         "range": { "de": "ab 26,90 €", "fr": "à partir de 26,90 €" },
-        "count": { "de": "8 Gerichte", "fr": "8 plats" },
+        "count": { "de": "9 Gerichte", "fr": "9 plats" },
         "dishes": [
           { "signature": true, "name": "Surf and Turf", "desc": { "de": "Argentinisches Roastbeef · Riesengarnelen · Gemüse · Kartoffeln", "fr": "Rosbif argentin · crevettes géantes · légumes · pommes de terre" }, "price": "37,90 €" },
-          { "name": "Bistecca di Manzo il Gusto", "desc": { "de": "Argentinisches Roastbeef · Edelpilzcremesoße · Gemüse", "fr": "Rosbif argentin · sauce crème de champignons nobles" }, "price": "32,90 €" },
-          { "name": "Kalbsrücken", "desc": { "de": "Selleriecremesoße · Kartoffelpüree · Gemüse", "fr": "Sauce crème de céleri · purée · légumes" }, "price": "35,90 €" },
-          { "name": "Saltimbocca alla Romana", "desc": { "de": "Kalb · Parmaschinken · Weißweinsoße · Salbei", "fr": "Veau · jambon de Parme · sauce vin blanc · sauge" }, "price": "27,90 €" }
+          { "name": "Pulpoarm", "desc": { "de": "Vinaigrette · Spaghetti Aglio Olio", "fr": "Vinaigrette · spaghetti aglio olio" }, "price": "34,90 €" },
+          { "name": "Gamberoni il Gusto", "desc": { "de": "Riesengarnelen · Knoblauch · Kräutersoße · Spaghetti Aglio Olio", "fr": "Crevettes géantes · ail · sauce aux herbes · spaghetti aglio olio" }, "price": "34,50 €" },
+          { "name": "Bistecca di Manzo il Gusto", "desc": { "de": "Argentinisches Roastbeef · Edelpilzcremesoße · Gemüse · Kartoffeln", "fr": "Rosbif argentin · sauce crème de cèpes · légumes · pommes de terre" }, "price": "32,90 €" },
+          { "name": "Bistecca di Manzo alla Griglia", "desc": { "de": "Argentinisches Roastbeef vom Grill · Gemüse · Kartoffeln", "fr": "Rosbif argentin grillé · légumes · pommes de terre" }, "price": "30,90 €" },
+          { "name": "Wolfsbarschfilet", "desc": { "de": "Zitronencremesoße · Kartoffelpüree · Gemüse", "fr": "Sauce crème de citron · purée · légumes" }, "price": "29,90 €" },
+          { "name": "Piccata Milanese", "desc": { "de": "Vom Kalb · Parmesankäse · Ei · Spaghetti · Gemüse", "fr": "De veau · parmesan · œuf · spaghetti · légumes" }, "price": "27,90 €" },
+          { "name": "Saltimbocca alla Romana", "desc": { "de": "Vom Kalb · Parmaschinken · Weißweinsoße · Salbei · Spaghetti · Gemüse", "fr": "De veau · jambon de Parme · sauce vin blanc · sauge · spaghetti · légumes" }, "price": "27,90 €" },
+          { "name": "Maispoularde", "desc": { "de": "Rotweinorangen-Jus · Kartoffelpüree · Gemüse", "fr": "Jus orange au vin rouge · purée · légumes" }, "price": "26,90 €" }
         ]
       },
       {
@@ -96,6 +120,9 @@
         "dishes": [
           { "signature": true, "name": "Tiramisu", "desc": { "de": "Hausgemacht · Kaffee · Amaretto", "fr": "Fait maison · café · amaretto" }, "price": "8,00 €" },
           { "name": "Tortino", "desc": { "de": "Schokoladensoufflé · Vanille-Eis", "fr": "Soufflé au chocolat · glace vanille" }, "price": "8,00 €" },
+          { "name": "Cassata Eis", "desc": { "de": "Sizilianische Eisspezialität", "fr": "Spécialité glacée sicilienne" }, "price": "8,90 €" },
+          { "name": "Panna Cotta", "price": "7,90 €" },
+          { "name": "Variazione del Sorbetto", "desc": { "de": "Sorbet-Variation", "fr": "Variation de sorbets" }, "price": "7,90 €" },
           { "name": "Café Gourmand", "desc": { "de": "Dessert Variation · Espresso", "fr": "Variation de desserts · espresso" }, "price": "11,90 €" }
         ]
       }

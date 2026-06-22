@@ -51,7 +51,7 @@
       <!-- Plate = center stage: the dish is the brand ("wir lassen den Teller sprechen").
            Sits centered behind the headline as the focal disc. -->
       <div class="hero-plate-wrap" data-reveal style="--d:.5s">
-        <div class="hero-plate plate-ph" data-dish="Ravioli di Vitello" data-parallax="0.07" aria-hidden="true"></div>
+        <div class="hero-plate plate-ph plate-img" data-dish="Risotto allo Zafferano" data-parallax="0.07" aria-hidden="true" style="background-image:url('assets/plates/risotto.png')"></div>
       </div>
 
       <div class="hero-text">
@@ -80,7 +80,7 @@
         <div class="about-photo" role="img"
              aria-label="Il Gusto Ambiente"
              data-de="Interior-Foto" data-fr="Photo intérieur"></div>
-        <div class="about-plate plate-ph about-plate-accent" data-dish="Carpaccio di Manzo" data-parallax="0.06" aria-hidden="true"></div>
+        <div class="about-plate plate-ph about-plate-accent plate-img" data-dish="Carpaccio di Manzo" data-parallax="0.06" aria-hidden="true" style="background-image:url('assets/plates/bresaola.png')"></div>
       </div>
 
       <div class="about-text">
@@ -119,7 +119,7 @@
   <!-- #menu -->
   <section class="menu" id="menu">
     <div class="menu-inner">
-      <div class="menu-plate plate-ph menu-plate-accent" data-dish="Tortelloni" data-parallax="0.05" aria-hidden="true" data-reveal></div>
+      <div class="menu-plate plate-ph menu-plate-accent plate-img" data-dish="Polpo" data-parallax="0.05" aria-hidden="true" data-reveal style="background-image:url('assets/plates/pulpo.png')"></div>
 
       <header class="menu-header">
         <p class="menu-eyebrow chapter" data-reveal><span class="chapter-num">II</span> La Cucina</p>
@@ -133,10 +133,10 @@
           <button class="cat-header" aria-expanded="false">
             <span class="cat-left">
               <span class="cat-name" data-de="Vorspeisen" data-fr="Entrées">Vorspeisen</span>
-              <span class="cat-range" data-de="ab 14,50 €" data-fr="à partir de 14,50 €">ab 14,50 €</span>
+              <span class="cat-range" data-de="ab 5,50 €" data-fr="à partir de 5,50 €">ab 5,50 €</span>
             </span>
             <span class="cat-right">
-              <span class="cat-count" data-de="6 Gerichte" data-fr="6 plats">6 Gerichte</span>
+              <span class="cat-count" data-de="9 Gerichte" data-fr="9 plats">9 Gerichte</span>
               <span class="cat-toggle" aria-hidden="true">+</span>
             </span>
           </button>
@@ -147,7 +147,7 @@
                   <span class="dish-name">Antipasto il Gusto</span>
                   <span class="dish-desc" data-de="Vorspeisen Variation nach Art des Hauses" data-fr="Variation de hors-d'œuvre à notre façon">Vorspeisen Variation nach Art des Hauses</span>
                 </div>
-                <span class="dish-price">19,50 €</span>
+                <span class="dish-price" data-de="19,50 € · 2 Pers. 35 €" data-fr="19,50 € · 2 pers. 35 €">19,50 € · 2 Pers. 35 €</span>
               </div>
               <div class="dish">
                 <div class="dish-info">
@@ -158,8 +158,15 @@
               </div>
               <div class="dish">
                 <div class="dish-info">
+                  <span class="dish-name">Pulpoarm</span>
+                  <span class="dish-desc" data-de="Hausgemachter Humus · getrocknete Tomaten · Oliven" data-fr="Houmous maison · tomates séchées · olives">Hausgemachter Humus · getrocknete Tomaten · Oliven</span>
+                </div>
+                <span class="dish-price">19,50 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
                   <span class="dish-name">Zweierlei vom Rind</span>
-                  <span class="dish-desc" data-de="Carpaccio und Tatar · Käsecreme · Trüffelöl" data-fr="Carpaccio et tartare · crème de fromage · huile de truffe">Carpaccio und Tatar · Käsecreme · Trüffelöl</span>
+                  <span class="dish-desc" data-de="Carpaccio und Tatar · Vinaigrette · Käsecreme · Trüffelöl" data-fr="Carpaccio et tartare · vinaigrette · crème de fromage · huile de truffe">Carpaccio und Tatar · Vinaigrette · Käsecreme · Trüffelöl</span>
                 </div>
                 <span class="dish-price">21,50 €</span>
               </div>
@@ -180,23 +187,36 @@
               <div class="dish">
                 <div class="dish-info">
                   <span class="dish-name">Vitello Tonnato</span>
-                  <span class="dish-desc" data-de="Thunfischcremesoße · Kapern" data-fr="Sauce thon · câpres">Thunfischcremesoße · Kapern</span>
+                  <span class="dish-desc" data-de="Thunfischcremesoße · Kapern" data-fr="Sauce crème de thon · câpres">Thunfischcremesoße · Kapern</span>
                 </div>
                 <span class="dish-price">18,50 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Insalata con Formaggio di Capra</span>
+                  <span class="dish-desc" data-de="Gemischter Salat · Ziegenkäse · Vinaigrette" data-fr="Salade mixte · chèvre · vinaigrette">Gemischter Salat · Ziegenkäse · Vinaigrette</span>
+                </div>
+                <span class="dish-price">12,50 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name" data-de="Kleiner gemischter Salat" data-fr="Petite salade mixte">Kleiner gemischter Salat</span>
+                </div>
+                <span class="dish-price">5,50 €</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Hausgemachte Pasta -->
+        <!-- Pasta -->
         <div class="cat">
           <button class="cat-header" aria-expanded="false">
             <span class="cat-left">
-              <span class="cat-name" data-de="Hausgemachte Pasta" data-fr="Pâtes Maison">Hausgemachte Pasta</span>
-              <span class="cat-range" data-de="ab 17,90 €" data-fr="à partir de 17,90 €">ab 17,90 €</span>
+              <span class="cat-name" data-de="Pasta" data-fr="Pâtes">Pasta</span>
+              <span class="cat-range" data-de="ab 17,50 €" data-fr="à partir de 17,50 €">ab 17,50 €</span>
             </span>
             <span class="cat-right">
-              <span class="cat-count" data-de="3 Gerichte" data-fr="3 plats">3 Gerichte</span>
+              <span class="cat-count" data-de="5 Gerichte" data-fr="5 plats">5 Gerichte</span>
               <span class="cat-toggle" aria-hidden="true">+</span>
             </span>
           </button>
@@ -204,24 +224,98 @@
             <div class="dish-list">
               <div class="dish is-signature">
                 <div class="dish-info">
-                  <span class="dish-name">Ravioli di Vitello</span>
-                  <span class="dish-desc" data-de="Kalbsfüllung · Süßkartoffelcreme · Demi-Glace" data-fr="Farce de veau · crème de patate douce · demi-glace">Kalbsfüllung · Süßkartoffelcreme · Demi-Glace</span>
+                  <span class="dish-name">Ravioli di Vitello <span class="dish-tag" data-de="Hausgemacht" data-fr="Fait maison">Hausgemacht</span></span>
+                  <span class="dish-desc" data-de="Kalbfleisch-Füllung · Käsecreme · Süßkartoffelcreme · Demi-Glace" data-fr="Farce de veau · crème de fromage · crème de patate douce · demi-glace">Kalbfleisch-Füllung · Käsecreme · Süßkartoffelcreme · Demi-Glace</span>
                 </div>
                 <span class="dish-price">18,90 €</span>
               </div>
               <div class="dish">
                 <div class="dish-info">
-                  <span class="dish-name">Tortelloni al Salmone</span>
-                  <span class="dish-desc" data-de="Lachscreme-Füllung · Zitronensoße · Mandel" data-fr="Farce crème de saumon · sauce citron · amande">Lachscreme-Füllung · Zitronensoße · Mandel</span>
+                  <span class="dish-name">Tortelloni al Salmone <span class="dish-tag" data-de="Hausgemacht" data-fr="Fait maison">Hausgemacht</span></span>
+                  <span class="dish-desc" data-de="Lachscreme-Füllung · Zitronencremesoße · Mandel" data-fr="Farce crème de saumon · sauce crème de citron · amande">Lachscreme-Füllung · Zitronencremesoße · Mandel</span>
                 </div>
                 <span class="dish-price">18,90 €</span>
               </div>
               <div class="dish">
                 <div class="dish-info">
-                  <span class="dish-name">Tortelloni ai Fungi</span>
-                  <span class="dish-desc" data-de="Pilzcreme-Füllung · getrüffelte Käsecreme" data-fr="Farce crème de champignons · crème de fromage truffée">Pilzcreme-Füllung · getrüffelte Käsecreme</span>
+                  <span class="dish-name">Tagliatelle ai Funghi</span>
+                  <span class="dish-desc" data-de="Edelpilz-Cremesoße · Trüffelöl · Parmesankäse" data-fr="Sauce crème de cèpes · huile de truffe · parmesan">Edelpilz-Cremesoße · Trüffelöl · Parmesankäse</span>
                 </div>
-                <span class="dish-price">17,90 €</span>
+                <span class="dish-price">18,50 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Spaghetti Amatriciana</span>
+                  <span class="dish-desc" data-de="Tomatensoße · Guanciale · Parmesankäse" data-fr="Sauce tomate · guanciale · parmesan">Tomatensoße · Guanciale · Parmesankäse</span>
+                </div>
+                <span class="dish-price">18,50 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Spaghetti Aglio Olio / Gamberi</span>
+                  <span class="dish-desc" data-de="Knoblauch · Olivenöl · Chili · Scampi · Parmesankäse" data-fr="Ail · huile d'olive · piment · scampi · parmesan">Knoblauch · Olivenöl · Chili · Scampi · Parmesankäse</span>
+                </div>
+                <span class="dish-price">17,50 €</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pizza -->
+        <div class="cat">
+          <button class="cat-header" aria-expanded="false">
+            <span class="cat-left">
+              <span class="cat-name" data-de="Pizza" data-fr="Pizza">Pizza</span>
+              <span class="cat-range" data-de="ab 13,90 €" data-fr="à partir de 13,90 €">ab 13,90 €</span>
+            </span>
+            <span class="cat-right">
+              <span class="cat-count" data-de="6 Gerichte" data-fr="6 plats">6 Gerichte</span>
+              <span class="cat-toggle" aria-hidden="true">+</span>
+            </span>
+          </button>
+          <div class="cat-body">
+            <div class="dish-list">
+              <div class="dish is-signature">
+                <div class="dish-info">
+                  <span class="dish-name">Pizza il Gusto</span>
+                  <span class="dish-desc" data-de="Parmaschinken · Rucola · Parmesankäse" data-fr="Jambon de Parme · roquette · parmesan">Parmaschinken · Rucola · Parmesankäse</span>
+                </div>
+                <span class="dish-price">16,90 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Pizza Tonno Cipolla</span>
+                  <span class="dish-desc" data-de="Thunfisch · Zwiebeln" data-fr="Thon · oignons">Thunfisch · Zwiebeln</span>
+                </div>
+                <span class="dish-price">15,90 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Pizza 4 Formaggi</span>
+                  <span class="dish-desc" data-de="Vier verschiedene Käsesorten" data-fr="Quatre fromages">Vier verschiedene Käsesorten</span>
+                </div>
+                <span class="dish-price">15,90 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Pizza Capricciosa</span>
+                  <span class="dish-desc" data-de="Salami · Schinken · Pilze" data-fr="Salami · jambon · champignons">Salami · Schinken · Pilze</span>
+                </div>
+                <span class="dish-price">14,90 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Pizza Vegetariana</span>
+                  <span class="dish-desc" data-de="Saisonales Gemüse" data-fr="Légumes de saison">Saisonales Gemüse</span>
+                </div>
+                <span class="dish-price">13,90 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Pizza nach Wunsch</span>
+                  <span class="dish-desc" data-de="Fragen Sie uns gerne" data-fr="Demandez-nous volontiers">Fragen Sie uns gerne</span>
+                </div>
+                <span class="dish-price" data-de="je nach Zutaten" data-fr="selon garniture">je nach Zutaten</span>
               </div>
             </div>
           </div>
@@ -235,7 +329,7 @@
               <span class="cat-range" data-de="ab 26,90 €" data-fr="à partir de 26,90 €">ab 26,90 €</span>
             </span>
             <span class="cat-right">
-              <span class="cat-count" data-de="8 Gerichte" data-fr="8 plats">8 Gerichte</span>
+              <span class="cat-count" data-de="9 Gerichte" data-fr="9 plats">9 Gerichte</span>
               <span class="cat-toggle" aria-hidden="true">+</span>
             </span>
           </button>
@@ -250,24 +344,59 @@
               </div>
               <div class="dish">
                 <div class="dish-info">
+                  <span class="dish-name">Pulpoarm</span>
+                  <span class="dish-desc" data-de="Vinaigrette · Spaghetti Aglio Olio" data-fr="Vinaigrette · spaghetti aglio olio">Vinaigrette · Spaghetti Aglio Olio</span>
+                </div>
+                <span class="dish-price">34,90 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Gamberoni il Gusto</span>
+                  <span class="dish-desc" data-de="Riesengarnelen · Knoblauch · Kräutersoße · Spaghetti Aglio Olio" data-fr="Crevettes géantes · ail · sauce aux herbes · spaghetti aglio olio">Riesengarnelen · Knoblauch · Kräutersoße · Spaghetti Aglio Olio</span>
+                </div>
+                <span class="dish-price">34,50 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
                   <span class="dish-name">Bistecca di Manzo il Gusto</span>
-                  <span class="dish-desc" data-de="Argentinisches Roastbeef · Edelpilzcremesoße · Gemüse" data-fr="Rosbif argentin · sauce crème de champignons nobles">Argentinisches Roastbeef · Edelpilzcremesoße · Gemüse</span>
+                  <span class="dish-desc" data-de="Argentinisches Roastbeef · Edelpilzcremesoße · Gemüse · Kartoffeln" data-fr="Rosbif argentin · sauce crème de cèpes · légumes · pommes de terre">Argentinisches Roastbeef · Edelpilzcremesoße · Gemüse · Kartoffeln</span>
                 </div>
                 <span class="dish-price">32,90 €</span>
               </div>
               <div class="dish">
                 <div class="dish-info">
-                  <span class="dish-name">Kalbsrücken</span>
-                  <span class="dish-desc" data-de="Selleriecremesoße · Kartoffelpüree · Gemüse" data-fr="Sauce crème de céleri · purée · légumes">Selleriecremesoße · Kartoffelpüree · Gemüse</span>
+                  <span class="dish-name">Bistecca di Manzo alla Griglia</span>
+                  <span class="dish-desc" data-de="Argentinisches Roastbeef vom Grill · Gemüse · Kartoffeln" data-fr="Rosbif argentin grillé · légumes · pommes de terre">Argentinisches Roastbeef vom Grill · Gemüse · Kartoffeln</span>
                 </div>
-                <span class="dish-price">35,90 €</span>
+                <span class="dish-price">30,90 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Wolfsbarschfilet</span>
+                  <span class="dish-desc" data-de="Zitronencremesoße · Kartoffelpüree · Gemüse" data-fr="Sauce crème de citron · purée · légumes">Zitronencremesoße · Kartoffelpüree · Gemüse</span>
+                </div>
+                <span class="dish-price">29,90 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Piccata Milanese</span>
+                  <span class="dish-desc" data-de="Vom Kalb · Parmesankäse · Ei · Spaghetti · Gemüse" data-fr="De veau · parmesan · œuf · spaghetti · légumes">Vom Kalb · Parmesankäse · Ei · Spaghetti · Gemüse</span>
+                </div>
+                <span class="dish-price">27,90 €</span>
               </div>
               <div class="dish">
                 <div class="dish-info">
                   <span class="dish-name">Saltimbocca alla Romana</span>
-                  <span class="dish-desc" data-de="Kalb · Parmaschinken · Weißweinsoße · Salbei" data-fr="Veau · jambon de Parme · sauce vin blanc · sauge">Kalb · Parmaschinken · Weißweinsoße · Salbei</span>
+                  <span class="dish-desc" data-de="Vom Kalb · Parmaschinken · Weißweinsoße · Salbei · Spaghetti · Gemüse" data-fr="De veau · jambon de Parme · sauce vin blanc · sauge · spaghetti · légumes">Vom Kalb · Parmaschinken · Weißweinsoße · Salbei · Spaghetti · Gemüse</span>
                 </div>
                 <span class="dish-price">27,90 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Maispoularde</span>
+                  <span class="dish-desc" data-de="Rotweinorangen-Jus · Kartoffelpüree · Gemüse" data-fr="Jus orange au vin rouge · purée · légumes">Rotweinorangen-Jus · Kartoffelpüree · Gemüse</span>
+                </div>
+                <span class="dish-price">26,90 €</span>
               </div>
             </div>
           </div>
@@ -300,6 +429,26 @@
                   <span class="dish-desc" data-de="Schokoladensoufflé · Vanille-Eis" data-fr="Soufflé au chocolat · glace vanille">Schokoladensoufflé · Vanille-Eis</span>
                 </div>
                 <span class="dish-price">8,00 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Cassata Eis</span>
+                  <span class="dish-desc" data-de="Sizilianische Eisspezialität" data-fr="Spécialité glacée sicilienne">Sizilianische Eisspezialität</span>
+                </div>
+                <span class="dish-price">8,90 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Panna Cotta</span>
+                </div>
+                <span class="dish-price">7,90 €</span>
+              </div>
+              <div class="dish">
+                <div class="dish-info">
+                  <span class="dish-name">Variazione del Sorbetto</span>
+                  <span class="dish-desc" data-de="Sorbet-Variation" data-fr="Variation de sorbets">Sorbet-Variation</span>
+                </div>
+                <span class="dish-price">7,90 €</span>
               </div>
               <div class="dish">
                 <div class="dish-info">

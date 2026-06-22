@@ -174,6 +174,32 @@
     if (ham) { ham.classList.remove('is-open'); ham.setAttribute('aria-expanded', 'false'); }
     if (right) right.classList.remove('is-open');
   }
+  /* ---------- Momentum (smooth) wheel scroll — desktop only ---------- */
+  // Lerp the page toward a wheel-driven target. Native momentum stays on touch;
+  // anchor jumps (initSmoothScroll) and the reveal overlay are left alone.
+  function initMomentumScroll() {
+    var mq = window.matchMedia;
+    if (mq && (mq('(prefers-reduced-motion: reduce)').matches || mq('(pointer: coarse)').matches)) return;
+    var target = window.pageYOffset, cur = target, running = false;
+    function maxY() { return document.documentElement.scrollHeight - window.innerHeight; }
+    function loop() {
+      cur += (target - cur) * 0.12;
+      if (Math.abs(target - cur) < 0.5) { cur = target; running = false; }
+      window.scrollTo(0, cur);
+      if (running) requestAnimationFrame(loop);
+    }
+    window.addEventListener('wheel', function (e) {
+      if (document.body.style.overflow === 'hidden') return; // reveal open → leave native
+      if (e.ctrlKey) return;                                  // pinch-zoom
+      e.preventDefault();
+      var d = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1);
+      target = Math.max(0, Math.min(maxY(), target + d));
+      if (!running) { running = true; requestAnimationFrame(loop); }
+    }, { passive: false });
+    // Keep target in sync when something else scrolls (anchor jump, keyboard, resize).
+    window.addEventListener('scroll', function () { if (!running) { target = cur = window.pageYOffset; } }, { passive: true });
+  }
+
   function initMobileMenu() {
     var ham = document.getElementById('navHamburger');
     var right = document.getElementById('navRight');
@@ -229,9 +255,9 @@
 
     function curLang() { return document.documentElement.getAttribute('lang') || 'de'; }
 
-    function openReveal(pw) {
+    // dataEl carries the data-* attrs; plate is the visible round element (geometry + image).
+    function openReveal(dataEl, plate) {
       if (isOpen) return; isOpen = true;
-      var plate = pw.querySelector('.g-plate');
       var r = plate.getBoundingClientRect();
       ocx = r.left + r.width / 2;
       ocy = r.top + r.height / 2;
@@ -240,14 +266,14 @@
       var big, lang = curLang();
 
       if (vw <= 767) {
-        big = Math.min(vw * 0.6, vh * 0.4, 280);
+        big = Math.min(vw * 0.86, vh * 0.5, 420);
         plateEl.style.left = ((vw - big) / 2) + 'px';
         plateEl.style.top  = (vh * 0.12) + 'px';
         textEl.style.left  = '24px';
         textEl.style.top   = (vh * 0.12 + big + 28) + 'px';
         textEl.style.width = (vw - 48) + 'px';
       } else {
-        big = Math.min(vw * 0.36, vh * 0.58, 360);
+        big = Math.min(vw * 0.6, vh * 0.92, 780);
         plateEl.style.left = (vw * 0.08) + 'px';
         plateEl.style.top  = ((vh - big) / 2) + 'px';
         textEl.style.left  = (vw * 0.08 + big + 60) + 'px';
@@ -256,12 +282,15 @@
       }
       plateEl.style.width = big + 'px';
       plateEl.style.height = big + 'px';
-      plateEl.style.background = plate.style.background;
+      plateEl.style.backgroundColor = 'transparent';
+      plateEl.style.backgroundImage = getComputedStyle(plate).backgroundImage;
+      plateEl.style.backgroundSize = 'cover';
+      plateEl.style.backgroundPosition = 'center';
 
-      document.getElementById('rvCat').textContent   = pw.getAttribute('data-cat-' + lang) || '';
-      document.getElementById('rvName').textContent  = pw.getAttribute('data-name') || '';
-      document.getElementById('rvDesc').textContent  = pw.getAttribute('data-desc-' + lang) || '';
-      document.getElementById('rvPrice').textContent = pw.getAttribute('data-price') || '';
+      document.getElementById('rvCat').textContent   = dataEl.getAttribute('data-cat-' + lang) || '';
+      document.getElementById('rvName').textContent  = dataEl.getAttribute('data-name') || '';
+      document.getElementById('rvDesc').textContent  = dataEl.getAttribute('data-desc-' + lang) || '';
+      document.getElementById('rvPrice').textContent = dataEl.getAttribute('data-price') || '';
 
       layer.style.transition = 'none';
       layer.style.clipPath = 'circle(0px at ' + ocx + 'px ' + ocy + 'px)';
@@ -284,7 +313,14 @@
     }
 
     document.querySelectorAll('.g-plates .pw').forEach(function (pw) {
-      pw.addEventListener('click', function () { openReveal(pw); });
+      pw.addEventListener('click', function () { openReveal(pw, pw.querySelector('.g-plate')); });
+    });
+    // Accent plates (hero / about / menu / reservation) open the same reveal.
+    document.querySelectorAll('[data-plate]').forEach(function (el) {
+      el.addEventListener('click', function () { openReveal(el, el); });
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openReveal(el, el); }
+      });
     });
     var closeBtn = document.getElementById('rvClose');
     if (closeBtn) closeBtn.addEventListener('click', closeReveal);
@@ -318,24 +354,23 @@
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var items = [].slice.call(document.querySelectorAll('[data-parallax]'));
     if (!items.length) return;
-    var ticking = false;
-    function update() {
+    var state = items.map(function (el) {
+      return { el: el, cur: 0, speed: parseFloat(el.getAttribute('data-parallax')) || 0.05 };
+    });
+    // Continuous lerp toward the scroll target — low-pass filter = smooth, no per-scroll jitter.
+    // ponytail: always-on rAF for a handful of plates; if it ever costs, gate on scroll idle.
+    var LERP = 0.06;
+    function frame() {
       var vh = window.innerHeight;
-      items.forEach(function (el) {
-        var r = el.getBoundingClientRect();
-        if (r.bottom < -200 || r.top > vh + 200) return; // skip off-screen
-        var center = r.top + r.height / 2;
-        var delta = center - vh / 2;                    // distance from viewport center
-        var speed = parseFloat(el.getAttribute('data-parallax')) || 0.05;
-        el.style.transform = 'translate3d(0,' + (-delta * speed).toFixed(1) + 'px,0)';
+      state.forEach(function (s) {
+        var r = s.el.getBoundingClientRect();
+        var target = -(r.top + r.height / 2 - vh / 2) * s.speed;
+        s.cur += (target - s.cur) * LERP;
+        s.el.style.transform = 'translate3d(0,' + s.cur.toFixed(2) + 'px,0)';
       });
-      ticking = false;
+      window.requestAnimationFrame(frame);
     }
-    window.addEventListener('scroll', function () {
-      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
-    }, { passive: true });
-    window.addEventListener('resize', update);
-    update();
+    window.requestAnimationFrame(frame);
   }
 
   /* ---------- Scroll reveal (sections below the hero) ---------- */
@@ -366,6 +401,7 @@
     initNavScroll();
     initScrollSpy();
     initSmoothScroll();
+    initMomentumScroll();
     initMobileMenu();
     initMenu();
     initGallery();

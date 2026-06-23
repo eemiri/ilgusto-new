@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Apply the hidden (opacity:0) reveal state before first paint, else the hero
+       renders at full opacity and the load cascade can't animate. -->
+  <script>document.documentElement.classList.add('js');</script>
   <title>Il Gusto — Italian Fine Dining · Kleinblittersdorf</title>
   <meta name="description" data-de="Il Gusto — Italian Fine Dining in Kleinblittersdorf. Hausgemachte Pasta, frische Zutaten, 4,9 ★. Jetzt Tisch reservieren." data-fr="Il Gusto — Italian Fine Dining à Kleinblittersdorf. Pâtes maison, produits frais, 4,9 ★. Réservez votre table." content="Il Gusto — Italian Fine Dining in Kleinblittersdorf. Hausgemachte Pasta, frische Zutaten, 4,9 ★. Jetzt Tisch reservieren.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://app.resmio.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=block">
   <link rel="stylesheet" href="shared/styles.css">
 </head>
 <body>
@@ -17,7 +21,7 @@
   <nav class="nav" id="nav" data-reveal style="--d:.15s">
     <a href="#hero" class="nav-logo">Il Gusto</a>
 
-    <button class="nav-hamburger" id="navHamburger" aria-label="Menü" aria-expanded="false">
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menü" aria-expanded="false" aria-controls="navRight">
       <span></span><span></span><span></span>
     </button>
 
@@ -50,7 +54,7 @@
     <div class="hero-inner">
       <!-- Plate = center stage: the dish is the brand ("wir lassen den Teller sprechen").
            Sits centered behind the headline as the focal disc. -->
-      <div class="hero-plate-wrap" data-reveal style="--d:.2s">
+      <div class="hero-plate-wrap" data-reveal style="--d:.05s">
         <div class="hero-plate plate-ph plate-img" data-parallax="0.035" data-plate role="button" tabindex="0" aria-label="Polpo alla Griglia"
           data-name="Polpo alla Griglia" data-price="€ 24,50"
           data-cat-de="Hauptspeise" data-cat-fr="Plat principal"
@@ -60,15 +64,15 @@
       </div>
 
       <div class="hero-text">
-        <p class="hero-eyebrow" data-reveal style="--d:.9s"
+        <p class="hero-eyebrow" data-reveal style="--d:1.4s"
            data-de="Italian Fine Dining · Kleinblittersdorf"
            data-fr="Italian Fine Dining · Kleinblittersdorf">Italian Fine Dining · Kleinblittersdorf</p>
 
-        <h1 class="hero-headline" data-reveal style="--d:1.25s"
+        <h1 class="hero-headline" data-reveal style="--d:1.65s"
            data-de="Frisch.<br>Elegant.<br>Unvergesslich."
            data-fr="Frais.<br>Élégant.<br>Inoubliable.">Frisch.<br>Elegant.<br>Unvergesslich.</h1>
 
-        <a class="hero-cta" href="#reservation" data-reveal style="--d:1.7s"
+        <a class="hero-cta" href="#reservation" data-reveal style="--d:2s"
            data-de="Reservieren →" data-fr="Réserver →">Reservieren →</a>
       </div>
     </div>
@@ -84,7 +88,6 @@
       <div class="about-media" data-reveal>
         <div class="about-photo has-image" role="img"
              aria-label="Il Gusto Ambiente"
-             data-de="Interior-Foto" data-fr="Photo intérieur"
              style="background-image:url('assets/interior/decanters.png')"></div>
         <div class="about-plate plate-ph about-plate-accent plate-img" data-parallax="0.03" data-plate role="button" tabindex="0" aria-label="Bresaola e Melone"
           data-name="Bresaola e Melone" data-price="€ 16,50"
@@ -498,7 +501,7 @@
         data-cat-de="Vorspeise" data-cat-fr="Entrée"
         data-desc-de="Bresaola · Melone · Stracciatella · Basilikum"
         data-desc-fr="Bresaola · melon · stracciatella · basilic">
-        <span class="g-plate" style="--size:155px;background:url('assets/plates/bresaola.png') center/cover"></span>
+        <span class="g-plate" style="--size:155px"><img src="assets/plates/bresaola.png" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" style="margin-bottom:24px" aria-label="Bistecca della Casa"
@@ -506,7 +509,7 @@
         data-cat-de="Hauptspeise" data-cat-fr="Plat principal"
         data-desc-de="Gegrilltes Fleisch · Kartoffelpüree · Marktgemüse · Jus"
         data-desc-fr="Viande grillée · purée de pommes de terre · légumes du marché · jus">
-        <span class="g-plate" style="--size:195px;background:url('assets/plates/fleisch.png') center/cover"></span>
+        <span class="g-plate" style="--size:195px"><img src="assets/plates/fleisch.png" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" aria-label="Caprese di Burrata"
@@ -514,7 +517,7 @@
         data-cat-de="Vorspeise" data-cat-fr="Entrée"
         data-desc-de="Burrata · bunte Tomaten · Basilikum · Balsamico"
         data-desc-fr="Burrata · tomates colorées · basilic · balsamique">
-        <span class="g-plate" style="--size:135px;background:url('assets/plates/caprese.png') center/cover"></span>
+        <span class="g-plate" style="--size:135px"><img src="assets/plates/caprese.png" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" style="margin-top:36px" aria-label="Risotto allo Zafferano"
@@ -522,7 +525,7 @@
         data-cat-de="Risotto" data-cat-fr="Risotto"
         data-desc-de="Safran-Risotto · grüner Spargel · essbare Blüten"
         data-desc-fr="Risotto au safran · asperges vertes · fleurs comestibles">
-        <span class="g-plate" style="--size:170px;background:url('assets/plates/risotto.png') center/cover"></span>
+        <span class="g-plate" style="--size:170px"><img src="assets/plates/risotto.png" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" aria-label="Carpaccio di Polpo"
@@ -530,7 +533,7 @@
         data-cat-de="Vorspeise" data-cat-fr="Entrée"
         data-desc-de="Pulpo-Carpaccio · Avocado · Früchte · Olivenöl"
         data-desc-fr="Carpaccio de poulpe · avocat · fruits · huile d'olive">
-        <span class="g-plate" style="--size:150px;background:url('assets/plates/oktopus.png') center/cover"></span>
+        <span class="g-plate" style="--size:150px"><img src="assets/plates/oktopus.png" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" style="margin-bottom:18px" aria-label="Tartare di Manzo"
@@ -538,7 +541,7 @@
         data-cat-de="Vorspeise" data-cat-fr="Entrée"
         data-desc-de="Rindertatar · Olivenöl · Kräuter · Microgreens"
         data-desc-fr="Tartare de bœuf · huile d'olive · herbes · pousses">
-        <span class="g-plate" style="--size:125px;background:url('assets/plates/tartar.png') center/cover"></span>
+        <span class="g-plate" style="--size:125px"><img src="assets/plates/tartar.png" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" style="margin-top:30px" aria-label="Carpaccio di Manzo"
@@ -546,7 +549,7 @@
         data-cat-de="Vorspeise" data-cat-fr="Entrée"
         data-desc-de="Rinderfilet · Beeren · Pinienkerne · Olivenöl"
         data-desc-fr="Filet de bœuf · baies · pignons · huile d'olive">
-        <span class="g-plate" style="--size:160px;background:url('assets/plates/carpaccio.png') center/cover"></span>
+        <span class="g-plate" style="--size:160px"><img src="assets/plates/carpaccio.png" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" aria-label="Bistecca alla Fiorentina"
@@ -554,16 +557,65 @@
         data-cat-de="Hauptspeise" data-cat-fr="Plat principal"
         data-desc-de="T-Bone Steak · Ofengemüse · Rosmarin · Knoblauch"
         data-desc-fr="T-bone · légumes rôtis · romarin · ail">
-        <span class="g-plate" style="--size:185px;background:url('assets/plates/steak.png') center/cover"></span>
+        <span class="g-plate" style="--size:185px"><img src="assets/plates/steak.png" alt="" loading="lazy" decoding="async"></span>
       </button>
 
-      <button class="pw" style="margin-bottom:20px" aria-label="Costolette d'Agnello"
-        data-name="Costolette d'Agnello" data-price="€ 28,90"
-        data-cat-de="Hauptspeise" data-cat-fr="Plat principal"
-        data-desc-de="Lammkarree · Marktgemüse · Jus"
-        data-desc-fr="Carré d'agneau · légumes du marché · jus">
-        <span class="g-plate" style="--size:150px;background:url('assets/plates/lamm.png') center/cover"></span>
+      <button class="pw" aria-label="Vitello Tonnato"
+        data-name="Vitello Tonnato" data-price="€ 18,50"
+        data-cat-de="Vorspeise" data-cat-fr="Entrée"
+        data-desc-de="Kalbfleisch · Thunfischcremesoße · Kapern"
+        data-desc-fr="Veau · sauce crème de thon · câpres">
+        <span class="g-plate" style="--size:150px"><img src="assets/plates/vitello-tonnato.png" alt="" loading="lazy" decoding="async"></span>
       </button>
+
+      <button class="pw" style="margin-top:34px" aria-label="Spaghetti al Pomodoro"
+        data-name="Spaghetti al Pomodoro" data-price="€ 16,50"
+        data-cat-de="Pasta" data-cat-fr="Pâtes"
+        data-desc-de="Spaghetti · Tomatensoße · Basilikum · Parmesan"
+        data-desc-fr="Spaghetti · sauce tomate · basilic · parmesan">
+        <span class="g-plate" style="--size:165px"><img src="assets/plates/spaghetti-pomodoro.png" alt="" loading="lazy" decoding="async"></span>
+      </button>
+
+      <button class="pw" aria-label="Pizza il Gusto"
+        data-name="Pizza il Gusto" data-price="€ 16,90"
+        data-cat-de="Pizza" data-cat-fr="Pizza"
+        data-desc-de="Parmaschinken · Rucola · Parmesan"
+        data-desc-fr="Jambon de Parme · roquette · parmesan">
+        <span class="g-plate" style="--size:178px"><img src="assets/plates/pizza-rucola.png" alt="" loading="lazy" decoding="async"></span>
+      </button>
+
+      <button class="pw" style="margin-bottom:20px" aria-label="Spaghetti Aglio Olio e Gamberi"
+        data-name="Spaghetti Aglio Olio / Gamberi" data-price="€ 17,50"
+        data-cat-de="Pasta" data-cat-fr="Pâtes"
+        data-desc-de="Knoblauch · Olivenöl · Chili · Scampi · Parmesan"
+        data-desc-fr="Ail · huile d'olive · piment · scampi · parmesan">
+        <span class="g-plate" style="--size:160px"><img src="assets/plates/spaghetti-gamberi.png" alt="" loading="lazy" decoding="async"></span>
+      </button>
+
+      <button class="pw" style="margin-top:30px" aria-label="Agnello alla Griglia"
+        data-name="Agnello alla Griglia" data-price="€ 29,90"
+        data-cat-de="Hauptspeise" data-cat-fr="Plat principal"
+        data-desc-de="Lammkarree · Marktgemüse · Rotweinjus"
+        data-desc-fr="Carré d'agneau · légumes du marché · jus au vin rouge">
+        <span class="g-plate" style="--size:188px"><img src="assets/plates/agnello.png" alt="" loading="lazy" decoding="async"></span>
+      </button>
+
+      <button class="pw" aria-label="Tartara di Salmone"
+        data-name="Tartara di Salmone" data-price="€ 16,50"
+        data-cat-de="Vorspeise" data-cat-fr="Entrée"
+        data-desc-de="Lachstatar · Kräuteröl · Microgreens · Tomate"
+        data-desc-fr="Tartare de saumon · huile aux herbes · pousses · tomate">
+        <span class="g-plate" style="--size:140px"><img src="assets/plates/tartare-salmone.png" alt="" loading="lazy" decoding="async"></span>
+      </button>
+
+      <button class="pw" style="margin-bottom:22px" aria-label="Pizza Vegetariana"
+        data-name="Pizza Vegetariana" data-price="€ 13,90"
+        data-cat-de="Pizza" data-cat-fr="Pizza"
+        data-desc-de="Saisonales Gemüse · Tomatensoße · Mozzarella"
+        data-desc-fr="Légumes de saison · sauce tomate · mozzarella">
+        <span class="g-plate" style="--size:172px"><img src="assets/plates/gemuese-pizza.png" alt="" loading="lazy" decoding="async"></span>
+      </button>
+
     </div>
 
     <p class="g-scrollhint" data-reveal style="--d:.15s"
@@ -574,13 +626,9 @@
   </section>
 
   <!-- Plate Reveal overlay (clip-path circle expand) -->
-  <div class="reveal-layer" id="revealLayer" aria-hidden="true">
+  <div class="reveal-layer" id="revealLayer" role="dialog" aria-modal="true" aria-label="Teller" aria-hidden="true" tabindex="-1">
     <div class="reveal-plate" id="revealPlate"></div>
     <div class="reveal-text" id="revealText">
-      <p class="rv-cat" id="rvCat"></p>
-      <h3 class="rv-name" id="rvName"></h3>
-      <p class="rv-desc" id="rvDesc"></p>
-      <p class="rv-price" id="rvPrice"></p>
       <button class="rv-close" id="rvClose" data-de="← zurück" data-fr="← retour">← zurück</button>
     </div>
   </div>

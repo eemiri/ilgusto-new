@@ -13,20 +13,44 @@
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
 <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+<script>document.documentElement.classList.add('fonts-loading');</script>
 
 <!-- Bootstrap -->
 <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">
 
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="fonts/google/dancing-script-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
+
 <!-- Stylesheet
     ================================================== -->
-<link rel="stylesheet" type="text/css"  href="css/style.css">
+<link rel="stylesheet" type="text/css"  href="css/style.css?v=20260623-fontfix">
+<script>
+(function () {
+  function showScriptText() {
+    document.documentElement.classList.remove('fonts-loading');
+  }
+
+  if (!document.fonts || !document.fonts.load) {
+    showScriptText();
+    return;
+  }
+
+  Promise.race([
+    document.fonts.load("700 1em 'Dancing Script'"),
+    new Promise(function (resolve) {
+      window.setTimeout(resolve, 3000);
+    })
+  ]).then(showScriptText, showScriptText);
+}());
+</script>
 <link rel="stylesheet" type="text/css"  href="css/impressum.css">
 <link rel="stylesheet" type="text/css" href="css/nivo-lightbox/nivo-lightbox.css">
 <link rel="stylesheet" type="text/css" href="css/nivo-lightbox/default.css">
-<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -68,11 +92,13 @@
 <!-- About Section -->
 <div id="impressum" style="margin-top:71px">
     <h1>Impressum</h1>
-    <p>Sajmir Goga<br />
+    <p>Saimir Goga<br />
     Ristorante Il Gusto<br />Saargemünderstraße 45<br />66271 Kleinblittersdorf</p>
     <p>Telefon: 06805 9439490<br />
     E-Mail: <a href="mailto:mail@ilgusto-sb.de">mail@ilgusto-sb.de</a><br />
     </p>
+    <p>Steuernummer: 040/224/01349<br />
+    Finanzamt Saarbrücken I</p>
 
     <h1>Datenschutzerklärung</h1>
 <h2 style="color:#333"  id="m716" style="color:#333">Präambel</h2>

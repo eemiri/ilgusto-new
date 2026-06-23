@@ -13,19 +13,48 @@
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
 <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+<script>document.documentElement.classList.add('fonts-loading');</script>
 
 <!-- Bootstrap -->
 <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">
 
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="fonts/google/dancing-script-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
+
 <!-- Stylesheet
     ================================================== -->
-<link rel="stylesheet" type="text/css"  href="css/style.css">
+<link rel="stylesheet" type="text/css"  href="css/style.css?v=20260623-scrollbar">
+<script>
+(function () {
+  function showScriptText() {
+    document.documentElement.classList.remove('fonts-loading');
+  }
+
+  // Plate first, then text: reveal the script font only after the hero image
+  // is decoded AND the font is ready, so the text fades in over a loaded plate.
+  var img = new Image();
+  var imgDone = new Promise(function (resolve) {
+    img.onload = img.onerror = resolve;
+    img.src = 'img/Ilgusto/1.jpg';
+    if (img.complete) resolve();
+  });
+
+  var fontDone = (document.fonts && document.fonts.load)
+    ? document.fonts.load("700 1em 'Dancing Script'")
+    : Promise.resolve();
+
+  Promise.all([imgDone, fontDone]).then(showScriptText, showScriptText);
+
+  window.setTimeout(showScriptText, 3000); // safety: never hide text longer than 3s
+}());
+</script>
 <link rel="stylesheet" type="text/css" href="css/nivo-lightbox/nivo-lightbox.css">
 <link rel="stylesheet" type="text/css" href="css/nivo-lightbox/default.css">
-<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

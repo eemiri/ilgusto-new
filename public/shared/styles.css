@@ -91,10 +91,15 @@ section { position: relative; }
   display: flex; align-items: center; justify-content: space-between;
   padding: 22px var(--space-2xl);
   background: rgba(20, 18, 16, 0.9);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid transparent;
   transition: padding 0.4s var(--ease), background 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+/* ponytail: blur on a pseudo, not .nav itself — backdrop-filter on .nav would make it
+   the containing block for the fixed mobile menu, sizing it to the bar (top links clipped). */
+.nav::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
 }
 .nav.is-scrolled {
   padding: 14px var(--space-2xl);

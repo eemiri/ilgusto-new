@@ -4,6 +4,13 @@
    Section 0: Shell (tokens, reset, nav, lang toggle)
    ========================================================= */
 
+/* Self-hosted (OFL) so no visitor IP goes to Google Fonts. Latin subset covers äöüß/éè. */
+@font-face {
+  font-family: 'Pinyon Script';
+  src: url('../assets/fonts/pinyon-script-latin-400.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: block;
+}
+
 /* ---------- Design Tokens (from specs) ---------- */
 :root {
   /* Colors */

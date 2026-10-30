@@ -35,7 +35,6 @@
     }
 
     document.documentElement.setAttribute('lang', lang);
-    try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
 
     // Open accordion panels may change height when text length changes
     document.querySelectorAll('.cat.is-open .cat-body').forEach(function (body) {
@@ -50,7 +49,10 @@
 
     document.querySelectorAll('.lang-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        applyLang(btn.getAttribute('data-lang'));
+        var lang = btn.getAttribute('data-lang');
+        applyLang(lang);
+        // Persist only on explicit choice (Datenschutzerklärung relies on this).
+        try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
       });
     });
   }

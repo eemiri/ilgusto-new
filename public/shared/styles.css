@@ -806,3 +806,21 @@ html.js .cat-body { max-height: 0; overflow: hidden; transition: max-height 0.5s
 @media (min-width: 768px) and (max-width: 1023px) {
   .hero-plate { width: clamp(380px, 52vw, 460px); height: clamp(380px, 52vw, 460px); }
 }
+
+/* =========================================================
+   Legal pages (impressum.html, datenschutz.html)
+   ========================================================= */
+.legal { max-width: 720px; margin: 0 auto; padding: 140px 24px 120px; }
+.legal a.back { display: inline-block; margin-bottom: 48px; color: var(--gold); text-decoration: none; font-size: 14px; letter-spacing: 1px; }
+.legal a.back:hover { color: var(--head-bright); }
+.legal h1 { font-family: var(--font-script); color: var(--head-bright); font-size: clamp(40px, 7vw, 64px); font-weight: 400; margin: 0 0 56px; }
+.legal h2 { color: var(--head); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; margin: 44px 0 14px; }
+.legal h3 { color: var(--head); font-size: 15px; font-weight: 600; margin: 24px 0 8px; }
+.legal p, .legal address, .legal li { color: var(--body-warm); font-style: normal; line-height: 1.7; font-size: 15px; margin: 0 0 12px; }
+.legal ul { padding-left: 20px; margin: 0 0 12px; }
+.legal li { margin-bottom: 6px; }
+.legal strong { color: var(--head); font-weight: 600; }
+.legal a { color: var(--gold); text-decoration: none; overflow-wrap: anywhere; }
+.legal a:hover { text-decoration: underline; }
+.legal .todo { color: var(--gold); background: rgba(201,168,76,0.08); padding: 1px 6px; border-radius: 3px; font-size: 13px; }
+.legal hr { border: none; border-top: 1px solid var(--line-2); margin: 56px 0; }

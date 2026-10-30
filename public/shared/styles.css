@@ -391,6 +391,12 @@ html.js body.is-loaded .hero .hero-plate-wrap[data-reveal] { transform: none; }
 .stat-label {
   font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted-ui);
 }
+.about-award {
+  display: inline-block; margin-top: var(--space-md);
+  font-family: var(--font-display); font-style: italic; font-size: 15px; color: var(--gold);
+  border-bottom: 1px solid transparent; transition: border-color 0.3s var(--ease);
+}
+.about-award:hover { border-bottom-color: var(--gold); }
 
 /* =========================================================
    Section 3 — Speisekarte

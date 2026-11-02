@@ -10,6 +10,9 @@
   <meta name="description" data-de="Il Gusto — Italian Fine Dining in Kleinblittersdorf. Hausgemachte Pasta, frische Zutaten, 4,9 ★. Jetzt Tisch reservieren." data-fr="Il Gusto — Italian Fine Dining à Kleinblittersdorf. Pâtes maison, produits frais, 4,9 ★. Réservez votre table." content="Il Gusto — Italian Fine Dining in Kleinblittersdorf. Hausgemachte Pasta, frische Zutaten, 4,9 ★. Jetzt Tisch reservieren.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/pinyon-script-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Hero plate is an inline-style background (invisible to the preload scanner)
+       and gates the load cascade, so fetch it first. -->
+  <link rel="preload" href="assets/plates/pulpo.webp" as="image" fetchpriority="high">
   <link rel="stylesheet" href="shared/styles.css">
 </head>
 <body>
@@ -57,7 +60,7 @@
           data-cat-de="Hauptspeise" data-cat-fr="Plat principal"
           data-desc-de="Gegrillter Pulpo · weißer Spargel · Safransauce · Olivenöl"
           data-desc-fr="Poulpe grillé · asperges blanches · sauce safran · huile d'olive"
-          style="background-image:url('assets/plates/pulpo.png')"></div>
+          style="background-image:url('assets/plates/pulpo.webp')"></div>
       </div>
 
       <div class="hero-text">
@@ -85,13 +88,13 @@
       <div class="about-media" data-reveal>
         <div class="about-photo has-image" role="img"
              aria-label="Il Gusto Ambiente"
-             style="background-image:url('assets/interior/decanters.png')"></div>
+             style="background-image:url('assets/interior/decanters.webp')"></div>
         <div class="about-plate plate-ph about-plate-accent plate-img" data-parallax="0.03" data-plate role="button" tabindex="0" aria-label="Bresaola e Melone"
           data-name="Bresaola e Melone" data-price="€ 16,50"
           data-cat-de="Vorspeise" data-cat-fr="Entrée"
           data-desc-de="Bresaola · Melone · Stracciatella · Basilikum"
           data-desc-fr="Bresaola · melon · stracciatella · basilic"
-          style="background-image:url('assets/plates/bresaola.png')"></div>
+          style="background-image:url('assets/plates/bresaola.webp')"></div>
       </div>
 
       <div class="about-text">
@@ -140,7 +143,7 @@
         data-cat-de="Risotto" data-cat-fr="Risotto"
         data-desc-de="Safran-Risotto · grüner Spargel · essbare Blüten"
         data-desc-fr="Risotto au safran · asperges vertes · fleurs comestibles"
-        style="background-image:url('assets/plates/risotto.png')"></div>
+        style="background-image:url('assets/plates/risotto.webp')"></div>
 
       <header class="menu-header">
         <p class="menu-eyebrow chapter" data-reveal><span class="chapter-num">II</span> La Cucina</p>
@@ -503,7 +506,7 @@
         data-cat-de="Vorspeise" data-cat-fr="Entrée"
         data-desc-de="Bresaola · Melone · Stracciatella · Basilikum"
         data-desc-fr="Bresaola · melon · stracciatella · basilic">
-        <span class="g-plate" style="--size:155px"><img src="assets/plates/bresaola.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:155px"><img src="assets/plates/bresaola.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" style="margin-bottom:24px" aria-label="Bistecca della Casa"
@@ -511,7 +514,7 @@
         data-cat-de="Hauptspeise" data-cat-fr="Plat principal"
         data-desc-de="Gegrilltes Fleisch · Kartoffelpüree · Marktgemüse · Jus"
         data-desc-fr="Viande grillée · purée de pommes de terre · légumes du marché · jus">
-        <span class="g-plate" style="--size:195px"><img src="assets/plates/fleisch.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:195px"><img src="assets/plates/fleisch.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" aria-label="Caprese di Burrata"
@@ -519,7 +522,7 @@
         data-cat-de="Vorspeise" data-cat-fr="Entrée"
         data-desc-de="Burrata · bunte Tomaten · Basilikum · Balsamico"
         data-desc-fr="Burrata · tomates colorées · basilic · balsamique">
-        <span class="g-plate" style="--size:135px"><img src="assets/plates/caprese.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:135px"><img src="assets/plates/caprese.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" style="margin-top:36px" aria-label="Risotto allo Zafferano"
@@ -527,7 +530,7 @@
         data-cat-de="Risotto" data-cat-fr="Risotto"
         data-desc-de="Safran-Risotto · grüner Spargel · essbare Blüten"
         data-desc-fr="Risotto au safran · asperges vertes · fleurs comestibles">
-        <span class="g-plate" style="--size:170px"><img src="assets/plates/risotto.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:170px"><img src="assets/plates/risotto.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" aria-label="Carpaccio di Polpo"
@@ -535,7 +538,7 @@
         data-cat-de="Vorspeise" data-cat-fr="Entrée"
         data-desc-de="Pulpo-Carpaccio · Avocado · Früchte · Olivenöl"
         data-desc-fr="Carpaccio de poulpe · avocat · fruits · huile d'olive">
-        <span class="g-plate" style="--size:150px"><img src="assets/plates/oktopus.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:150px"><img src="assets/plates/oktopus.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" style="margin-bottom:18px" aria-label="Tartare di Manzo"
@@ -543,7 +546,7 @@
         data-cat-de="Vorspeise" data-cat-fr="Entrée"
         data-desc-de="Rindertatar · Olivenöl · Kräuter · Microgreens"
         data-desc-fr="Tartare de bœuf · huile d'olive · herbes · pousses">
-        <span class="g-plate" style="--size:125px"><img src="assets/plates/tartar.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:125px"><img src="assets/plates/tartar.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" style="margin-top:30px" aria-label="Carpaccio di Manzo"
@@ -551,7 +554,7 @@
         data-cat-de="Vorspeise" data-cat-fr="Entrée"
         data-desc-de="Rinderfilet · Beeren · Pinienkerne · Olivenöl"
         data-desc-fr="Filet de bœuf · baies · pignons · huile d'olive">
-        <span class="g-plate" style="--size:160px"><img src="assets/plates/carpaccio.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:160px"><img src="assets/plates/carpaccio.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" aria-label="Bistecca alla Fiorentina"
@@ -559,7 +562,7 @@
         data-cat-de="Hauptspeise" data-cat-fr="Plat principal"
         data-desc-de="T-Bone Steak · Ofengemüse · Rosmarin · Knoblauch"
         data-desc-fr="T-bone · légumes rôtis · romarin · ail">
-        <span class="g-plate" style="--size:185px"><img src="assets/plates/steak.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:185px"><img src="assets/plates/steak.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" aria-label="Vitello Tonnato"
@@ -567,7 +570,7 @@
         data-cat-de="Vorspeise" data-cat-fr="Entrée"
         data-desc-de="Kalbfleisch · Thunfischcremesoße · Kapern"
         data-desc-fr="Veau · sauce crème de thon · câpres">
-        <span class="g-plate" style="--size:150px"><img src="assets/plates/vitello-tonnato.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:150px"><img src="assets/plates/vitello-tonnato.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" style="margin-top:34px" aria-label="Spaghetti al Pomodoro"
@@ -575,7 +578,7 @@
         data-cat-de="Pasta" data-cat-fr="Pâtes"
         data-desc-de="Spaghetti · Tomatensoße · Basilikum · Parmesan"
         data-desc-fr="Spaghetti · sauce tomate · basilic · parmesan">
-        <span class="g-plate" style="--size:165px"><img src="assets/plates/spaghetti-pomodoro.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:165px"><img src="assets/plates/spaghetti-pomodoro.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" aria-label="Pizza il Gusto"
@@ -583,7 +586,7 @@
         data-cat-de="Pizza" data-cat-fr="Pizza"
         data-desc-de="Parmaschinken · Rucola · Parmesan"
         data-desc-fr="Jambon de Parme · roquette · parmesan">
-        <span class="g-plate" style="--size:178px"><img src="assets/plates/pizza-rucola.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:178px"><img src="assets/plates/pizza-rucola.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" style="margin-bottom:20px" aria-label="Spaghetti Aglio Olio e Gamberi"
@@ -591,7 +594,7 @@
         data-cat-de="Pasta" data-cat-fr="Pâtes"
         data-desc-de="Knoblauch · Olivenöl · Chili · Scampi · Parmesan"
         data-desc-fr="Ail · huile d'olive · piment · scampi · parmesan">
-        <span class="g-plate" style="--size:160px"><img src="assets/plates/spaghetti-gamberi.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:160px"><img src="assets/plates/spaghetti-gamberi.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" style="margin-top:30px" aria-label="Agnello alla Griglia"
@@ -599,7 +602,7 @@
         data-cat-de="Hauptspeise" data-cat-fr="Plat principal"
         data-desc-de="Lammkarree · Marktgemüse · Rotweinjus"
         data-desc-fr="Carré d'agneau · légumes du marché · jus au vin rouge">
-        <span class="g-plate" style="--size:188px"><img src="assets/plates/agnello.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:188px"><img src="assets/plates/agnello.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" aria-label="Tartara di Salmone"
@@ -607,7 +610,7 @@
         data-cat-de="Vorspeise" data-cat-fr="Entrée"
         data-desc-de="Lachstatar · Kräuteröl · Microgreens · Tomate"
         data-desc-fr="Tartare de saumon · huile aux herbes · pousses · tomate">
-        <span class="g-plate" style="--size:140px"><img src="assets/plates/tartare-salmone.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:140px"><img src="assets/plates/tartare-salmone.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
       <button class="pw" style="margin-bottom:22px" aria-label="Pizza Vegetariana"
@@ -615,7 +618,7 @@
         data-cat-de="Pizza" data-cat-fr="Pizza"
         data-desc-de="Saisonales Gemüse · Tomatensoße · Mozzarella"
         data-desc-fr="Légumes de saison · sauce tomate · mozzarella">
-        <span class="g-plate" style="--size:172px"><img src="assets/plates/gemuese-pizza.png" alt="" loading="lazy" decoding="async"></span>
+        <span class="g-plate" style="--size:172px"><img src="assets/plates/gemuese-pizza.webp" alt="" loading="lazy" decoding="async"></span>
       </button>
 
     </div>
@@ -643,7 +646,7 @@
         data-cat-de="Hauptspeise" data-cat-fr="Plat principal"
         data-desc-de="Entenbrust · Erbsenpüree · Portweinjus"
         data-desc-fr="Magret de canard · purée de petits pois · jus au porto"
-        style="background-image:url('assets/plates/duck.png')"></div>
+        style="background-image:url('assets/plates/duck.webp')"></div>
 
       <header class="res-header">
         <p class="res-eyebrow chapter" data-reveal><span class="chapter-num">IV</span> Riservazione</p>

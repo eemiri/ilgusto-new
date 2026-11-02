@@ -708,6 +708,7 @@
         <p class="footer-label" data-de="Folgen" data-fr="Suivez-nous">Folgen</p>
         <a class="footer-link" href="https://instagram.com/ristorante.ilgusto" target="_blank" rel="noopener">Instagram</a>
         <a class="footer-link" href="impressum.html" data-de="Impressum &amp; Datenschutz" data-fr="Mentions légales &amp; confidentialité">Impressum &amp; Datenschutz</a>
+        <button class="footer-link" id="consentOpen" type="button" data-de="Cookie-Einstellungen" data-fr="Paramètres des cookies">Cookie-Einstellungen</button>
       </div>
     </div>
 
@@ -716,6 +717,17 @@
       <span class="footer-rating">★ 4,9 · 150+ Google</span>
     </div>
   </footer>
+
+  <!-- Consent: Google Analytics loads only after "Akzeptieren" (shared/app.js → initConsent) -->
+  <div class="consent" id="consent" role="region" aria-label="Cookie-Einstellungen" hidden>
+    <p class="consent-text"
+       data-de="Dürfen wir mit Google Analytics messen, wie unsere Seite genutzt wird? Dabei werden Cookies gesetzt und Nutzungsdaten an Google (auch in die USA) übermittelt. Mehr in der <a href='impressum.html#analytics'>Datenschutzerklärung</a>; Ihre Wahl können Sie jederzeit unten im Footer ändern."
+       data-fr="Pouvons-nous mesurer l'utilisation de notre site avec Google Analytics ? Des cookies sont alors déposés et des données d'utilisation transmises à Google (y compris aux États-Unis). Plus d'informations dans la <a href='impressum.html#analytics'>politique de confidentialité</a> ; vous pouvez modifier votre choix à tout moment en bas de page.">Dürfen wir mit Google Analytics messen, wie unsere Seite genutzt wird? Dabei werden Cookies gesetzt und Nutzungsdaten an Google (auch in die USA) übermittelt. Mehr in der <a href="impressum.html#analytics">Datenschutzerklärung</a>; Ihre Wahl können Sie jederzeit unten im Footer ändern.</p>
+    <div class="consent-actions">
+      <button class="consent-btn" type="button" data-consent="denied" data-de="Ablehnen" data-fr="Refuser">Ablehnen</button>
+      <button class="consent-btn" type="button" data-consent="granted" data-de="Akzeptieren" data-fr="Accepter">Akzeptieren</button>
+    </div>
+  </div>
 
   <script src="shared/app.js"></script>
 </body>

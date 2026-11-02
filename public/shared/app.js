@@ -728,8 +728,64 @@
     });
   }
 
+  /* ---------- Consent + Google Analytics (opt-in only, § 25 TDDDG) ---------- */
+  // Nothing goes to Google until the visitor clicks "Akzeptieren".
+  var CONSENT_KEY = 'ilgusto-consent';
+  var GA_ID = 'G-2QY2WN1C6H';
+
+  function loadAnalytics() {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', GA_ID);
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+  }
+
+  // GA sets _ga* on the widest domain it can, so try every parent domain of the host.
+  function clearAnalyticsCookies() {
+    var parts = location.hostname.split('.');
+    document.cookie.split(';').forEach(function (c) {
+      var name = c.split('=')[0].trim();
+      if (name.indexOf('_ga') !== 0) return;
+      document.cookie = name + '=; Max-Age=0; path=/';
+      for (var i = 0; i < parts.length - 1; i++) {
+        document.cookie = name + '=; Max-Age=0; path=/; domain=.' + parts.slice(i).join('.');
+      }
+    });
+  }
+
+  function initConsent() {
+    var banner = document.getElementById('consent');
+    if (!banner) return;
+    var saved = null;
+    try { saved = localStorage.getItem(CONSENT_KEY); } catch (e) {}
+    if (saved === 'granted') loadAnalytics();
+    else if (saved !== 'denied') banner.hidden = false;
+
+    banner.addEventListener('click', function (e) {
+      var choice = e.target.getAttribute('data-consent');
+      if (!choice) return;
+      try { localStorage.setItem(CONSENT_KEY, choice); } catch (err) {}
+      banner.hidden = true;
+      if (choice === 'granted') {
+        if (!window.gtag) loadAnalytics();
+      } else if (window.gtag) {
+        // Revoked after GA already ran: drop its cookies and reload without the tag.
+        clearAnalyticsCookies();
+        location.reload();
+      }
+    });
+
+    var open = document.getElementById('consentOpen');
+    if (open) open.addEventListener('click', function () { banner.hidden = false; });
+  }
+
   /* ---------- Init ---------- */
   function init() {
+    initConsent();
     initLang();
     initNavScroll();
     initScrollSpy();

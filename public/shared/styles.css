@@ -691,6 +691,27 @@ html.js .cat-body { max-height: 0; overflow: hidden; transition: max-height 0.5s
   transition: color 0.3s var(--ease);
 }
 .footer-link:hover { color: var(--gold); }
+button.footer-link { padding: 0; text-align: left; }
+
+/* ---------- Consent banner (opt-in for Google Analytics) ---------- */
+.consent {
+  position: fixed; left: var(--space-md); bottom: var(--space-md); z-index: 150;
+  max-width: 380px; padding: var(--space-md);
+  background: var(--reveal); border: 1px solid var(--line-2); border-radius: 4px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+}
+.consent[hidden] { display: none; }
+.consent-text { font-size: 13px; line-height: 1.6; color: var(--body); margin: 0 0 var(--space-sm); }
+.consent-text a { color: var(--gold); }
+.consent-actions { display: flex; gap: 12px; }
+/* Equal weight on both choices: rejecting must be as easy as accepting. */
+.consent-btn {
+  flex: 1; padding: 10px 0; border: 1px solid var(--gold); color: var(--gold);
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.consent-btn:hover { background: var(--gold); color: var(--bg); }
+@media (max-width: 767px) { .consent { left: 16px; right: 16px; bottom: 16px; max-width: none; } }
 
 .footer-bottom {
   max-width: 1100px; margin: var(--space-3xl) auto 0;

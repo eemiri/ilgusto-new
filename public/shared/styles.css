@@ -808,7 +808,7 @@ html.js .cat-body { max-height: 0; overflow: hidden; transition: max-height 0.5s
 }
 
 /* =========================================================
-   Legal pages (impressum.html, datenschutz.html)
+   Legal page (impressum.html — Impressum + Datenschutzerklärung)
    ========================================================= */
 .legal { max-width: 720px; margin: 0 auto; padding: 140px 24px 120px; }
 .legal a.back { display: inline-block; margin-bottom: 48px; color: var(--gold); text-decoration: none; font-size: 14px; letter-spacing: 1px; }
